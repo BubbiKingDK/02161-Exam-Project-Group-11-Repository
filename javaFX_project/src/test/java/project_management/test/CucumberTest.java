@@ -1,4 +1,4 @@
-package example.cucumber;
+package project_management.test;
 
 
 import org.junit.runner.RunWith;
