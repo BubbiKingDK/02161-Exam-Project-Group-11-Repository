@@ -25,9 +25,8 @@ public class LoginSteps {
 	}
 
 	@Given("that there is an employee with ID {string}")
-	public void thatThereIsAnEmployeeWithID(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+	public void thatThereIsAnEmployeeWithID(String id) {
+		Employee employee = new Employee(id);
 	}
 
 	@When("the user logs in with the ID {string}")
