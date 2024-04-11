@@ -8,6 +8,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,6 +23,8 @@ public class LoginSteps {
 		this.projectManagementApp = projectManagementApp;
 	}
 	
+	
+	
 	@Given("that the user is not logged in")
 	public void thatTheUserIsNotLoggedIn() {
 		assertThat(projectManagementApp.getCurrentLogin(),is(equalTo(null)));
@@ -27,6 +33,21 @@ public class LoginSteps {
 	@Given("that there is an employee with ID {string}")
 	public void thatThereIsAnEmployeeWithID(String id) {
 		Employee employee = new Employee(id);
+		List<Employee> employees = new ArrayList<>();
+		employees.add(new Employee("karl"));
+		employees.add(new Employee("bjar"));
+		projectManagementApp.setEmployees(employees);
+		
+		
+		boolean employeeExist = false;
+		for (Employee e: projectManagementApp.getEmployees()){
+			if(e.getId().equals(id)) {
+				employeeExist = true;
+				break;
+			}
+		}
+		assertTrue(employeeExist);
+		
 	}
 
 	@When("the user logs in with the ID {string}")
