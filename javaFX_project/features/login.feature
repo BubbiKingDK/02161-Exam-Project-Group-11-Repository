@@ -8,9 +8,10 @@ Scenario: ID is registered
 	When the user logs in with the ID "karl"
 	Then the employee is logged in with the ID "karl"
 
+
+
 Scenario: Id is not registered
 	Given that the user is not logged in
 	And that there is not an employee with ID "karl"
 	When the user logs in with the ID "karl"
 	Then the error message "Employee is not registered" is given
-	
