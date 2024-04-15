@@ -30,6 +30,8 @@ public class ProjectManagementApp {
 	}
 
 	public void login(String id) throws OperationNotAllowedException {
+		assert employees != null;
+		
 		for (Employee e: employees){
 			if(e.getId().equals(id)) {
 				currentLogin = e;
