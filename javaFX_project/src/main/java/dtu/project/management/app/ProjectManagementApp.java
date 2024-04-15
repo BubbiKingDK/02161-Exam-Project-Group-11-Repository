@@ -9,7 +9,7 @@ public class ProjectManagementApp {
 	private Employee currentLogin;
 	private List<Employee> employees = new ArrayList<>();
 
-	public ProjectManagementApp() {
+	public void setup() {
 		employees.add(new Employee("karl"));
 		employees.add(new Employee("bjar"));
 		employees.add(new Employee("huba"));
