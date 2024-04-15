@@ -1,6 +1,8 @@
 package project_management.test.steps;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class ProjectSteps{
 	private ErrorMessageHolder errorMessage;
 	
 	private Project project;
+	private List<Project> projects = new ArrayList<>();
 	
 	public ProjectSteps(ProjectManagementApp projectManagementApp, ErrorMessageHolder errorMessage) {
 		this.projectManagementApp = projectManagementApp;
@@ -31,42 +34,26 @@ public class ProjectSteps{
 	
 	}
 	
-	
-	
 	@Given("that there is a project with serial number {int} and a name {string}")
 	public void thatThereIsAProjectWithSerialNumberAndAName(int serialnumber, String name) {		
-		
-		List<Project> projects = new ArrayList<>();
-		projects.add(new Project(name, serialnumber));
-		projectManagementApp.setProjects(projects);
-		
-		boolean projectExist = false;
-		for (Project e: projectManagementApp.getProjects()) {
-			if(e.getName().equals(name) && e.getSerialnumber() == serialnumber) {
-				projectExist = true;
-				break;
-			}
-		}
-		assertTrue(projectExist);
+		project = new Project(name, serialnumber);
 		
 	}
 
 	@Given("the project is not in the system")
 	public void theProjectIsNotInTheSystem() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		assertFalse(projects.contains(project));
 	}
 
 	@When("the project is added to the system")
 	public void theProjectIsAddedToTheSystem() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		projects.add(project);
+		projectManagementApp.setProjects(projects);
 	}
 
 	@Then("the project with the serial number {int} and a name {string} is added to the system")
-	public void theProjectWithTheSerialNumberAndANameIsAddedToTheSystem(Integer int1, String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void theProjectWithTheSerialNumberAndANameIsAddedToTheSystem(int serialnumber, String name) {
+		assertTrue(projects.contains(project));
 	}
 
 	
