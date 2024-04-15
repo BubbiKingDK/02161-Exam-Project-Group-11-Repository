@@ -9,7 +9,18 @@ import dtu.project.management.domain.Project;
 public class ProjectManagementApp {
 	private Employee currentLogin;
 	private List<Employee> employees = new ArrayList<>();
+
 	private List<Project> projects = new ArrayList<>();
+
+
+	public void setup() {
+		employees.add(new Employee("karl"));
+		employees.add(new Employee("bjar"));
+		employees.add(new Employee("huba"));
+		employees.add(new Employee("beha"));
+		employees.add(new Employee("wemo"));
+	}
+
 	
 	public Employee getCurrentLogin() {
 		return currentLogin;
