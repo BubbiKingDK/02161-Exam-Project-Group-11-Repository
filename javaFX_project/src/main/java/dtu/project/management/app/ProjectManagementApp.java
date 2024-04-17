@@ -1,5 +1,6 @@
 package dtu.project.management.app;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,8 @@ import dtu.project.management.domain.Project;
 
 public class ProjectManagementApp {
 	private Employee currentLogin;
+	private Project project;
 	private List<Employee> employees = new ArrayList<>();
-
 	private List<Project> projects = new ArrayList<>();
 
 
@@ -48,12 +49,25 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Employee is not registered");
 	}
 	
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
-	}
 	
 	public List<Project> getProjects(){
 		return projects;
 	}
 	
+	public void createProject(String name) {
+		project = new Project(name, this); 
+	}
+	
+	public void addProject() {
+		projects.add(project);
+	}
+	
+	
+	public int getYear() {
+		return Year.now().getValue();
+	}
+	
+	public Project getProject() {
+		return project;
+	}
 }
