@@ -41,6 +41,7 @@ public class ProjectManagementApp {
 		for (Employee e: employees){
 			if(e.getId().equals(id)) {
 				currentLogin = e;
+				assert currentLogin.getId().equals(id);
 				return;
 			}
 		}
