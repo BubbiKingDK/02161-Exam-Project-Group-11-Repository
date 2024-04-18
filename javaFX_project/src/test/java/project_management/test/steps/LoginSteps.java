@@ -36,10 +36,7 @@ public class LoginSteps {
 
 	@Given("that there is an employee with ID {string}")
 	public void thatThereIsAnEmployeeWithID(String id) {
-		List<Employee> employees = new ArrayList<>();
-		employees.add(new Employee(id));
-		projectManagementApp.setEmployees(employees);
-		
+		projectManagementApp.setup();
 		
 		boolean employeeExist = false;
 		for (Employee e: projectManagementApp.getEmployees()){

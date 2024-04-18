@@ -1,5 +1,6 @@
 package dtu.project.management.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dtu.project.management.app.ProjectManagementApp;
@@ -9,11 +10,13 @@ public class Project{
 	private String name;
 	private int serialNumber;
 	private ProjectManagementApp projectManagementApp;
+	private List<Employee> employees;
 
 	
 	public Project(String name, ProjectManagementApp projectManagementApp){
 		this.name = name;
 		this.projectManagementApp = projectManagementApp;
+		this.employees = new ArrayList<>();
 		
 		
 		//Assign correct serial number based on year and amount of already created projects
@@ -36,10 +39,16 @@ public class Project{
 		return name;
 	}
 	
-	
 	public int getSerialnumber() {
 		return serialNumber;
 	}
 
+	public void assignToProject(Employee currentLogin) {
+		employees.add(currentLogin);
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
 	
 }

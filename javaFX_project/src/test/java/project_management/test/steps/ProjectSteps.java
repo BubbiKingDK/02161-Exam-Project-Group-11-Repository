@@ -30,7 +30,6 @@ public class ProjectSteps {
 	public ProjectSteps(ProjectManagementApp projectManagementApp, ErrorMessageHolder errorMessage) {
 		this.projectManagementApp = projectManagementApp;
 		this.errorMessage = errorMessage;
-
 	}
 
 	@Given("the year is the current year")

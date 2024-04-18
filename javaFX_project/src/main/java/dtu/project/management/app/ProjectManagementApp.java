@@ -70,4 +70,14 @@ public class ProjectManagementApp {
 	public Project getProject() {
 		return project;
 	}
+
+	public void assignToProject(int serialNumber) throws OperationNotAllowedException {
+		for (Project p : projects) {
+			if (p.getSerialnumber() == serialNumber) {
+				p.assignToProject(currentLogin);
+				return;
+			}
+		}
+		throw new OperationNotAllowedException("Project does not exist");
+	}
 }
