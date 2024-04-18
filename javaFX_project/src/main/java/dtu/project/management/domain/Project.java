@@ -11,12 +11,14 @@ public class Project{
 	private int serialNumber;
 	private ProjectManagementApp projectManagementApp;
 	private List<Employee> employees;
+	private Employee projectManager;
 
 	
 	public Project(String name, ProjectManagementApp projectManagementApp){
 		this.name = name;
 		this.projectManagementApp = projectManagementApp;
 		this.employees = new ArrayList<>();
+		
 		
 		
 		//Assign correct serial number based on year and amount of already created projects
@@ -50,5 +52,11 @@ public class Project{
 	public List<Employee> getEmployees() {
 		return employees;
 	}
-	
+
+	public void setProjectManager(Employee currentLogin) {
+		projectManager = currentLogin;
+	}
+	public Employee getProjectManager() {
+		return projectManager;
+	}
 }

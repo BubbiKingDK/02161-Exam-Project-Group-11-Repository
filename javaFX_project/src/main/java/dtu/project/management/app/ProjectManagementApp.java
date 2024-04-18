@@ -6,6 +6,7 @@ import java.util.List;
 
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
+import io.cucumber.java.be.I.Is;
 
 public class ProjectManagementApp {
 	private Employee currentLogin;
@@ -79,5 +80,29 @@ public class ProjectManagementApp {
 			}
 		}
 		throw new OperationNotAllowedException("Project does not exist");
+	}
+
+
+	public void setProjectManager(int serialNumber) throws OperationNotAllowedException {
+		boolean employeeIsRegisterd = false;
+		boolean projectExists = false;
+		for (Project p : projects) {
+			if (p.getSerialnumber() == serialNumber) {
+				projectExists = true;
+				if (p.getEmployees().contains(currentLogin)) {
+					employeeIsRegisterd = true;
+					p.setProjectManager(currentLogin);
+					return;
+				}
+			}
+		}
+		if(projectExists == false) {
+			throw new OperationNotAllowedException("Project does not exist");
+		}
+		if(employeeIsRegisterd == false) {
+			throw new OperationNotAllowedException("Employee not registered with the project");
+		}
+
+		
 	}
 }
