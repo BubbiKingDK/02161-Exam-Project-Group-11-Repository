@@ -103,7 +103,7 @@ public class ProjectManagementApp {
 		if(employeeIsRegisterd == false) {
 			throw new OperationNotAllowedException("Employee not registered with the project");
 		}
-
+	}
 
 	public boolean isAlreadyInProject(String ID, int serialNumber) {
 		Project project = null;
