@@ -5,6 +5,7 @@ Feature: Assign employee to project
 Scenario: Assign employee to existing project
 	Given that there is a project with serial number 24001
 	And an employee with ID "karl" is logged in
+	And the employee with ID "karl" is not already in the project with serial number 24001
 	When the user with ID "karl" assigns themselves to the project with serial number 24001
 	Then the employee with ID "karl" is assigned to the project with serial number 24001
 

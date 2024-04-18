@@ -62,6 +62,13 @@ public class UserInterface {
 		for(Project p: projectManagementApp.getProjects()) {
 			System.out.println(p.getSerialnumber() + " " + p.getName() );
 		}
+		System.out.println();
+		System.out.println("Input serial number to see project members");
+		System.out.println("Input 0 to go back");
+		int input = console.nextInt();
+		if (input != 0) {
+			showProjectMembers(input);
+		}
 		mainMenu();
 	}
 	
@@ -69,23 +76,40 @@ public class UserInterface {
 	public void assignToProject() throws OperationNotAllowedException {
 		System.out.println("Input project serial number:");
 		int input = console.nextInt();
-		projectManagementApp.assignToProject(input);
-		
+		if(!projectManagementApp.isAlreadyInProject(projectManagementApp.getCurrentLogin().getId(), input)) {
+			projectManagementApp.assignToProject(input);
+			showProjectMembers(input);
+			
+			Project tempProject = null;
+			for (Project p : projectManagementApp.getProjects()) {
+				if (p.getSerialnumber() == input) {
+					tempProject = p;
+				}
+			}
+			
+			System.out.println(projectManagementApp.getCurrentLogin().getId() + " has been assigned to project:" + tempProject.getSerialnumber() + " " + tempProject.getName());
+		} else {
+			System.out.println("You are already in the project!");
+		}
+		mainMenu();
+	}
+	
+	public void showProjectMembers(int serialNumber) {
 		Project tempProject = null;
 		for (Project p : projectManagementApp.getProjects()) {
-			if (p.getSerialnumber() == input) {
+			if (p.getSerialnumber() == serialNumber) {
 				tempProject = p;
 			}
 		}
-		
-		
-		System.out.println("User: " + projectManagementApp.getCurrentLogin().getId() + " Has been assigned to project:" + tempProject.getName() + ":" + tempProject.getSerialnumber());
+		if (tempProject == null) {
+			System.out.println("Invalid serial number!");
+			return;
+		}
+		System.out.println("Project: " + tempProject.getSerialnumber() + " " + tempProject.getName());
 		System.out.println("Users in project:");
 		for (Employee e : tempProject.getEmployees()) {
 			System.out.println(e.getId());
 		}
-		
-		mainMenu();
 	}
 	
 }
