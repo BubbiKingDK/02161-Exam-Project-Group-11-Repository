@@ -50,6 +50,11 @@ public class EmployeeSteps {
 		projectManagementApp.login(ID);
 	    assertEquals(projectManagementApp.getCurrentLogin().getId(), ID);
 	}
+	
+	@Given("the employee with ID {string} is not already in the project with serial number {int}")
+	public void theEmployeeWithIDIsNotAlreadyInTheProjectWithSerialNumber(String ID, int serialNumber) {
+	    assertFalse(projectManagementApp.isAlreadyInProject(ID, serialNumber));
+	}
 
 	@When("the user with ID {string} assigns themselves to the project with serial number {int}")
 	public void theUserWithIDAssignsThemselvesToTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {

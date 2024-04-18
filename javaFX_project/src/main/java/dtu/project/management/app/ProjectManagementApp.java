@@ -83,6 +83,7 @@ public class ProjectManagementApp {
 	}
 
 
+
 	public void setProjectManager(int serialNumber) throws OperationNotAllowedException {
 		boolean employeeIsRegisterd = false;
 		boolean projectExists = false;
@@ -103,6 +104,22 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Employee not registered with the project");
 		}
 
-		
+
+	public boolean isAlreadyInProject(String ID, int serialNumber) {
+		Project project = null;
+		for (Project p : projects) {
+			if (p.getSerialnumber() == serialNumber) {
+				project = p;
+			}
+		}
+		if (project != null) {
+			for (Employee e : project.getEmployees()) {
+				if (e.getId() == ID) {
+					return true;
+				}
+			}			
+		}
+		return false;
+
 	}
 }
