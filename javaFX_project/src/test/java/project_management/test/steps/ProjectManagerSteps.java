@@ -66,26 +66,13 @@ public class ProjectManagerSteps {
 	    projectManagementApp.login(ID);
 	    projectManagementApp.setProjectManager(serialNumber);
 	    
-		Project project = null;
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		project = p;
-	    		break;
-	    	}
-	    }
+		Project project = projectManagementApp.getProject(serialNumber);
 	    assertEquals(ID, project.getProjectManager().getId());
 	}
 
 	@Then("the employee with ID {string} is no longer project manager of the project with serial number {int}.")
 	public void theEmployeeWithIDIsNoLongerProjectManagerOfTheProjectWithSerialNumber(String ID, int serialNumber) {
-
-		Project project = null;
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		project = p;
-	    		break;
-	    	}
-	    }
+		Project project = projectManagementApp.getProject(serialNumber);
 	    assertFalse(project.getProjectManager().getId().equals(ID));
 	}
 }

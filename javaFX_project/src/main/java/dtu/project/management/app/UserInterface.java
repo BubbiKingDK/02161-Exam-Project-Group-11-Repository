@@ -128,12 +128,7 @@ public class UserInterface {
 	}
 
 	public void showProjectMembers(int serialNumber) {
-		Project tempProject = null;
-		for (Project p : projectManagementApp.getProjects()) {
-			if (p.getSerialnumber() == serialNumber) {
-				tempProject = p;
-			}
-		}
+		Project tempProject = projectManagementApp.getProject(serialNumber);
 		if (tempProject == null) {
 			System.out.println("Invalid serial number!");
 			return;

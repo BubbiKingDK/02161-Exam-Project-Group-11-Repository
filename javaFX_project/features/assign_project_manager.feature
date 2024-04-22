@@ -15,7 +15,7 @@ Scenario: Can not register a project manager that is not registered with the pro
 	Then the error message "Employee not registered with the project" is given
 
 Scenario: Can not register a project manager with a project that does not exist
-	Given that there is not a project with serial number 24001
+	G iven that there is not a project with serial number 24001
 	When the user assigns the project manager with ID "karl" to the project with serial number 24001
 	Then the error message "Project does not exist" is given
 
