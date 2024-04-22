@@ -4,42 +4,83 @@ import java.util.Scanner;
 
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
+import io.cucumber.java.an.Y;
 
 public class UserInterface {
-	
+
 	private ProjectManagementApp projectManagementApp = new ProjectManagementApp();
 	private Scanner console = new Scanner(System.in);
-	
+
 	public UserInterface() throws OperationNotAllowedException {
 		projectManagementApp.setup();
 		System.out.println("Welcome!");
 		login();
 	}
-	
-	
+
 	public void mainMenu() throws OperationNotAllowedException {
 		System.out.println();
 		System.out.println("Input 1 to create project");
 		System.out.println("Input 2 to see all projects");
-		System.out.println("Input 3 to assign to project");
 		System.out.println("Input 0 to close the program");
 		int input = console.nextInt();
 		switch (input) {
-		case 1: 
+		case 1:
 			createProject();
-		case 2: 
+		case 2:
 			showProjects();
-		case 3:
-			assignToProject();
 		case 0:
 			login();
-			//System.exit(0)
+			// System.exit(0)
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + input);
 		}
-		
+
 	}
-	
+
+	public void secondaryMenu(int serialNumber) throws OperationNotAllowedException {
+		Project project = projectManagementApp.getProject(serialNumber);
+		System.out.println(project.getSerialnumber() + " " + project.getName());
+		System.out.print("Project Manager: ");
+		if (project.getProjectManager() == null) {
+			System.out.println("None");
+		} else {
+			System.out.println(project.getProjectManager().getId());
+		}
+
+		System.out.println("Input 1 to show project members");
+		System.out.println("Input 2 to assign project manager");
+		System.out.println("Input 3 to assign to project");
+		System.out.println("Input 0 to go back to main menu");
+		int input = console.nextInt();
+		switch (input) {
+		case 1:
+			showProjectMembers(serialNumber);
+			secondaryMenu(serialNumber);
+		case 2:
+			if (project.getProjectManager() != null) {
+				System.out.println("Do you want to overwrite this already existing project manager: "
+						+ project.getProjectManager().getId() + "? (1/0)");
+				int input2 = console.nextInt();
+				if (input2 == 0) {
+					secondaryMenu(serialNumber);
+				}
+				if (input2 == 1) {
+					projectManagementApp.setProjectManager(serialNumber);
+				}
+			} else {
+				projectManagementApp.setProjectManager(serialNumber);
+			}
+			secondaryMenu(serialNumber);
+		case 3:
+			assignToProject(serialNumber);
+		case 0:
+			mainMenu();
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + input);
+		}
+
+	}
+
 	public void login() throws OperationNotAllowedException {
 		System.out.print("Input login credentials: ");
 		String input = console.next();
@@ -47,53 +88,45 @@ public class UserInterface {
 		System.out.println("You are now logged in as: " + projectManagementApp.getCurrentLogin().getId());
 		mainMenu();
 	}
-	
-	public void createProject() throws OperationNotAllowedException{
+
+	public void createProject() throws OperationNotAllowedException {
 		System.out.print("Input project name: ");
 		String input = console.next();
 		projectManagementApp.createProject(input);
 		projectManagementApp.addProject();
-		System.out.println("Created project: " + projectManagementApp.getProject().getName() + " " + projectManagementApp.getProject().getSerialnumber());
+		System.out.println("Created project: " + projectManagementApp.getProject().getName() + " "
+				+ projectManagementApp.getProject().getSerialnumber());
 		mainMenu();
 	}
-	
+
 	public void showProjects() throws OperationNotAllowedException {
 		System.out.println("List of projects:");
-		for(Project p: projectManagementApp.getProjects()) {
-			System.out.println(p.getSerialnumber() + " " + p.getName() );
+		for (Project p : projectManagementApp.getProjects()) {
+			System.out.println(p.getSerialnumber() + " " + p.getName());
 		}
 		System.out.println();
-		System.out.println("Input serial number to see project members");
+		System.out.println("Input serial number to enter project");
 		System.out.println("Input 0 to go back");
 		int input = console.nextInt();
 		if (input != 0) {
-			showProjectMembers(input);
+			secondaryMenu(input);
 		}
 		mainMenu();
 	}
-	
-	
-	public void assignToProject() throws OperationNotAllowedException {
-		System.out.println("Input project serial number:");
-		int input = console.nextInt();
-		if(!projectManagementApp.isInProject(projectManagementApp.getCurrentLogin().getId(), input)) {
-			projectManagementApp.assignToProject(input);
-			showProjectMembers(input);
-			
-			Project tempProject = null;
-			for (Project p : projectManagementApp.getProjects()) {
-				if (p.getSerialnumber() == input) {
-					tempProject = p;
-				}
-			}
-			
-			System.out.println(projectManagementApp.getCurrentLogin().getId() + " has been assigned to project:" + tempProject.getSerialnumber() + " " + tempProject.getName());
+
+	public void assignToProject(int serialNumber) throws OperationNotAllowedException {
+		if (!projectManagementApp.isInProject(projectManagementApp.getCurrentLogin().getId(), serialNumber)) {
+			projectManagementApp.assignToProject(serialNumber);
+			showProjectMembers(serialNumber);
+			Project tempProject = projectManagementApp.getProject(serialNumber);
+			System.out.println(projectManagementApp.getCurrentLogin().getId() + " has been assigned to project:"
+					+ tempProject.getSerialnumber() + " " + tempProject.getName());
 		} else {
 			System.out.println("You are already in the project!");
 		}
-		mainMenu();
+		secondaryMenu(serialNumber);
 	}
-	
+
 	public void showProjectMembers(int serialNumber) {
 		Project tempProject = null;
 		for (Project p : projectManagementApp.getProjects()) {
@@ -111,5 +144,5 @@ public class UserInterface {
 			System.out.println(e.getId());
 		}
 	}
-	
+
 }
