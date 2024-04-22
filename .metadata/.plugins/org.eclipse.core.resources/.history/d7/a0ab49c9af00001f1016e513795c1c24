@@ -1,0 +1,35 @@
+package project_management.test.steps;
+
+import dtu.project.management.app.ProjectManagementApp;
+import dtu.project.management.domain.Activity;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import project_management.test.steps.helper.ErrorMessageHolder;
+
+public class ActivitySteps {
+	private ProjectManagementApp projectManagementApp;
+	private ErrorMessageHolder errorMessage;
+	
+	public ActivitySteps(ProjectManagementApp projectManagementApp, ErrorMessageHolder errorMessage) {
+		this.projectManagementApp = projectManagementApp;
+		this.errorMessage = errorMessage;
+	}
+
+	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int}")
+	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeek(String name, int startWeek , int endWeek) {
+	    projectManagementApp.createActivity(name, startWeek, endWeek);
+	}
+
+	@When("the activity with name {string} is added to the project with serial number {int}")
+	public void theActivityWithNameIsAddedToTheProjectWithSerialNumber(String name, int serialNumber) {
+	    projectManagementApp.addActivity(name);
+	}
+
+	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the project")
+	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheProject(String string, Integer int1, Integer int2) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+}

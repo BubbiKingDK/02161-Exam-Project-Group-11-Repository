@@ -12,13 +12,14 @@ public class Project{
 	private ProjectManagementApp projectManagementApp;
 	private List<Employee> employees;
 	private Employee projectManager;
+	private List<Activity> activities;
 
 	
 	public Project(String name, ProjectManagementApp projectManagementApp){
 		this.name = name;
 		this.projectManagementApp = projectManagementApp;
 		this.employees = new ArrayList<>();
-		
+		this.activities = new ArrayList<>();
 		
 		
 		//Assign correct serial number based on year and amount of already created projects
@@ -58,5 +59,13 @@ public class Project{
 	}
 	public Employee getProjectManager() {
 		return projectManager;
+	}
+
+	public void addActivity(Activity activity) {
+		activities.add(activity);
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
 	}
 }

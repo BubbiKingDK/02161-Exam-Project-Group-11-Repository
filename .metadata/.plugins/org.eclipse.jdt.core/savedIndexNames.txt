@@ -24,7 +24,6 @@ INDEX VERSION 1.134+C:\Users\Weiha\Desktop\02161-Exam-Project-Group-11-Repositor
 2641028818.index
 99476488.index
 2960758626.index
-2951352263.index
 686606952.index
 3012920645.index
 2648694415.index

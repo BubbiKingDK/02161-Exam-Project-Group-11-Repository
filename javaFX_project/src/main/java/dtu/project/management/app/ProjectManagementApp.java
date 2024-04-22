@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
 import io.cucumber.java.be.I.Is;
@@ -11,6 +12,7 @@ import io.cucumber.java.be.I.Is;
 public class ProjectManagementApp {
 	private Employee currentLogin;
 	private Project project;
+	private Activity activity;
 	private List<Employee> employees = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 
@@ -116,4 +118,23 @@ public class ProjectManagementApp {
 		}
 		return null;
 	}
+	
+	public Activity getActivity(String name, Project project) {
+		for (Activity a : project.getActivities()) {
+			if(a.getName().equals(name)) {
+				return a;
+			}
+		}
+		return null;
+	}
+	
+	public void createActivity(String name, int startWeek, int endWeek) {
+		activity = new Activity(name, startWeek, endWeek);
+	}
+	
+	public void addActivity(Project project) {
+		project.addActivity(activity);
+	}
+
+
 }
