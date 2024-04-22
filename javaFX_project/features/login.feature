@@ -12,6 +12,6 @@ Scenario: ID is registered
 
 Scenario: Id is not registered
 	Given that the user is not logged in
-	And that there is not an employee with ID "karl"
-	When the user logs in with the ID "karl"
+	And that there is not an employee with ID "test"
+	When the user logs in with the ID "test"
 	Then the error message "Employee is not registered" is given

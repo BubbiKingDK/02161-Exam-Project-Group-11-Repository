@@ -76,7 +76,7 @@ public class UserInterface {
 	public void assignToProject() throws OperationNotAllowedException {
 		System.out.println("Input project serial number:");
 		int input = console.nextInt();
-		if(!projectManagementApp.isAlreadyInProject(projectManagementApp.getCurrentLogin().getId(), input)) {
+		if(!projectManagementApp.isInProject(projectManagementApp.getCurrentLogin().getId(), input)) {
 			projectManagementApp.assignToProject(input);
 			showProjectMembers(input);
 			

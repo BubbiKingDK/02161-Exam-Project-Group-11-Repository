@@ -35,17 +35,10 @@ public class LoginSteps {
 	}
 
 	@Given("that there is an employee with ID {string}")
-	public void thatThereIsAnEmployeeWithID(String id) {
+	public void thatThereIsAnEmployeeWithID(String ID) {
 		projectManagementApp.setup();
-		
-		boolean employeeExist = false;
-		for (Employee e: projectManagementApp.getEmployees()){
-			if(e.getId().equals(id)) {
-				employeeExist = true;
-				break;
-			}
-		}
-		assertTrue(employeeExist);
+		Employee e = projectManagementApp.getEmployee(ID);
+		assertEquals(e.getId(), ID);
 		
 	}
 
@@ -65,17 +58,10 @@ public class LoginSteps {
 	}
 	
 	@Given("that there is not an employee with ID {string}")
-	public void thatThereIsNotAnEmployeeWithID(String id) {
-		
-		boolean employeeDoesNotExist = true;
-		for (Employee e: projectManagementApp.getEmployees()){
-			if(e.getId().equals(id)) {
-				employeeDoesNotExist = false;
-				break;
-			}
-		}
-		assertTrue(employeeDoesNotExist);
-		
+	public void thatThereIsNotAnEmployeeWithID(String ID) {
+		projectManagementApp.setup();
+		Employee e = projectManagementApp.getEmployee(ID);
+		assertEquals(e, null);
 	}
 
 	@Then("the error message {string} is given")

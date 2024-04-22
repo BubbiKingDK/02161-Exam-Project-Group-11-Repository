@@ -26,16 +26,7 @@ public class ProjectManagementApp {
 	
 	public Employee getCurrentLogin() {
 		return currentLogin;
-	}
-	
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees; 
-	}
-	
-	public List<Employee> getEmployees(){
-		return employees;
-	}
-	
+	}	
 
 	public void login(String id) throws OperationNotAllowedException {
 		assert employees != null;
@@ -99,27 +90,32 @@ public class ProjectManagementApp {
 		}
 		if(projectExists == false) {
 			throw new OperationNotAllowedException("Project does not exist");
-		}
-		if(employeeIsRegisterd == false) {
+		} else {
 			throw new OperationNotAllowedException("Employee not registered with the project");
 		}
 	}
 
-	public boolean isAlreadyInProject(String ID, int serialNumber) {
-		Project project = null;
-		for (Project p : projects) {
-			if (p.getSerialnumber() == serialNumber) {
-				project = p;
+	public boolean isInProject(String ID, int serialNumber) {
+		Project project = getProject(serialNumber);
+		Employee employee = getEmployee(ID);
+		return project.getEmployees().contains(employee);
+	}
+	
+	public Employee getEmployee(String ID) {
+		for (Employee e : employees) {
+			if (e.getId().equals(ID)) {
+				return e;
 			}
 		}
-		if (project != null) {
-			for (Employee e : project.getEmployees()) {
-				if (e.getId() == ID) {
-					return true;
-				}
-			}			
+		return null;
+	}
+	
+	public Project getProject(int serialNumber) {
+		for (Project p : projects) {
+			if (p.getSerialnumber() == serialNumber) {
+				return p;
+			}
 		}
-		return false;
-
+		return null;
 	}
 }

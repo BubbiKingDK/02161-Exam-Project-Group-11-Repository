@@ -53,7 +53,7 @@ public class EmployeeSteps {
 	
 	@Given("the employee with ID {string} is not already in the project with serial number {int}")
 	public void theEmployeeWithIDIsNotAlreadyInTheProjectWithSerialNumber(String ID, int serialNumber) {
-	    assertFalse(projectManagementApp.isAlreadyInProject(ID, serialNumber));
+		assertFalse(projectManagementApp.isInProject(ID, serialNumber));
 	}
 
 	@When("the user with ID {string} assigns themselves to the project with serial number {int}")
@@ -87,14 +87,7 @@ public class EmployeeSteps {
 	
 	@Given("that there is not a project with serial number {int}")
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {
-		int tempSerialNumber = 0;
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		tempSerialNumber = p.getSerialnumber();
-	    		break;
-	    	}
-	    }
-	    assertFalse(tempSerialNumber == serialNumber);
+	    assertEquals(projectManagementApp.getProject(serialNumber), null);
 	}
 	
 }

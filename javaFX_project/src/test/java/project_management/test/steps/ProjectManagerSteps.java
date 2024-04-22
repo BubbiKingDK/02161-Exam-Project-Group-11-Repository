@@ -51,28 +51,15 @@ public class ProjectManagerSteps {
 
 	@Then("the employee with ID {string} is registered project manager of the project with serial number {int}")
 	public void theEmployeeWithIDIsRegisteredProjectManagerOfTheProjectWithSerialNumber(String ID, Integer serialNumber) {
-		Project project = null;
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		project = p;
-	    		break;
-	    	}
-	    }
-	    assertEquals(project.getProjectManager().getId(), ID);
+		Project p = projectManagementApp.getProject(serialNumber);
+	    assertEquals(p.getProjectManager().getId(), ID);
 	}
 	
 	@Given("an employee with ID {string} is not registered with the project with serial number {int}")
 	public void anEmployeeWithIDIsNotRegisteredWithTheProjectWithSerialNumber(String ID, int serialNumber) {
-		Project project = null;
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		project = p;
-	    		break;
-	    	}
-	    }
-	    for (Employee e : project.getEmployees()) {
-	    	assertFalse(ID.equals(e.getId()));
-	    }
+		Project project = projectManagementApp.getProject();
+		Employee employee = projectManagementApp.getEmployee(ID);
+		assertFalse(project.getEmployees().contains(employee));
 	}
 	@Given("an employee with ID {string} is the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
