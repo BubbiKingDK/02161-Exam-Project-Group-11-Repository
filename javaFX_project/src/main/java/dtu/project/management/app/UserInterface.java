@@ -80,12 +80,7 @@ public class UserInterface {
 			projectManagementApp.assignToProject(input);
 			showProjectMembers(input);
 			
-			Project tempProject = null;
-			for (Project p : projectManagementApp.getProjects()) {
-				if (p.getSerialnumber() == input) {
-					tempProject = p;
-				}
-			}
+			Project tempProject = projectManagementApp.getProject(input);
 			
 			System.out.println(projectManagementApp.getCurrentLogin().getId() + " has been assigned to project:" + tempProject.getSerialnumber() + " " + tempProject.getName());
 		} else {
@@ -95,12 +90,7 @@ public class UserInterface {
 	}
 	
 	public void showProjectMembers(int serialNumber) {
-		Project tempProject = null;
-		for (Project p : projectManagementApp.getProjects()) {
-			if (p.getSerialnumber() == serialNumber) {
-				tempProject = p;
-			}
-		}
+		Project tempProject = projectManagementApp.getProject(serialNumber);
 		if (tempProject == null) {
 			System.out.println("Invalid serial number!");
 			return;
