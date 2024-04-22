@@ -76,13 +76,11 @@ public class ProjectManagementApp {
 
 
 	public void setProjectManager(int serialNumber) throws OperationNotAllowedException {
-		boolean employeeIsRegisterd = false;
 		boolean projectExists = false;
 		for (Project p : projects) {
 			if (p.getSerialnumber() == serialNumber) {
 				projectExists = true;
 				if (p.getEmployees().contains(currentLogin)) {
-					employeeIsRegisterd = true;
 					p.setProjectManager(currentLogin);
 					return;
 				}

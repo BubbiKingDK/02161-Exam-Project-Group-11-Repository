@@ -32,16 +32,10 @@ public class EmployeeSteps {
 	
 	@Given("that there is a project with serial number {int}")
 	public void thatThereIsAProjectWithSerialNumber(int serialNumber) {
-		int tempSerialNumber = 0;
 	    projectManagementApp.createProject("Project");
 	    projectManagementApp.addProject();
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		tempSerialNumber = p.getSerialnumber();
-	    		break;
-	    	}
-	    }
-	    assertEquals(tempSerialNumber, serialNumber);
+	    Project project = projectManagementApp.getProject(serialNumber);
+	    assertEquals(project.getSerialnumber(), serialNumber);
 	}
 
 	@Given("an employee with ID {string} is logged in")
@@ -67,14 +61,8 @@ public class EmployeeSteps {
 
 	@Then("the employee with ID {string} is assigned to the project with serial number {int}")
 	public void theEmployeeWithIDIsAssignedToTheProjectWithSerialNumber(String ID, int serialNumber) {
-		Project project = null;
+		Project project = projectManagementApp.getProject(serialNumber);
 		String tempID = "";
-	    for (Project p : projectManagementApp.getProjects()) {
-	    	if (p.getSerialnumber() == serialNumber) {
-	    		project = p;
-	    		break;
-	    	}
-	    }
 	    if (project != null) {
 	    	for (Employee e : project.getEmployees()) {
 	    		if (e.getId().equals(ID)) {

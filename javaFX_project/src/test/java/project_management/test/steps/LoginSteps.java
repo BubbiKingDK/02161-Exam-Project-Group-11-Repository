@@ -31,7 +31,7 @@ public class LoginSteps {
 	
 	@Given("that the user is not logged in")
 	public void thatTheUserIsNotLoggedIn() {
-		assertThat(projectManagementApp.getCurrentLogin(),is(equalTo(null)));
+		assertEquals(projectManagementApp.getCurrentLogin(),null);
 	}
 
 	@Given("that there is an employee with ID {string}")
@@ -54,7 +54,7 @@ public class LoginSteps {
 
 	@Then("the employee is logged in with the ID {string}")
 	public void theEmployeeIsLoggedInWithTheID(String id) {
-		assertThat(projectManagementApp.getCurrentLogin().getId(),is(equalTo(id)));
+		assertEquals(projectManagementApp.getCurrentLogin().getId(),id);
 	}
 	
 	@Given("that there is not an employee with ID {string}")
