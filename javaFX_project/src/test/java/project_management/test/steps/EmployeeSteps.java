@@ -32,6 +32,7 @@ public class EmployeeSteps {
 	
 	@Given("that there is a project with serial number {int}")
 	public void thatThereIsAProjectWithSerialNumber(int serialNumber) {
+		projectManagementApp.setup();
 	    projectManagementApp.createProject("Project");
 	    projectManagementApp.addProject();
 	    Project project = projectManagementApp.getProject(serialNumber);
@@ -45,33 +46,7 @@ public class EmployeeSteps {
 	    assertEquals(projectManagementApp.getCurrentLogin().getId(), ID);
 	}
 	
-	@Given("the employee with ID {string} is not already in the project with serial number {int}")
-	public void theEmployeeWithIDIsNotAlreadyInTheProjectWithSerialNumber(String ID, int serialNumber) {
-		assertFalse(projectManagementApp.isInProject(ID, serialNumber));
-	}
 
-	@When("the user with ID {string} assigns themselves to the project with serial number {int}")
-	public void theUserWithIDAssignsThemselvesToTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
-	    try {
-	    	projectManagementApp.assignToProject(serialNumber);
-		} catch (OperationNotAllowedException e) {
-			errorMessage.setErrorMessage(e.getMessage());
-		}
-	}
-
-	@Then("the employee with ID {string} is assigned to the project with serial number {int}")
-	public void theEmployeeWithIDIsAssignedToTheProjectWithSerialNumber(String ID, int serialNumber) {
-		Project project = projectManagementApp.getProject(serialNumber);
-		String tempID = "";
-	    if (project != null) {
-	    	for (Employee e : project.getEmployees()) {
-	    		if (e.getId().equals(ID)) {
-	    			tempID = e.getId();
-	    		}
-	    	}
-	    }
-	    assertEquals(tempID, ID);
-	}
 	
 	@Given("that there is not a project with serial number {int}")
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {

@@ -29,12 +29,6 @@ public class ProjectManagerSteps {
 		this.projectManagementApp = projectManagementApp;
 		this.errorMessage = errorMessage;
 	}
-	@Given("an employee with ID {string} is registered with the project with serial number {int}")
-	public void anEmployeeWithIDIsRegisteredWithTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
-		projectManagementApp.setup();
-		projectManagementApp.login(ID);
-		projectManagementApp.assignToProject(serialNumber);
-	}
 	
 	@When("the user assigns the project manager with ID {string} to the project with serial number {int}")
 	public void theUserAssignsTheProjectManagerWithIDToTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
@@ -55,12 +49,7 @@ public class ProjectManagerSteps {
 	    assertEquals(p.getProjectManager().getId(), ID);
 	}
 	
-	@Given("an employee with ID {string} is not registered with the project with serial number {int}")
-	public void anEmployeeWithIDIsNotRegisteredWithTheProjectWithSerialNumber(String ID, int serialNumber) {
-		Project project = projectManagementApp.getProject();
-		Employee employee = projectManagementApp.getEmployee(ID);
-		assertFalse(project.getEmployees().contains(employee));
-	}
+	
 	@Given("an employee with ID {string} is the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
 	    projectManagementApp.login(ID);

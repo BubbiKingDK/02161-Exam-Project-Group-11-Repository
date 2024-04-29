@@ -10,7 +10,6 @@ public class Project{
 	private String name;
 	private int serialNumber;
 	private ProjectManagementApp projectManagementApp;
-	private List<Employee> employees;
 	private Employee projectManager;
 	private List<Activity> activities;
 
@@ -18,7 +17,6 @@ public class Project{
 	public Project(String name, ProjectManagementApp projectManagementApp){
 		this.name = name;
 		this.projectManagementApp = projectManagementApp;
-		this.employees = new ArrayList<>();
 		this.activities = new ArrayList<>();
 		
 		
@@ -44,14 +42,6 @@ public class Project{
 	
 	public int getSerialnumber() {
 		return serialNumber;
-	}
-
-	public void assignToProject(Employee currentLogin) {
-		employees.add(currentLogin);
-	}
-
-	public List<Employee> getEmployees() {
-		return employees;
 	}
 
 	public void setProjectManager(Employee currentLogin) {
