@@ -1,9 +1,14 @@
 package dtu.project.management.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Activity {
 	private String name;
 	private int startWeek;
 	private int endWeek;
+	private List<Employee> employees = new ArrayList<>();
+	
 	
 	public Activity(String name, int startWeek, int endWeek) {
 		this.name = name;
@@ -21,6 +26,14 @@ public class Activity {
 
 	public int getEndWeek() {
 		return endWeek;
+	}
+	
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+	
+	public void addEmployeeToActivity(Employee employee) {
+		employees.add(employee);
 	}
 	
 	

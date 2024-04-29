@@ -2,6 +2,7 @@ package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
 import dtu.project.management.app.ProjectManagementApp;
+import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
 
@@ -52,5 +53,43 @@ public class EmployeeSteps {
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {
 	    assertEquals(projectManagementApp.getProject(serialNumber), null);
 	}
+	
+	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
+	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialnumber) throws OperationNotAllowedException {
+		projectManagementApp.setup();
+		projectManagementApp.createProject("test");
+	    projectManagementApp.addProject();
+		projectManagementApp.createActivity(activityName, startWeek, endWeek);
+	    projectManagementApp.addActivity(projectManagementApp.getProject(serialnumber));
+	}
+
+	@Given("the current Login ID is {string}")
+	public void theCurrentLoginIDIs(String ID) throws OperationNotAllowedException {
+		projectManagementApp.setup();
+	    projectManagementApp.login(ID);
+	}
+
+	@Given("employee with ID {string} is not assigned to activity {string} in project with serial number {int}")
+	public void employeeWithIDIsNotAssignedToActivityInProjectWithSerialNumber(String ID, String activityName,int serialNumber) {
+	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)));
+	    assertFalse(isAssigned);
+	}
+
+	@When("the user assigns the employee with ID {string} to the activity {string} in project with serial number {int}")
+	public void theUserAssignsTheEmployeeWithIDToTheActivityInProjectWithSerialNumber(String ID, String ActivityName,int serialNumber) {
+		Employee employee = projectManagementApp.getEmployee(ID);
+		Activity activity = projectManagementApp.getActivity();
+	    projectManagementApp.addEmployeeToActivity(employee,activity);
+	}
+
+	@Then("the employee with ID {string} is assigned to the activity {string} in project with serial number {int}")
+	public void theEmployeeWithIDIsAssignedToTheActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) {
+	    Employee e = projectManagementApp.getEmployee(ID);
+	    Activity a = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber));
+	    assertTrue(a.getEmployees().contains(e));
+	}
+
+	
+
 	
 }
