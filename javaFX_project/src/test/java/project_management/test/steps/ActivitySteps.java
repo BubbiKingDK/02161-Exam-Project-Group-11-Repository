@@ -64,7 +64,7 @@ public class ActivitySteps {
 	@When("the activity with name {string} is added to the user with ID {string}")
 	public void theActivityWithNameIsAddedToTheUserWithID(String activityName, String ID) throws OperationNotAllowedException {
 		try {
-			projectManagementApp.addActivity(projectManagementApp.getActivity(),projectManagementApp.getEmployee(ID));
+			projectManagementApp.addActivity(projectManagementApp.getEmployee(ID));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}

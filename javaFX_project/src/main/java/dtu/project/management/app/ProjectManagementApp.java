@@ -119,7 +119,7 @@ public class ProjectManagementApp {
 		return activity;
 	}
 
-	public void addActivity(Activity activity, Employee employee) throws OperationNotAllowedException {
+	public void addActivity(Employee employee) throws OperationNotAllowedException {
 		if (!employee.getActivities().contains(activity)) {
 			employee.addActivity(activity);
 			return;
