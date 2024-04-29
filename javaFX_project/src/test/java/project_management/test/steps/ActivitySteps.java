@@ -1,8 +1,10 @@
 package project_management.test.steps;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import dtu.project.management.app.OperationNotAllowedException;
 import dtu.project.management.app.ProjectManagementApp;
 import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Project;
@@ -26,8 +28,13 @@ public class ActivitySteps {
 	}
 
 	@When("the activity with name {string} is added to the project with serial number {int}")
-	public void theActivityWithNameIsAddedToTheProjectWithSerialNumber(String name, int serialNumber) {
-	    projectManagementApp.addActivity(projectManagementApp.getProject(serialNumber));
+	public void theActivityWithNameIsAddedToTheProjectWithSerialNumber(String name, int serialNumber) throws OperationNotAllowedException {
+		try {
+			projectManagementApp.addActivity(projectManagementApp.getProject(serialNumber));
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	    
 	}
 	
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the project with serial number {int}")
@@ -40,5 +47,13 @@ public class ActivitySteps {
 		assertEquals(activity.getStartWeek(), startWeek);
 		assertEquals(activity.getEndWeek(), endWeek);
 	}
+
+	
+	@Given("there is not a project with serial number {int}")
+	public void thereIsNotAProjectWithSerialNumber(int serialNumber) {
+		assertTrue(projectManagementApp.getProject(serialNumber) == null);
+	    
+	}
+
 
 }

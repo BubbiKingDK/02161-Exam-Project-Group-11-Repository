@@ -104,8 +104,12 @@ public class ProjectManagementApp {
 		activity = new Activity(name, startWeek, endWeek);
 	}
 
-	public void addActivity(Project project) {
-		project.addActivity(activity);
+	public void addActivity(Project project) throws OperationNotAllowedException {
+		if (project != null) {
+			project.addActivity(activity);
+			return;
+		}
+		throw new OperationNotAllowedException("Project does not exist");
 	}
 
 }
