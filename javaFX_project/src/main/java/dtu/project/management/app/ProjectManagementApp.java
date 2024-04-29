@@ -105,11 +105,15 @@ public class ProjectManagementApp {
 	}
 
 	public void addActivity(Project project) throws OperationNotAllowedException {
-		if (project != null) {
-			project.addActivity(activity);
-			return;
+		if (project == null) {
+			throw new OperationNotAllowedException("Project does not exist");
+			
 		}
-		throw new OperationNotAllowedException("Project does not exist");
+		if (getActivity(activity.getName(), project) != null) {
+			throw new OperationNotAllowedException("Activity already exists");
+		} 
+		project.addActivity(activity);
+		
 	}
-
+	
 }

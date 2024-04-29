@@ -52,8 +52,13 @@ public class ActivitySteps {
 	@Given("there is not a project with serial number {int}")
 	public void thereIsNotAProjectWithSerialNumber(int serialNumber) {
 		assertTrue(projectManagementApp.getProject(serialNumber) == null);
-	    
 	}
 
-
+	
+	@Given("the activity with the name {string} is already in the project with serial number {int}")
+	public void theActivityWithTheNameIsAlreadyInTheProjectWithSerialNumber(String name, int serialNumber) throws OperationNotAllowedException {
+		theActivityWithNameIsAddedToTheProjectWithSerialNumber(name, serialNumber);
+	}
+	
+	
 }

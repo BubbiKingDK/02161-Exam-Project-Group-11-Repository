@@ -12,6 +12,9 @@ public class UserInterface {
 	private Scanner console = new Scanner(System.in);
 
 	public UserInterface() throws OperationNotAllowedException {
+	}
+
+	public void run() throws OperationNotAllowedException {
 		projectManagementApp.setup();
 		System.out.println("Welcome!");
 		login();

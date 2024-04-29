@@ -13,12 +13,12 @@ Scenario: Project does not exist
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
 	Then the error message "Project does not exist" is given
 
-#Scenario: Trying to add and activity that is already created
-#	Given there is a project with serial number 24001
-#	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4
-#	And the activity with the name "Scrum-Meeting" is already in the project with serial number 24001
-#	When the activity the name "Scrum-Meeting" is added to the project with serial number 24001
-#	Then the error message "Activity already exists" is given
+Scenario: Trying to add and activity that is already created
+	Given that there is a project with serial number 24001
+	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4
+	And the activity with the name "Scrum-Meeting" is already in the project with serial number 24001
+	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
+	Then the error message "Activity already exists" is given
 #	
 #Scenario: User creates a personal activity that is not already created
 #	Given there is an activity with the name "Holliday"
