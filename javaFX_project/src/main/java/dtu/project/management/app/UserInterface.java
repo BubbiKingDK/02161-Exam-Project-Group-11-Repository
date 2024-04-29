@@ -2,6 +2,7 @@ package dtu.project.management.app;
 
 import java.util.Scanner;
 
+import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
 import io.cucumber.java.an.Y;
@@ -26,6 +27,7 @@ public class UserInterface {
 		System.out.println("Input 2 to see all projects");
 		System.out.println("Input 3 to assign project manager");
 		System.out.println("Input 4 to create activity");
+		System.out.println("Input 5 to see activities");
 		System.out.println("Input 0 to close the program");
 		int input = console.nextInt();
 		switch (input) {
@@ -38,7 +40,7 @@ public class UserInterface {
 		case 4:
 			createActivity();
 		case 5:
-			
+			seeActivities();
 		case 0:
 			login();
 			// System.exit(0)
@@ -46,6 +48,24 @@ public class UserInterface {
 			throw new IllegalArgumentException("Unexpected value: " + input);
 		}
 
+	}
+
+	private void seeActivities() throws OperationNotAllowedException {
+		System.out.println("Enter project serial number");
+		System.out.println("Enter 0 to create personal activity");
+		int input = console.nextInt();
+		
+		if (input == 0) {
+			for (Activity a : projectManagementApp.getCurrentLogin().getActivities()) {
+				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
+			}
+		} else {
+			for (Activity a : projectManagementApp.getProject(input).getActivities()) {
+				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
+			}
+		}
+		
+		mainMenu();
 	}
 
 	private void createActivity() throws OperationNotAllowedException {
