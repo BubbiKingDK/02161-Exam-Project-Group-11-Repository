@@ -113,7 +113,26 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Activity already exists");
 		} 
 		project.addActivity(activity);
-		
 	}
 	
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void addActivity(Activity activity, Employee employee) throws OperationNotAllowedException {
+		if (!employee.getActivities().contains(activity)) {
+			employee.addActivity(activity);
+			return;
+		}
+		throw new OperationNotAllowedException("Activity already exists");
+	}
+
+	public Activity getActivity(String activityName, Employee employee) {
+		for (Activity a : employee.getActivities()) {
+			if(a.getName().equals(activityName)) {
+				return a;
+			}
+		}
+		return null;
+	}
 }

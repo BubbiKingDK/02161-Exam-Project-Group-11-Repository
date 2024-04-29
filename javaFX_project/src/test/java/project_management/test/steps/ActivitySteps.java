@@ -24,6 +24,7 @@ public class ActivitySteps {
 
 	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int}")
 	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeek(String name, int startWeek , int endWeek) {
+		projectManagementApp.setup();
 	    projectManagementApp.createActivity(name, startWeek, endWeek);
 	}
 
@@ -60,5 +61,27 @@ public class ActivitySteps {
 		theActivityWithNameIsAddedToTheProjectWithSerialNumber(name, serialNumber);
 	}
 	
+	@When("the activity with name {string} is added to the user with ID {string}")
+	public void theActivityWithNameIsAddedToTheUserWithID(String activityName, String ID) throws OperationNotAllowedException {
+		try {
+			projectManagementApp.addActivity(projectManagementApp.getActivity(),projectManagementApp.getEmployee(ID));
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the user with ID {string}")
+	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
+	    Activity activity = projectManagementApp.getActivity(activityName, projectManagementApp.getEmployee(ID));
+	    
+	    assertTrue(projectManagementApp.getEmployee(ID).getActivities().contains(activity));
+		assertEquals(activity.getName(), activityName);
+		assertEquals(activity.getStartWeek(), startWeek);
+		assertEquals(activity.getEndWeek(), endWeek);
+	}
 	
+	@Given("the activity with the name {string} is already assigned to the user with ID {string}")
+	public void theActivityWithTheNameIsAlreadyAssignedToTheUserWithID(String activityName, String ID) throws OperationNotAllowedException {
+		theActivityWithNameIsAddedToTheUserWithID(activityName, ID);
+	}
 }
