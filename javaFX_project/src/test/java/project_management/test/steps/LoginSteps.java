@@ -43,7 +43,7 @@ public class LoginSteps {
 	}
 
 	@When("the user logs in with the ID {string}")
-	public void theUserLogsInWithTheID(String id) throws OperationNotAllowedException {
+	public void theUserLogsInWithTheID(String id) {
 		try {
 			projectManagementApp.login(id);
 		} catch (OperationNotAllowedException e) {

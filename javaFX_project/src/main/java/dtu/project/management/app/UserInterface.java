@@ -29,24 +29,31 @@ public class UserInterface {
 		System.out.println("Input 4 to create activity");
 		System.out.println("Input 5 to see activities");
 		System.out.println("Input 0 to close the program");
-		int input = console.nextInt();
-		switch (input) {
-		case 1:
-			createProject();
-		case 2:
-			showProjects();
-		case 3:
-			assignProjectManager();
-		case 4:
-			createActivity();
-		case 5:
-			seeActivities();
-		case 0:
-			login();
-			// System.exit(0)
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + input);
+		try {
+			int input = console.nextInt();
+			switch (input) {
+			case 1:
+				createProject();
+			case 2:
+				showProjects();
+			case 3:
+				assignProjectManager();
+			case 4:
+				createActivity();
+			case 5:
+				seeActivities();
+			case 0:
+				login();
+				// System.exit(0)
+			default:
+				System.out.println(("Unexpected value: " + input));
+				mainMenu();
+			}
+		} catch (Exception e) {
+			System.out.println("Error: "+e.getMessage());
+			mainMenu();
 		}
+
 
 	}
 
@@ -80,13 +87,11 @@ public class UserInterface {
 		int endWeek = console.nextInt();
 		
 		projectManagementApp.createActivity(activityName, startWeek, endWeek);			
-		
 		if (input == 0) {
 			projectManagementApp.addActivity(projectManagementApp.getCurrentLogin());
 		} else {
 			projectManagementApp.addActivity(projectManagementApp.getProject(input));
 		}
-		
 		mainMenu();
 	}
 
@@ -101,7 +106,13 @@ public class UserInterface {
 		System.out.print("Input login credentials: ");
 		String input = console.next();
 		input += console.nextLine();
-		projectManagementApp.login(input);
+		try {
+			projectManagementApp.login(input);
+		} catch (Exception e) {
+			System.out.println("Error: "+e.getMessage());
+			login();
+		}
+
 		System.out.println("You are now logged in as: " + projectManagementApp.getCurrentLogin().getId());
 		mainMenu();
 	}
@@ -109,7 +120,7 @@ public class UserInterface {
 	public void createProject() throws OperationNotAllowedException {
 		System.out.print("Input project name: ");
 		String input = console.next();
-		input += console.nextLine();
+		input += console.nextLine(); 
 		projectManagementApp.createProject(input);
 		projectManagementApp.addProject();
 		System.out.println("Created project: " + projectManagementApp.getProject().getName() + " "
