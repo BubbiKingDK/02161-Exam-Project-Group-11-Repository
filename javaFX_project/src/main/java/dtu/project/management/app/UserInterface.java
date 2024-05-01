@@ -29,6 +29,8 @@ public class UserInterface {
 		System.out.println("Input 3 to assign project manager");
 		System.out.println("Input 4 to create activity");
 		System.out.println("Input 5 to see activities");
+		System.out.println("Input 6 to assign employee to activity");
+		System.out.println("Input 7 to see emplyees in activity");
 		System.out.println("Input 0 to close the program");
 		try {
 			int input = console.nextInt();
@@ -43,6 +45,10 @@ public class UserInterface {
 				createActivity();
 			case 5:
 				seeActivities();
+			case 6:
+				assignEmployeeToActivity();
+			case 7:
+				seeEmployeesInActivity();
 			case 0:
 				login();
 				// System.exit(0)
@@ -56,6 +62,44 @@ public class UserInterface {
 		}
 
 
+	}
+
+	private void seeEmployeesInActivity() throws OperationNotAllowedException {
+		
+		System.out.println("Enter project serial number");
+		String serialNumber = console.next();
+		serialNumber += console.nextLine();
+		int intSerialNumber = convertInt(serialNumber);
+		
+		System.out.println("Enter activity name");
+		String activityName = console.next();
+		activityName += console.nextLine();
+		
+		Project project = projectManagementApp.getProject(intSerialNumber);
+		
+		for (Employee e : projectManagementApp.getActivity(activityName, project).getEmployees()) {
+			System.out.println(e.getId());
+		}
+		mainMenu();
+	}
+
+	private void assignEmployeeToActivity() throws OperationNotAllowedException {
+		System.out.println("Enter project serial number");
+		String serialNumber = console.next();
+		serialNumber += console.nextLine();
+		int intSerialNumber = convertInt(serialNumber);
+		
+		System.out.println("Enter activity name");
+		String activityName = console.next();
+		activityName += console.nextLine();
+		
+		System.out.println("Enter user ID that you want to assign to activity");
+		String ID = console.next();
+		ID += console.nextLine();
+		
+		Project project = projectManagementApp.getProject(intSerialNumber);
+		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID), projectManagementApp.getActivity(activityName, project), project);
+		mainMenu();
 	}
 
 	private void seeActivities() throws OperationNotAllowedException {
