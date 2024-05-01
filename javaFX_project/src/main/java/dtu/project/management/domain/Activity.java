@@ -1,6 +1,7 @@
 package dtu.project.management.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Activity {
@@ -9,6 +10,8 @@ public class Activity {
 	private int endWeek;
 	private List<Employee> employees = new ArrayList<>();
 	private int expectedWorkHours = 0;
+	
+	private HashMap<Employee, Integer> workHours = new HashMap<>();
 	
 	
 	public Activity(String name, int startWeek, int endWeek) {
@@ -35,6 +38,7 @@ public class Activity {
 	
 	public void addEmployeeToActivity(Employee employee) {
 		employees.add(employee);
+		workHours.put(employee, 0);
 	}
 
 	public void setExpectedWorkHours(int expectedWorkHours) {

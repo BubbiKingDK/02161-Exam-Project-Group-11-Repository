@@ -41,5 +41,24 @@ public class WorkHoursSteps {
 	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getExpectedWorkHours(), expectedWorkHours);
 	}
 
+	
+	@Given("the user has {int} prior registered work hours on the activity {string}")
+	public void theUserHasPriorRegisteredWorkHoursOnTheActivity(Integer int1, String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("the user registers {int} work hours to the activity {string}")
+	public void theUserRegistersWorkHoursToTheActivity(Integer int1, String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("the activity has registered {int} work hours on the activity {string} from the user with ID {string}")
+	public void theActivityHasRegisteredWorkHoursOnTheActivityFromTheUserWithID(Integer int1, String string, String string2) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	
 }
 	
