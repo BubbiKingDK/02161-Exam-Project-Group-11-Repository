@@ -9,6 +9,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -61,5 +62,10 @@ public class ProjectManagerSteps {
 	public void theEmployeeWithIDIsNoLongerProjectManagerOfTheProjectWithSerialNumber(String ID, int serialNumber) {
 		Project project = projectManagementApp.getProject(serialNumber);
 	    assertFalse(project.getProjectManager().getId().equals(ID));
+	}
+	
+	@Given("an employee with ID {string} is not the project manager for the project with serial number {int}")
+	public void anEmployeeWithIDIsNotTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) {
+	    assertNotEquals(projectManagementApp.getProject(serialNumber).getProjectManager(),projectManagementApp.getEmployee(ID));
 	}
 }

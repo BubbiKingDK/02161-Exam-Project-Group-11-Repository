@@ -139,11 +139,17 @@ public class ProjectManagementApp {
 	}
 
 
-	public void addEmployeeToActivity(Employee employee, Activity activity) throws OperationNotAllowedException {
-		if (!isAssignedToActivity(employee, activity)) {
-			activity.addEmployeeToActivity(employee);
-			return;
+	public void addEmployeeToActivity(Employee employee, Activity activity, Project project) throws OperationNotAllowedException {
+		if(employee == null) {
+			throw new OperationNotAllowedException("Employee does not exist");
 		}
-		throw new OperationNotAllowedException("Employee is already assigned to the activity");
+		if (currentLogin.equals(project.getProjectManager()) || currentLogin.equals(employee)) {
+			if (!isAssignedToActivity(employee, activity)) {
+				activity.addEmployeeToActivity(employee);
+				return;
+			}
+			throw new OperationNotAllowedException("Employee is already assigned to the activity");
+		}
+		throw new OperationNotAllowedException("User is not project manager and can not assign other employees to activity");
 	}
 }

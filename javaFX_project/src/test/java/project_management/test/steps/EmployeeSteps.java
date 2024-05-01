@@ -80,7 +80,7 @@ public class EmployeeSteps {
 		Employee employee = projectManagementApp.getEmployee(ID);
 		Activity activity = projectManagementApp.getActivity();
 		try {
-		    projectManagementApp.addEmployeeToActivity(employee,activity);
+		    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -97,7 +97,7 @@ public class EmployeeSteps {
 	public void employeeWithIDIsAssignedToActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
 		Employee employee = projectManagementApp.getEmployee(ID);
 		Activity activity = projectManagementApp.getActivity();
-	    projectManagementApp.addEmployeeToActivity(employee,activity);
+	    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
 	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)));
 	    assertTrue(isAssigned);
 	}
