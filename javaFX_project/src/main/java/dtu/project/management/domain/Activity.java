@@ -8,7 +8,7 @@ public class Activity {
 	private int startWeek;
 	private int endWeek;
 	private List<Employee> employees = new ArrayList<>();
-	private int expectedWorkHours;
+	private int expectedWorkHours = 0;
 	
 	
 	public Activity(String name, int startWeek, int endWeek) {

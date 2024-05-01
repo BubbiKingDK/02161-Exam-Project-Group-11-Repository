@@ -93,7 +93,7 @@ public class ActivitySteps {
 	}
 	
 	@Given("there is not an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
-	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) {
+	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
 	    projectManagementApp.setup();
 		assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), null);
 	}

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="dtu.project.management.app.OperationNotAllowedException"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="io.cucumber.java.an.Y"/>
     <fullyQualifiedTypeName name="io.cucumber.java.en.Given"/>
@@ -15,4 +14,5 @@
     <fullyQualifiedTypeName name="java.lang.Boolean"/>
     <fullyQualifiedTypeName name="dtu.project.management.domain.Employee"/>
     <fullyQualifiedTypeName name="dtu.project.management.domain.Activity"/>
+    <fullyQualifiedTypeName name="dtu.project.management.app.OperationNotAllowedException"/>
 </qualifiedTypeNameHistroy>

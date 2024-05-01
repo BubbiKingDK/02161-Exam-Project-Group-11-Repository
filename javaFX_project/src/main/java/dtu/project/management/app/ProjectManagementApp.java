@@ -89,7 +89,11 @@ public class ProjectManagementApp {
 		return null;
 	}
 
-	public Activity getActivity(String name, Project project) {
+	public Activity getActivity(String name, Project project) throws OperationNotAllowedException {
+		if(project == null) {
+			throw new OperationNotAllowedException("Project does not exist");
+		}
+		
 		for (Activity a : project.getActivities()) {
 			if (a.getName().equals(name)) {
 				return a;
@@ -146,6 +150,7 @@ public class ProjectManagementApp {
 		if (employee == null) {
 			throw new OperationNotAllowedException("Employee does not exist");
 		}
+		
 		if (currentLogin.equals(project.getProjectManager()) || currentLogin.equals(employee)) {
 			if (!isAssignedToActivity(employee, activity)) {
 				activity.addEmployeeToActivity(employee);

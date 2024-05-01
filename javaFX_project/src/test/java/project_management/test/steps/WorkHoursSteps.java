@@ -37,7 +37,7 @@ public class WorkHoursSteps {
 	}
 	
 	@Then("the activity with the name {string}, in the project with the serial number {int}, is assigned {int} work hours")
-	public void theActivityWithTheNameInTheProjectWithTheSerialNumberIsAssignedWorkHours(String activityName, int serialNumber, int expectedWorkHours) {
+	public void theActivityWithTheNameInTheProjectWithTheSerialNumberIsAssignedWorkHours(String activityName, int serialNumber, int expectedWorkHours) throws OperationNotAllowedException {
 	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getExpectedWorkHours(), expectedWorkHours);
 	}
 

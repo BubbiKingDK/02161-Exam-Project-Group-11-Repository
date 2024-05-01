@@ -31,6 +31,7 @@ public class UserInterface {
 		System.out.println("Input 5 to see activities");
 		System.out.println("Input 6 to assign employee to activity");
 		System.out.println("Input 7 to see emplyees in activity");
+		System.out.println("Input 8 to assign expected work hours to activity");
 		System.out.println("Input 0 to close the program");
 		try {
 			int input = console.nextInt();
@@ -49,6 +50,8 @@ public class UserInterface {
 				assignEmployeeToActivity();
 			case 7:
 				seeEmployeesInActivity();
+			case 8:
+				assignExpectedWorkHours();
 			case 0:
 				login();
 				// System.exit(0)
@@ -60,8 +63,24 @@ public class UserInterface {
 			System.out.println("Error: "+e.getMessage());
 			mainMenu();
 		}
+	}
 
-
+	private void assignExpectedWorkHours() throws OperationNotAllowedException {
+		System.out.println("Enter project serial number");
+		String serialNumber = console.next();
+		serialNumber += console.nextLine();
+		int intSerialNumber = convertInt(serialNumber);
+		
+		System.out.println("Enter activity name");
+		String activityName = console.next();
+		activityName += console.nextLine();
+		
+		System.out.println("Enter expected work hours");
+		String expectedWorkHours = console.next();
+		expectedWorkHours += console.nextLine();
+		int intExpectedWorkHours = convertInt(expectedWorkHours);
+		projectManagementApp.assignExpectedWorkHours(intExpectedWorkHours, projectManagementApp.getActivity(activityName, projectManagementApp.getProject(intSerialNumber)));
+		mainMenu();
 	}
 
 	private void seeEmployeesInActivity() throws OperationNotAllowedException {
@@ -115,7 +134,7 @@ public class UserInterface {
 			}
 		} else {
 			for (Activity a : projectManagementApp.getProjectActivities(projectManagementApp.getProject(intInput))) {
-				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
+				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek() + ", Expected work hours: " + a.getExpectedWorkHours());
 			}
 		}
 		
@@ -188,7 +207,7 @@ public class UserInterface {
 		for (Project p : projectManagementApp.getProjects()) {
 			System.out.print(p.getSerialnumber() + " " + p.getName());
 			if (p.getProjectManager() != null) {
-				System.out.println(" - Project Manager: " +p.getProjectManager().getId());
+				System.out.println(" - Project Manager: " + p.getProjectManager().getId());
 			} else {
 				System.out.println(" - Project Manager: None");
 			}
