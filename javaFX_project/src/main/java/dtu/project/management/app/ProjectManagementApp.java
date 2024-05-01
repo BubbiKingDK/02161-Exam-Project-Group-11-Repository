@@ -140,7 +140,10 @@ public class ProjectManagementApp {
 
 
 	public void addEmployeeToActivity(Employee employee, Activity activity, Project project) throws OperationNotAllowedException {
-		if(employee == null) {
+		if (activity == null) {
+			throw new OperationNotAllowedException("Activity does not exist");
+		}
+		if (employee == null) {
 			throw new OperationNotAllowedException("Employee does not exist");
 		}
 		if (currentLogin.equals(project.getProjectManager()) || currentLogin.equals(employee)) {
@@ -151,5 +154,24 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Employee is already assigned to the activity");
 		}
 		throw new OperationNotAllowedException("User is not project manager and can not assign other employees to activity");
+	}
+
+	public List<Activity> getProjectActivities(Project project) throws OperationNotAllowedException {
+		if (project != null) {
+			return project.getActivities();
+		}
+		throw new OperationNotAllowedException("Project does not exist");
+	}
+
+	public List<Activity> getPersonalActivities() {
+		return currentLogin.getActivities();
+	}
+
+	public void assignExpectedWorkHours(int expectedWorkHours, Activity activity) throws OperationNotAllowedException {
+		if (activity != null) {
+			activity.setExpectedWorkHours(expectedWorkHours);	
+			return;
+		}
+		throw new OperationNotAllowedException("Activity does not exist");		
 	}
 }

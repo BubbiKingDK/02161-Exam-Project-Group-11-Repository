@@ -47,20 +47,9 @@ public class EmployeeSteps {
 	    assertEquals(projectManagementApp.getCurrentLogin().getId(), ID);
 	}
 	
-
-	
 	@Given("that there is not a project with serial number {int}")
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {
 	    assertEquals(projectManagementApp.getProject(serialNumber), null);
-	}
-	
-	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
-	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialnumber) throws OperationNotAllowedException {
-		projectManagementApp.setup();
-		projectManagementApp.createProject("test");
-	    projectManagementApp.addProject();
-		projectManagementApp.createActivity(activityName, startWeek, endWeek);
-	    projectManagementApp.addActivity(projectManagementApp.getProject(serialnumber));
 	}
 
 	@Given("the current Login ID is {string}")

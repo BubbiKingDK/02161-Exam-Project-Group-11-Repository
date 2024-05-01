@@ -21,13 +21,20 @@ public class ActivitySteps {
 		this.projectManagementApp = projectManagementApp;
 		this.errorMessage = errorMessage;
 	}
-
+	
 	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int}")
 	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeek(String name, int startWeek , int endWeek) {
 		projectManagementApp.setup();
 	    projectManagementApp.createActivity(name, startWeek, endWeek);
 	}
-
+	
+	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
+	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialnumber) throws OperationNotAllowedException {
+		projectManagementApp.setup();
+		projectManagementApp.createActivity(activityName, startWeek, endWeek);
+	    projectManagementApp.addActivity(projectManagementApp.getProject(serialnumber));
+	}
+	
 	@When("the activity with name {string} is added to the project with serial number {int}")
 	public void theActivityWithNameIsAddedToTheProjectWithSerialNumber(String name, int serialNumber) throws OperationNotAllowedException {
 		try {
@@ -39,11 +46,11 @@ public class ActivitySteps {
 	}
 	
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the project with serial number {int}")
-	public void the_activity_with_the_name_a_start_date_week_and_an_end_date_week_is_added_to_the_project_with_serial_number(String name, int startWeek, int endWeek, int serialNumber) {
+	public void the_activity_with_the_name_a_start_date_week_and_an_end_date_week_is_added_to_the_project_with_serial_number(String name, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
 	    Project project = projectManagementApp.getProject(serialNumber);
 	    Activity activity = projectManagementApp.getActivity(name, project);
 	    
-	    assertTrue(project.getActivities().contains(activity));
+	    assertTrue(projectManagementApp.getProjectActivities(project).contains(activity));
 		assertEquals(activity.getName(), name);
 		assertEquals(activity.getStartWeek(), startWeek);
 		assertEquals(activity.getEndWeek(), endWeek);
@@ -74,7 +81,7 @@ public class ActivitySteps {
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
 	    Activity activity = projectManagementApp.getActivity(activityName, projectManagementApp.getEmployee(ID));
 	    
-	    assertTrue(projectManagementApp.getEmployee(ID).getActivities().contains(activity));
+	    assertTrue(projectManagementApp.getPersonalActivities().contains(activity));
 		assertEquals(activity.getName(), activityName);
 		assertEquals(activity.getStartWeek(), startWeek);
 		assertEquals(activity.getEndWeek(), endWeek);
@@ -83,5 +90,20 @@ public class ActivitySteps {
 	@Given("the activity with the name {string} is already assigned to the user with ID {string}")
 	public void theActivityWithTheNameIsAlreadyAssignedToTheUserWithID(String activityName, String ID) throws OperationNotAllowedException {
 		theActivityWithNameIsAddedToTheUserWithID(activityName, ID);
+	}
+	
+	@Given("there is not an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
+	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) {
+	    projectManagementApp.setup();
+		assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), null);
+	}
+	
+	@When("the user gets the list of activities for the project with serial number {int}")
+	public void theUserGetsTheListOfActivitiesForTheProjectWithSerialNumber(int serialNumber) {
+	    try {
+			projectManagementApp.getProjectActivities(projectManagementApp.getProject(serialNumber));
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 }

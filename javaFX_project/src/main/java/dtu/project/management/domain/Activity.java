@@ -8,6 +8,7 @@ public class Activity {
 	private int startWeek;
 	private int endWeek;
 	private List<Employee> employees = new ArrayList<>();
+	private int expectedWorkHours;
 	
 	
 	public Activity(String name, int startWeek, int endWeek) {
@@ -35,6 +36,13 @@ public class Activity {
 	public void addEmployeeToActivity(Employee employee) {
 		employees.add(employee);
 	}
+
+	public void setExpectedWorkHours(int expectedWorkHours) {
+		this.expectedWorkHours = expectedWorkHours;		
+	}
 	
+	public int getExpectedWorkHours() {
+		return expectedWorkHours;
+	}
 	
 }

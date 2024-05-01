@@ -21,7 +21,8 @@ Scenario: Trying to add and activity that is already created
 	Then the error message "Activity already exists" is given
 
 Scenario: User creates a personal activity that is not already created
-	Given there is an activity with the name "Holliday", a start date week 5 and an end date week 8
+	Given the current Login ID is "karl"
+	And there is an activity with the name "Holliday", a start date week 5 and an end date week 8
 	When the activity with name "Holliday" is added to the user with ID "karl"
 	Then the activity with the name "Holliday", a start date week 5 and an end date week 8 is added to the user with ID "karl"
 	
@@ -30,3 +31,8 @@ Scenario: User adding a personal activity that is already created
 	And the activity with the name "Holliday" is already assigned to the user with ID "karl"
 	When the activity with name "Holliday" is added to the user with ID "karl"
 	Then the error message "Activity already exists" is given
+	
+Scenario: User attempts to see activities for project that does not exist
+	Given there is not a project with serial number 24001
+	When the user gets the list of activities for the project with serial number 24001
+	Then the error message "Project does not exist" is given
