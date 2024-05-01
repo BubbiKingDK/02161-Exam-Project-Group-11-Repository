@@ -44,8 +44,8 @@ public class Project{
 		return serialNumber;
 	}
 
-	public void setProjectManager(Employee currentLogin) {
-		projectManager = currentLogin;
+	public void setProjectManager(Employee employee) {
+		projectManager = employee;
 	}
 	public Employee getProjectManager() {
 		return projectManager;

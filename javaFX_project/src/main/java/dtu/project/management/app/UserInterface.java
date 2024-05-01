@@ -5,6 +5,7 @@ import java.util.Scanner;
 import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
+import io.cucumber.core.internal.com.fasterxml.jackson.core.io.OutputDecorator;
 import io.cucumber.java.an.Y;
 
 public class UserInterface {
@@ -78,27 +79,35 @@ public class UserInterface {
 	private void createActivity() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		System.out.println("Enter 0 to create personal activity");
-		int input = console.nextInt();
+		String input = console.next();
+		input += console.nextLine();
+		int intInput = convertInt(input);
 		System.out.println("Enter activity name");
 		String activityName = console.next();
 		System.out.println("Enter start week");
-		int startWeek = console.nextInt();
+		String startWeek = console.next();
+		input += console.nextLine();
+		int intStartWeek = convertInt(startWeek);
 		System.out.println("Enter end week");
-		int endWeek = console.nextInt();
+		String endWeek = console.next();
+		input += console.nextLine();
+		int intEndWeek = convertInt(endWeek);
 		
-		projectManagementApp.createActivity(activityName, startWeek, endWeek);			
-		if (input == 0) {
+		projectManagementApp.createActivity(activityName, intStartWeek, intEndWeek);			
+		if (intInput == 0) {
 			projectManagementApp.addActivity(projectManagementApp.getCurrentLogin());
 		} else {
-			projectManagementApp.addActivity(projectManagementApp.getProject(input));
+			projectManagementApp.addActivity(projectManagementApp.getProject(intInput));
 		}
 		mainMenu();
 	}
 
 	private void assignProjectManager() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
-		int input = console.nextInt();
-		projectManagementApp.getProject(input).setProjectManager(projectManagementApp.getCurrentLogin());
+		String input = console.next();
+		input += console.nextLine();
+		int intInput = convertInt(input);
+		projectManagementApp.setProjectManager(projectManagementApp.getProject(intInput));
 		mainMenu();
 	}
 
@@ -141,5 +150,15 @@ public class UserInterface {
 		mainMenu();
 	}
 
-
+	public int convertInt(String input) throws OperationNotAllowedException {
+		int output = 0;
+		try {
+			output = Integer.parseInt(input);
+		} catch (Exception e) {
+			System.out.println("Error: Not an integer");
+			mainMenu();
+		}
+		
+		return output;
+	}
 }

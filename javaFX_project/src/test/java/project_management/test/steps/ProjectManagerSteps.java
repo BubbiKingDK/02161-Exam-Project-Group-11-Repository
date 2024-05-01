@@ -35,13 +35,11 @@ public class ProjectManagerSteps {
 		projectManagementApp.setup();
 		projectManagementApp.login(ID);
 		try {
-	    	projectManagementApp.setProjectManager(serialNumber);
+	    	projectManagementApp.setProjectManager(projectManagementApp.getProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
-		
 	}
-
 
 	@Then("the employee with ID {string} is registered project manager of the project with serial number {int}")
 	public void theEmployeeWithIDIsRegisteredProjectManagerOfTheProjectWithSerialNumber(String ID, Integer serialNumber) {
@@ -53,7 +51,7 @@ public class ProjectManagerSteps {
 	@Given("an employee with ID {string} is the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
 	    projectManagementApp.login(ID);
-	    projectManagementApp.setProjectManager(serialNumber);
+	    projectManagementApp.setProjectManager(projectManagementApp.getProject(serialNumber));
 	    
 		Project project = projectManagementApp.getProject(serialNumber);
 	    assertEquals(ID, project.getProjectManager().getId());

@@ -63,12 +63,10 @@ public class ProjectManagementApp {
 
 	
 
-	public void setProjectManager(int serialNumber) throws OperationNotAllowedException {
-		for (Project p : projects) {
-			if (p.getSerialnumber() == serialNumber) {
-				p.setProjectManager(currentLogin);
-				return;
-			}
+	public void setProjectManager(Project project) throws OperationNotAllowedException {
+		if (project != null) {
+			project.setProjectManager(currentLogin);
+			return;
 		}
 		throw new OperationNotAllowedException("Project does not exist");
 	}
