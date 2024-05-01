@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dtu.project.management.app.OperationNotAllowedException;
+
 public class Activity {
 	private String name;
 	private int startWeek;
@@ -49,4 +51,16 @@ public class Activity {
 		return expectedWorkHours;
 	}
 	
+	public HashMap<Employee, Integer> getWorkHours() {
+		return workHours;
+	}
+	
+	public void registerWorkHours(Employee employee, int hours) throws OperationNotAllowedException {
+		try {
+			workHours.put(employee, workHours.get(employee)+hours);
+		} catch (NullPointerException e) {
+			throw new OperationNotAllowedException("User not assigned to activity");
+		}
+		
+	}
 }

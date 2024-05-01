@@ -41,24 +41,23 @@ public class WorkHoursSteps {
 	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getExpectedWorkHours(), expectedWorkHours);
 	}
 
-	
-	@Given("the user has {int} prior registered work hours on the activity {string}")
-	public void theUserHasPriorRegisteredWorkHoursOnTheActivity(Integer int1, String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Given("the user has {int} prior registered work hours on the activity {string} in the project with serial number {int}")
+	public void theUserHasPriorRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumber(int workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
+	    try {
+	    	projectManagementApp.registerWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)),workHours);
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 
-	@When("the user registers {int} work hours to the activity {string}")
-	public void theUserRegistersWorkHoursToTheActivity(Integer int1, String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@When("the user registers {int} work hours to the activity {string} in the project with serial number {int}")
+	public void theUserRegistersWorkHoursToTheActivityInTheProjectWithSerialNumber(int workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
+		theUserHasPriorRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumber(workHours, activityName, serialNumber);
 	}
 
-	@Then("the activity has registered {int} work hours on the activity {string} from the user with ID {string}")
-	public void theActivityHasRegisteredWorkHoursOnTheActivityFromTheUserWithID(Integer int1, String string, String string2) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Then("the activity has registered {int} work hours on the activity {string} in the project with serial number {int} from the user with ID {string}")
+	public void theActivityHasRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumberFromTheUserWithID(int workHours, String activityName, int serialNumber, String ID) throws OperationNotAllowedException {
+		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), projectManagementApp.getEmployee(ID)));
 	}
-	
 }
 	
