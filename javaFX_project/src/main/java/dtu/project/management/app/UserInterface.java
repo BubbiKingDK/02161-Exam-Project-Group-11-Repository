@@ -61,14 +61,16 @@ public class UserInterface {
 	private void seeActivities() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		System.out.println("Enter 0 to create personal activity");
-		int input = console.nextInt();
+		String input = console.next();
+		input += console.nextLine();
+		int intInput = convertInt(input);
 		
-		if (input == 0) {
+		if (intInput == 0) {
 			for (Activity a : projectManagementApp.getCurrentLogin().getActivities()) {
 				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
 			}
 		} else {
-			for (Activity a : projectManagementApp.getProject(input).getActivities()) {
+			for (Activity a : projectManagementApp.getProject(intInput).getActivities()) {
 				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
 			}
 		}

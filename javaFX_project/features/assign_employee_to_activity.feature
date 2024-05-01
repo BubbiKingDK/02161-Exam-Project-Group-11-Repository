@@ -10,13 +10,13 @@ Scenario: Employee assigns themself and are not already assigned to the activity
 	When the user assigns the employee with ID "karl" to the activity "Scum-Meeting" in project with serial number 24001
 	Then the employee with ID "karl" is assigned to the activity "Scrum-Meeting" in project with serial number 24001
 	
-#Scenario: Employee assigns themself and are already assigned to the activity
-	#Given there is a project with serial number 24001
-	#And there is an activity with the name "Scrum-Meeting" in the project 24001
-	#And the current Login ID is "karl"
-	#And employee with ID "karl" is assigned to activity "Scrum-Meeting"
-	#When the user assigns the employee with ID "karl" to the activity "Scum-Meeting"
-	#Then the error message "Employee is already assigned to the activity" is given
+Scenario: Employee assigns themself and are already assigned to the activity
+	Given that there is a project with serial number 24001
+	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4 in the project with the serial number 24001
+	And the current Login ID is "karl"
+	And employee with ID "karl" is assigned to activity "Scrum-Meeting" in project with serial number 24001
+	When the user assigns the employee with ID "karl" to the activity "Scum-Meeting" in project with serial number 24001
+	Then the error message "Employee is already assigned to the activity" is given
 	
 #Scenario: Project manager assigns employee to activity
 	#Given there is a project with serial number 24001

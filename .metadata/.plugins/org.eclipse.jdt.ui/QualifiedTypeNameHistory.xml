@@ -6,9 +6,13 @@
     <fullyQualifiedTypeName name="io.cucumber.java.en.Given"/>
     <fullyQualifiedTypeName name="io.cucumber.java.en.When"/>
     <fullyQualifiedTypeName name="io.cucumber.java.en.Then"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="dtu.project.management.app.ProjectManagementApp"/>
+    <fullyQualifiedTypeName name="project_management.test.steps.ActivitySteps"/>
     <fullyQualifiedTypeName name="dtu.project.management.domain.Project"/>
+    <fullyQualifiedTypeName name="dtu.project.management.app.ProjectManagementApp"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.lang.Boolean"/>
+    <fullyQualifiedTypeName name="dtu.project.management.domain.Employee"/>
     <fullyQualifiedTypeName name="dtu.project.management.domain.Activity"/>
 </qualifiedTypeNameHistroy>

@@ -139,7 +139,11 @@ public class ProjectManagementApp {
 	}
 
 
-	public void addEmployeeToActivity(Employee employee, Activity activity) {
-		activity.addEmployeeToActivity(employee);
+	public void addEmployeeToActivity(Employee employee, Activity activity) throws OperationNotAllowedException {
+		if (!isAssignedToActivity(employee, activity)) {
+			activity.addEmployeeToActivity(employee);
+			return;
+		}
+		throw new OperationNotAllowedException("Employee is already assigned to the activity");
 	}
 }
