@@ -69,13 +69,8 @@ public class WorkHoursSteps {
 
 	@Then("the total work hours of the activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}, is {double}")
 	public void theTotalWorkHoursOfTheActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumberIs(String activityName, int startDate, int endDate, int serialNumber, double workHours) throws OperationNotAllowedException {
-	    int sum = 0;
-	    HashMap<Employee, Double> temp = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getWorkHours();
-	    
-		for (Employee e : temp.keySet()) {
-	    	sum += temp.get(e);
-	    }
-		assertEquals(workHours, sum, 0.1);
+		
+		assertEquals(workHours, projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getTotalWorkHours(), 0.1);
 	}
 }
 	

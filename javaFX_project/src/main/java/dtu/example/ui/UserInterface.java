@@ -35,10 +35,12 @@ public class UserInterface {
 		System.out.println("Input 7 to see emplyees in activity");
 		System.out.println("Input 8 to assign expected work hours to activity");
 		System.out.println("Input 9 to register work hours to activity");
-		System.out.println("Input 0 to close the program");
+		System.out.println("Input 0 to logout");
 		try {
-			int input = console.nextInt();
-			switch (input) {
+			String input = console.next();
+			input += console.nextLine();
+			int intInput = convertInt(input);
+			switch (intInput) {
 			case 1:
 				createProject();
 			case 2:
@@ -59,7 +61,6 @@ public class UserInterface {
 				registerWorkHours();
 			case 0:
 				login();
-				// System.exit(0)
 			default:
 				System.out.println(("Unexpected value: " + input));
 				mainMenu();
@@ -122,9 +123,9 @@ public class UserInterface {
 		activityName += console.nextLine();
 		
 		Project project = projectManagementApp.getProject(intSerialNumber);
-		
-		for (Employee e : projectManagementApp.getEmployeesInActivity(projectManagementApp.getActivity(activityName, project))) {
-			System.out.println(e.getId());
+		Activity activity = projectManagementApp.getActivity(activityName, project);
+		for (Employee e : projectManagementApp.getEmployeesInActivity(activity)) {
+			System.out.println(e.getId()+ ", Registered work hours: "+activity.getWorkHours().get(e));
 		}
 		mainMenu();
 	}
@@ -161,7 +162,7 @@ public class UserInterface {
 			}
 		} else {
 			for (Activity a : projectManagementApp.getProjectActivities(projectManagementApp.getProject(intInput))) {
-				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek() + ", Expected work hours: " + a.getExpectedWorkHours());
+				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek() + ", Expected work hours: " + a.getExpectedWorkHours()+ ", Registered work hours: " + a.getTotalWorkHours());
 			}
 		}
 		
@@ -176,13 +177,14 @@ public class UserInterface {
 		int intInput = convertInt(input);
 		System.out.println("Enter activity name");
 		String activityName = console.next();
+		activityName += console.nextLine();
 		System.out.println("Enter start week");
 		String startWeek = console.next();
-		input += console.nextLine();
+		startWeek += console.nextLine();
 		int intStartWeek = convertInt(startWeek);
 		System.out.println("Enter end week");
 		String endWeek = console.next();
-		input += console.nextLine();
+		endWeek += console.nextLine();
 		int intEndWeek = convertInt(endWeek);
 		
 		projectManagementApp.createActivity(activityName, intStartWeek, intEndWeek);			
@@ -204,16 +206,21 @@ public class UserInterface {
 	}
 
 	public void login() throws OperationNotAllowedException {
-		System.out.print("Input login credentials: ");
+		System.out.println("Input login credentials");
+		System.out.println("Input 0 to close program");
 		String input = console.next();
 		input += console.nextLine();
+		if (input.equals("0")) {
+			System.out.println("Goodbye :)");
+			System.exit(0);
+		}
 		try {
 			projectManagementApp.login(input);
 		} catch (Exception e) {
 			System.out.println("Error: "+e.getMessage());
 			login();
 		}
-
+		
 		System.out.println("You are now logged in as: " + projectManagementApp.getCurrentLogin().getId());
 		mainMenu();
 	}

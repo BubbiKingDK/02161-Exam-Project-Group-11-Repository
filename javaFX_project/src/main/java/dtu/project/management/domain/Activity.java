@@ -58,4 +58,13 @@ public class Activity {
 	public void registerWorkHours(Employee employee, double hours) throws OperationNotAllowedException {
 			workHours.put(employee, workHours.get(employee)+hours);
 	}
+	
+	public double getTotalWorkHours() {
+	    double sum = 0d;
+	  
+		for (Employee e : workHours.keySet()) {
+	    	sum += workHours.get(e);
+	    }
+		return sum;
+	}
 }

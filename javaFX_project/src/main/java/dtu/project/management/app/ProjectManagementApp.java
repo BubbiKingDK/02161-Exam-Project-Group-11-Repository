@@ -208,4 +208,8 @@ public class ProjectManagementApp {
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
+	
+	public double getTotalWorkHours(Activity activity) {
+		return activity.getTotalWorkHours();
+	}
 }
