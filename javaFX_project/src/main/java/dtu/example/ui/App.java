@@ -1,7 +1,6 @@
 package dtu.example.ui;
 
 import dtu.project.management.app.OperationNotAllowedException;
-import dtu.project.management.app.UserInterface;
 
 public class App {
 

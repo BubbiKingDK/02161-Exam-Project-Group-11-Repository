@@ -40,13 +40,6 @@ public class EmployeeSteps {
 	    assertEquals(project.getSerialnumber(), serialNumber);
 	}
 
-	@Given("an employee with ID {string} is logged in")
-	public void anEmployeeWithIDIsLoggedIn(String ID) throws OperationNotAllowedException {
-		projectManagementApp.setup();
-		projectManagementApp.login(ID);
-	    assertEquals(projectManagementApp.getCurrentLogin().getId(), ID);
-	}
-	
 	@Given("that there is not a project with serial number {int}")
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {
 	    assertEquals(projectManagementApp.getProject(serialNumber), null);
@@ -79,7 +72,7 @@ public class EmployeeSteps {
 	public void theEmployeeWithIDIsAssignedToTheActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
 	    Employee e = projectManagementApp.getEmployee(ID);
 	    Activity a = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber));
-	    assertTrue(a.getEmployees().contains(e));
+	    assertTrue(projectManagementApp.getEmployeesInActivity(a).contains(e));
 	}
 	
 	@Given("employee with ID {string} is assigned to activity {string} in project with serial number {int}")

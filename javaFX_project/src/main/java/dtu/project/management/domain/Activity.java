@@ -56,11 +56,6 @@ public class Activity {
 	}
 	
 	public void registerWorkHours(Employee employee, int hours) throws OperationNotAllowedException {
-		try {
 			workHours.put(employee, workHours.get(employee)+hours);
-		} catch (NullPointerException e) {
-			throw new OperationNotAllowedException("User not assigned to activity");
-		}
-		
 	}
 }

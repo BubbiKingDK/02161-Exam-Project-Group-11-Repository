@@ -76,6 +76,11 @@ public class ActivitySteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
+	
+	@Given("there is not already an activity with the name {string} added to the user")
+	public void thereIsNotAlreadyAnActivityWithTheNameAddedToTheUser(String activityName) {
+	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getCurrentLogin()), null);
+	}
 
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the user with ID {string}")
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
@@ -96,6 +101,15 @@ public class ActivitySteps {
 	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
 	    projectManagementApp.setup();
 		assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), null);
+	}
+	
+	@When("the user gets the list of employees for the activity with the name {string} in the project with serial number {int}")
+	public void theUserGetsTheListOfEmployeesForTheActivityWithTheNameInTheProjectWithSerialNumber(String activityName, int serialNumber) {
+		try {
+			projectManagementApp.getEmployeesInActivity(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)));
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
 	}
 	
 	@When("the user gets the list of activities for the project with serial number {int}")

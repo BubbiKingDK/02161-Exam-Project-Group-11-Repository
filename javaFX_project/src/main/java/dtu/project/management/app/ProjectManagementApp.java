@@ -185,7 +185,18 @@ public class ProjectManagementApp {
 
 	public void registerWorkHours(Activity activity, int hours) throws OperationNotAllowedException {
 		if (activity != null) {
-			activity.registerWorkHours(currentLogin,hours);
+			if(activity.getEmployees().contains(currentLogin)) {
+				activity.registerWorkHours(currentLogin,hours);
+				return;
+			}
+			throw new OperationNotAllowedException("User not assigned to activity");
+		}
+		throw new OperationNotAllowedException("Activity does not exist");
+	}
+
+	public List<Employee>  getEmployeesInActivity(Activity activity) throws OperationNotAllowedException {
+		if (activity != null) {
+			return activity.getEmployees();
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}

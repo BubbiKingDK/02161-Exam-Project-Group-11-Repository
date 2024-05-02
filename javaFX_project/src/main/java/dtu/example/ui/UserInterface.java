@@ -1,7 +1,9 @@
-package dtu.project.management.app;
+package dtu.example.ui;
 
 import java.util.Scanner;
 
+import dtu.project.management.app.OperationNotAllowedException;
+import dtu.project.management.app.ProjectManagementApp;
 import dtu.project.management.domain.Activity;
 import dtu.project.management.domain.Employee;
 import dtu.project.management.domain.Project;
@@ -96,7 +98,7 @@ public class UserInterface {
 		
 		Project project = projectManagementApp.getProject(intSerialNumber);
 		
-		for (Employee e : projectManagementApp.getActivity(activityName, project).getEmployees()) {
+		for (Employee e : projectManagementApp.getEmployeesInActivity(projectManagementApp.getActivity(activityName, project))) {
 			System.out.println(e.getId());
 		}
 		mainMenu();
