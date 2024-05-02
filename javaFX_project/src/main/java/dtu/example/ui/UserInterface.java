@@ -34,6 +34,7 @@ public class UserInterface {
 		System.out.println("Input 6 to assign employee to activity");
 		System.out.println("Input 7 to see emplyees in activity");
 		System.out.println("Input 8 to assign expected work hours to activity");
+		System.out.println("Input 9 to register work hours to activity");
 		System.out.println("Input 0 to close the program");
 		try {
 			int input = console.nextInt();
@@ -54,6 +55,8 @@ public class UserInterface {
 				seeEmployeesInActivity();
 			case 8:
 				assignExpectedWorkHours();
+			case 9:
+				registerWorkHours();
 			case 0:
 				login();
 				// System.exit(0)
@@ -66,6 +69,28 @@ public class UserInterface {
 			mainMenu();
 		}
 	}
+	
+	
+
+	private void registerWorkHours() throws OperationNotAllowedException {
+		System.out.println("Enter project serial number");
+		String serialNumber = console.next();
+		serialNumber += console.nextLine();
+		int intSerialNumber = convertInt(serialNumber);
+		
+		System.out.println("Enter activity name");
+		String activityName = console.next();
+		activityName += console.nextLine();
+		
+		System.out.println("Enter work hours");
+		String workHours = console.next();
+		workHours += console.nextLine();
+		double doubleWorkHours = convertDouble(workHours);
+		
+		projectManagementApp.registerWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(intSerialNumber)), doubleWorkHours);
+		mainMenu();
+	}
+
 
 	private void assignExpectedWorkHours() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
@@ -228,4 +253,21 @@ public class UserInterface {
 		
 		return output;
 	}
+	
+	public double convertDouble(String input) throws OperationNotAllowedException {
+		double output = 0d;
+		try {
+			output = Double.parseDouble(input);
+		} catch (Exception e) {
+			System.out.println("Error: Not a number");
+			mainMenu();
+		}
+		if (output % 0.5 != 0) {
+			System.out.println("Error: You can only register half hours");
+			mainMenu();
+		}
+		return output;
+	}
+	
+	
 }

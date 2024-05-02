@@ -179,11 +179,11 @@ public class ProjectManagementApp {
 		}
 		throw new OperationNotAllowedException("Activity does not exist");		
 	}
-	public int getEmployeeWorkHours(Activity activity, Employee employee) {
+	public double getEmployeeWorkHours(Activity activity, Employee employee) {
 		return activity.getWorkHours().get(employee);
 	}
 
-	public void registerWorkHours(Activity activity, int hours) throws OperationNotAllowedException {
+	public void registerWorkHours(Activity activity, double hours) throws OperationNotAllowedException {
 		if (activity != null) {
 			if(activity.getEmployees().contains(currentLogin)) {
 				activity.registerWorkHours(currentLogin,hours);

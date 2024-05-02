@@ -36,13 +36,13 @@ public class WorkHoursSteps {
 		}
 	}
 	
-	@Then("the activity with the name {string}, in the project with the serial number {int}, is assigned {int} work hours")
-	public void theActivityWithTheNameInTheProjectWithTheSerialNumberIsAssignedWorkHours(String activityName, int serialNumber, int expectedWorkHours) throws OperationNotAllowedException {
-	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getExpectedWorkHours(), expectedWorkHours);
+	@Then("the activity with the name {string}, in the project with the serial number {int}, is assigned {double} work hours")
+	public void theActivityWithTheNameInTheProjectWithTheSerialNumberIsAssignedWorkHours(String activityName, int serialNumber, double expectedWorkHours) throws OperationNotAllowedException {
+	    assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getExpectedWorkHours(), expectedWorkHours, 0.1);
 	}
 
-	@Given("the user has {int} prior registered work hours on the activity {string} in the project with serial number {int}")
-	public void theUserHasPriorRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumber(int workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
+	@Given("the user has {double} prior registered work hours on the activity {string} in the project with serial number {int}")
+	public void theUserHasPriorRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumber(double workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
 	    try {
 	    	projectManagementApp.registerWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)),workHours);
 		} catch (OperationNotAllowedException e) {
@@ -50,14 +50,14 @@ public class WorkHoursSteps {
 		}
 	}
 
-	@When("the user registers {int} work hours to the activity {string} in the project with serial number {int}")
-	public void theUserRegistersWorkHoursToTheActivityInTheProjectWithSerialNumber(int workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
+	@When("the user registers {double} work hours to the activity {string} in the project with serial number {int}")
+	public void theUserRegistersWorkHoursToTheActivityInTheProjectWithSerialNumber(double workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
 		theUserHasPriorRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumber(workHours, activityName, serialNumber);
 	}
 
-	@Then("the activity has registered {int} work hours on the activity {string} in the project with serial number {int} from the user with ID {string}")
-	public void theActivityHasRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumberFromTheUserWithID(int workHours, String activityName, int serialNumber, String ID) throws OperationNotAllowedException {
-		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), projectManagementApp.getEmployee(ID)));
+	@Then("the activity has registered {double} work hours on the activity {string} in the project with serial number {int} from the user with ID {string}")
+	public void theActivityHasRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumberFromTheUserWithID(double workHours, String activityName, int serialNumber, String ID) throws OperationNotAllowedException {
+		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), projectManagementApp.getEmployee(ID)), 0.1);
 	}
 }
 	

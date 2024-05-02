@@ -14,8 +14,8 @@ Scenario: Assign work hours to a non-existing activity
 	When the user assigns the activity with the name "Scrum-Meeting", in the project with the serial number 24001, 100 work hours
 	Then the error message "Activity does not exist" is given
 
-Scenario: Assign work hours to a non-existing activity
+Scenario: Assign work hours to a non-existing project
 	Given that there is not a project with serial number 24001
 	When the user assigns the activity with the name "Scrum-Meeting", in the project with the serial number 24001, 100 work hours
 	Then the error message "Project does not exist" is given
-	
+
