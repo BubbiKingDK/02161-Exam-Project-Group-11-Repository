@@ -13,7 +13,7 @@ public class Activity {
 	private List<Employee> employees = new ArrayList<>();
 	private int expectedWorkHours = 0;
 	
-	private HashMap<Employee, Integer> workHours = new HashMap<>();
+	private HashMap<Employee, Double> workHours = new HashMap<>();
 	
 	
 	public Activity(String name, int startWeek, int endWeek) {
@@ -40,7 +40,7 @@ public class Activity {
 	
 	public void addEmployeeToActivity(Employee employee) {
 		employees.add(employee);
-		workHours.put(employee, 0);
+		workHours.put(employee, 0d);
 	}
 
 	public void setExpectedWorkHours(int expectedWorkHours) {
@@ -51,11 +51,11 @@ public class Activity {
 		return expectedWorkHours;
 	}
 	
-	public HashMap<Employee, Integer> getWorkHours() {
+	public HashMap<Employee, Double> getWorkHours() {
 		return workHours;
 	}
 	
-	public void registerWorkHours(Employee employee, int hours) throws OperationNotAllowedException {
+	public void registerWorkHours(Employee employee, double hours) throws OperationNotAllowedException {
 			workHours.put(employee, workHours.get(employee)+hours);
 	}
 }
