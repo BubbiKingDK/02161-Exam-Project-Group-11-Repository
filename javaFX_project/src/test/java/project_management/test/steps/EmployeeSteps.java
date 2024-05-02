@@ -33,7 +33,6 @@ public class EmployeeSteps {
 	
 	@Given("that there is a project with serial number {int}")
 	public void thatThereIsAProjectWithSerialNumber(int serialNumber) {
-		projectManagementApp.setup();
 	    projectManagementApp.createProject("Project");
 	    projectManagementApp.addProject();
 	    Project project = projectManagementApp.getProject(serialNumber);
@@ -47,7 +46,6 @@ public class EmployeeSteps {
 
 	@Given("the current Login ID is {string}")
 	public void theCurrentLoginIDIs(String ID) throws OperationNotAllowedException {
-		projectManagementApp.setup();
 	    projectManagementApp.login(ID);
 	}
 
@@ -78,7 +76,7 @@ public class EmployeeSteps {
 	@Given("employee with ID {string} is assigned to activity {string} in project with serial number {int}")
 	public void employeeWithIDIsAssignedToActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
 		Employee employee = projectManagementApp.getEmployee(ID);
-		Activity activity = projectManagementApp.getActivity();
+		Activity activity = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber));
 	    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
 	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)));
 	    assertTrue(isAssigned);

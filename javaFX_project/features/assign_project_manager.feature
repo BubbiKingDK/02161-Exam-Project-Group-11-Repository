@@ -2,6 +2,9 @@ Feature: Assign project manager
 	Description: The employee registers a project manager of the project
 	Actors: employee
 
+Background:
+  Given the test employee reposiatory is used.	
+
 Scenario: Register a project manager
 	Given that there is a project with serial number 24001
 	When the user assigns the project manager with ID "karl" to the project with serial number 24001

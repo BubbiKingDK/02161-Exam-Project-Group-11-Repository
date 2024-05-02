@@ -59,7 +59,6 @@ public class LoginSteps {
 	
 	@Given("that there is not an employee with ID {string}")
 	public void thatThereIsNotAnEmployeeWithID(String ID) {
-		projectManagementApp.setup();
 		Employee e = projectManagementApp.getEmployee(ID);
 		assertEquals(e, null);
 	}
@@ -67,5 +66,10 @@ public class LoginSteps {
 	@Then("the error message {string} is given")
 	public void theErrorMessageIsGiven(String errorMessage) {
 		assertEquals(errorMessage, this.errorMessage.getErrorMessage());
+	}
+	
+	@Given("the test employee reposiatory is used.")
+	public void theTestEmployeeReposiatoryIsUsed() {
+	   projectManagementApp.testSetup();
 	}
 }

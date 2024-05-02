@@ -1,7 +1,10 @@
 Feature: Assign employee activity
 	Description: An employee is assigned to an activity
 	Actors: Employee
-
+	
+Background:
+  Given the test employee reposiatory is used.
+  
 Scenario: Employee assigns themself and are not already assigned to the activity
 	Given that there is a project with serial number 24001
 	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4 in the project with the serial number 24001

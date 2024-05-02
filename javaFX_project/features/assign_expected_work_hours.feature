@@ -1,6 +1,9 @@
 Feature: Assign expected work hours
 	Description: A user assign expected work hours to activity
 	Actors: Employee
+	
+Background:
+  Given the test employee reposiatory is used.
 
 Scenario: Assign work hours to existing activity
 	Given that there is a project with serial number 24001

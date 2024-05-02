@@ -33,7 +33,6 @@ public class ProjectManagerSteps {
 	
 	@When("the user assigns the project manager with ID {string} to the project with serial number {int}")
 	public void theUserAssignsTheProjectManagerWithIDToTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
-		projectManagementApp.setup();
 		projectManagementApp.login(ID);
 		try {
 	    	projectManagementApp.setProjectManager(projectManagementApp.getProject(serialNumber));

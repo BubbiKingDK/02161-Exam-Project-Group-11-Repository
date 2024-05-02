@@ -23,6 +23,14 @@ public class ProjectManagementApp {
 		employees.add(new Employee("beha"));
 		employees.add(new Employee("wemo"));
 	}
+	
+	public void testSetup() {
+		employees.add(new Employee("karl"));
+		employees.add(new Employee("bjar"));
+		employees.add(new Employee("huba"));
+		employees.add(new Employee("beha"));
+		employees.add(new Employee("wemo"));
+	}
 
 	public Employee getCurrentLogin() {
 		return currentLogin;

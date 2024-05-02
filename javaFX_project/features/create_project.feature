@@ -2,6 +2,9 @@ Feature: Create a project
 Description: A project is added to the system
 Actors: Employee
 
+Background:
+  Given the test employee reposiatory is used.
+
 Scenario: Create first project successfully 
 	Given the year is the current year
 	And that there is a project with the name "Project 1"

@@ -2,6 +2,9 @@ Feature: Create an activity
 	Description: The user creates an activity
 	Actors: Employee
 	
+Background:
+  Given the test employee reposiatory is used.
+	
 Scenario: User creates an activity that is not already created
 	Given that there is a project with serial number 24001
 	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4
@@ -15,6 +18,7 @@ Scenario: Project does not exist
 
 Scenario: Trying to add and activity that is already created
 	Given that there is a project with serial number 24001
+	Given that there is a project with serial number 24002
 	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4
 	And the activity with the name "Scrum-Meeting" is already in the project with serial number 24001
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
@@ -22,6 +26,7 @@ Scenario: Trying to add and activity that is already created
 
 Scenario: User creates a personal activity that is not already created
 	Given the current Login ID is "karl"
+	And there is an already an activity with the name "Holliday2", a start date week 12 and an end date week 16 added to the user with ID "karl"
 	And there is an activity with the name "Holliday", a start date week 5 and an end date week 8
 	And there is not already an activity with the name "Holliday" added to the user
 	When the activity with name "Holliday" is added to the user with ID "karl"

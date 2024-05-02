@@ -24,13 +24,11 @@ public class ActivitySteps {
 	
 	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int}")
 	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeek(String name, int startWeek , int endWeek) {
-		projectManagementApp.setup();
 	    projectManagementApp.createActivity(name, startWeek, endWeek);
 	}
 	
 	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
 	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialnumber) throws OperationNotAllowedException {
-		projectManagementApp.setup();
 		projectManagementApp.createActivity(activityName, startWeek, endWeek);
 	    projectManagementApp.addActivity(projectManagementApp.getProject(serialnumber));
 	}
@@ -86,9 +84,10 @@ public class ActivitySteps {
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
 	    Activity activity = projectManagementApp.getActivity(activityName, projectManagementApp.getEmployee(ID));
 	    
+	    System.out.println(activity);
 	    assertTrue(projectManagementApp.getPersonalActivities().contains(activity));
 		assertEquals(activity.getName(), activityName);
-		assertEquals(activity.getStartWeek(), startWeek);
+		assertEquals(activity.getStartWeek(), startWeek); 
 		assertEquals(activity.getEndWeek(), endWeek);
 	}
 	
@@ -99,7 +98,6 @@ public class ActivitySteps {
 	
 	@Given("there is not an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
 	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
-	    projectManagementApp.setup();
 		assertEquals(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), null);
 	}
 	
@@ -119,5 +117,11 @@ public class ActivitySteps {
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
+	}
+	
+	@Given("there is an already an activity with the name {string}, a start date week {int} and an end date week {int} added to the user with ID {string}")
+	public void thereIsAnAlreadyAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) throws OperationNotAllowedException {
+		projectManagementApp.createActivity(activityName, startWeek, endWeek);
+	    projectManagementApp.addActivity(projectManagementApp.getEmployee(ID));
 	}
 }
