@@ -75,6 +75,7 @@ public class EmployeeSteps {
 	
 	@Given("employee with ID {string} is assigned to activity {string} in project with serial number {int}")
 	public void employeeWithIDIsAssignedToActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
+		projectManagementApp.login(ID);
 		Employee employee = projectManagementApp.getEmployee(ID);
 		Activity activity = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber));
 	    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
@@ -82,7 +83,4 @@ public class EmployeeSteps {
 	    assertTrue(isAssigned);
 	}
 
-
-
-	
 }

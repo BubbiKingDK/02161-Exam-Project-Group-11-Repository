@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.cucumber.java.en.Given;
@@ -58,6 +59,23 @@ public class WorkHoursSteps {
 	@Then("the activity has registered {double} work hours on the activity {string} in the project with serial number {int} from the user with ID {string}")
 	public void theActivityHasRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumberFromTheUserWithID(double workHours, String activityName, int serialNumber, String ID) throws OperationNotAllowedException {
 		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), projectManagementApp.getEmployee(ID)), 0.1);
+	}
+	
+	@When("the employee with ID {string} registers {double} work hours to the activity {string} in the project with serial number {int}")
+	public void theEmployeeWithIDRegistersWorkHoursToTheActivityInTheProjectWithSerialNumber(String ID, double workHours, String activityName, int serialNumber) throws OperationNotAllowedException {
+	    projectManagementApp.login(ID);
+	    projectManagementApp.registerWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)), workHours);
+	}
+
+	@Then("the total work hours of the activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}, is {double}")
+	public void theTotalWorkHoursOfTheActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumberIs(String activityName, int startDate, int endDate, int serialNumber, double workHours) throws OperationNotAllowedException {
+	    int sum = 0;
+	    HashMap<Employee, Double> temp = projectManagementApp.getActivity(activityName, projectManagementApp.getProject(serialNumber)).getWorkHours();
+	    
+		for (Employee e : temp.keySet()) {
+	    	sum += temp.get(e);
+	    }
+		assertEquals(workHours, sum, 0.1);
 	}
 }
 	
