@@ -217,24 +217,8 @@ public class ProjectManagementApp {
 		return activity.getTotalWorkHours();
 	}
 	
-	public String employeesInActivityToString(String activityName, int serialNumber) throws OperationNotAllowedException {
-		ProjectActivity activity = getProjectActivity(activityName, getProject(serialNumber));
-		String s = "";
-		for (Employee e : activity.getEmployees()) {
-			s+=e.getId() + ", Registered work hours: " + activity.getWorkHours().get(e)+"\n";
-		}
-		return s;
-	}
 	
-	public String employeesNotInActivityToString(String activityName, int serialNumber) throws OperationNotAllowedException {
-		ProjectActivity activity = getProjectActivity(activityName, getProject(serialNumber));
-		String s = "";
-		for (Employee e : activity.getWorkHours().keySet()) {
-			if(!activity.getEmployees().contains(e)) {
-				s+="\n"+e.getId() + ", Registered work hours: " + activity.getWorkHours().get(e);
-			}
-		}
-		return s;
-	}
+	
+	
 	
 }

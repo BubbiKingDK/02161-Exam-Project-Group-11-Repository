@@ -4,16 +4,13 @@ import java.util.Scanner;
 
 import dtu.project.management.app.OperationNotAllowedException;
 import dtu.project.management.app.ProjectManagementApp;
-import dtu.project.management.domain.ProjectActivity;
-import dtu.project.management.domain.Employee;
-import dtu.project.management.domain.PersonalActivity;
-import dtu.project.management.domain.Project;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.io.OutputDecorator;
 import io.cucumber.java.an.Y;
 
 public class UserInterface {
 
 	private ProjectManagementApp projectManagementApp = new ProjectManagementApp();
+	private UIHelper uIHelper = new UIHelper(projectManagementApp);
 	private Scanner console = new Scanner(System.in);
 
 	public UserInterface() throws OperationNotAllowedException {
@@ -35,8 +32,8 @@ public class UserInterface {
 		System.out.println("5. Assign expected work hours to activity");
 		System.out.println("6. Register work hours to activity");
 		System.out.println("7. See all projects");
-		System.out.println("8. See activities");
-		System.out.println("9. See employees in activity");
+		System.out.println("8. See activities and total work hours");
+		System.out.println("9. See employees and registered time to activity");
 		System.out.println("0. Logout");
 		try {
 			String input = console.next();
@@ -126,9 +123,9 @@ public class UserInterface {
 		String activityName = console.next();
 		activityName += console.nextLine();
 		System.out.println("Employees in activity:");
-		System.out.println(projectManagementApp.employeesInActivityToString(activityName, intSerialNumber));
+		System.out.println(uIHelper.employeesInActivityToString(activityName, intSerialNumber));
 		System.out.print("Employees not in activity:");
-		System.out.println(projectManagementApp.employeesNotInActivityToString(activityName, intSerialNumber));
+		System.out.println(uIHelper.employeesNotInActivityToString(activityName, intSerialNumber));
 		mainMenu();
 	}
 
@@ -146,9 +143,8 @@ public class UserInterface {
 		String ID = console.next();
 		ID += console.nextLine();
 
-		Project project = projectManagementApp.getProject(intSerialNumber);
 		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID),
-				projectManagementApp.getProjectActivity(activityName, project), project);
+				projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)), projectManagementApp.getProject(intSerialNumber));
 		System.out.println("Employee with ID " + ID + " is now assigned to the activity: " + activityName);
 		mainMenu();
 	}
@@ -161,17 +157,9 @@ public class UserInterface {
 		int intInput = convertInt(input);
 
 		if (intInput == 0) {
-			for (PersonalActivity a : projectManagementApp.getPersonalActivities()) {
-				System.out
-						.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
-			}
+			System.out.print(uIHelper.personalActivitiesToString());			
 		} else {
-			for (ProjectActivity a : projectManagementApp
-					.getProjectActivities(projectManagementApp.getProject(intInput))) {
-				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek()
-						+ ", Expected work hours: " + a.getExpectedWorkHours() + ", Registered work hours: "
-						+ a.getTotalWorkHours());
-			}
+			System.out.print(uIHelper.projectActivitiesToString(intInput));
 		}
 
 		mainMenu();
@@ -251,15 +239,8 @@ public class UserInterface {
 	}
 
 	public void showProjects() throws OperationNotAllowedException {
-		System.out.println("List of projects:");
-		for (Project p : projectManagementApp.getProjects()) {
-			System.out.print(p.getSerialnumber() + " " + p.getName());
-			if (p.getProjectManager() != null) {
-				System.out.println(" - Project Manager: " + p.getProjectManager().getId());
-			} else {
-				System.out.println(" - Project Manager: None");
-			}
-		}
+		System.out.print("List of projects:");
+		System.out.println(uIHelper.projectsToString());
 		mainMenu();
 	}
 
