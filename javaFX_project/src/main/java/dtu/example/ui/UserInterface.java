@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 import dtu.project.management.app.OperationNotAllowedException;
 import dtu.project.management.app.ProjectManagementApp;
-import dtu.project.management.domain.Activity;
+import dtu.project.management.domain.ProjectActivity;
 import dtu.project.management.domain.Employee;
+import dtu.project.management.domain.PersonalActivity;
 import dtu.project.management.domain.Project;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.io.OutputDecorator;
 import io.cucumber.java.an.Y;
@@ -26,16 +27,17 @@ public class UserInterface {
 
 	public void mainMenu() throws OperationNotAllowedException {
 		System.out.println();
-		System.out.println("Input 1 to create project");
-		System.out.println("Input 2 to see all projects");
-		System.out.println("Input 3 to assign project manager");
-		System.out.println("Input 4 to create activity");
-		System.out.println("Input 5 to see activities");
-		System.out.println("Input 6 to assign employee to activity");
-		System.out.println("Input 7 to see emplyees in activity");
-		System.out.println("Input 8 to assign expected work hours to activity");
-		System.out.println("Input 9 to register work hours to activity");
-		System.out.println("Input 0 to logout");
+		System.out.println("Input one of the following:");
+		System.out.println("1. Create project");
+		System.out.println("2. Create activity");
+		System.out.println("3. Assign project manager");
+		System.out.println("4. Assign employee to activity");
+		System.out.println("5. Assign expected work hours to activity");
+		System.out.println("6. Register work hours to activity");
+		System.out.println("7. See all projects");
+		System.out.println("8. See activities");
+		System.out.println("9. See employees in activity");
+		System.out.println("0. Logout");
 		try {
 			String input = console.next();
 			input += console.nextLine();
@@ -44,21 +46,21 @@ public class UserInterface {
 			case 1:
 				createProject();
 			case 2:
-				showProjects();
+				createActivity();
 			case 3:
 				assignProjectManager();
 			case 4:
-				createActivity();
-			case 5:
-				seeActivities();
-			case 6:
 				assignEmployeeToActivity();
-			case 7:
-				seeEmployeesInActivity();
-			case 8:
+			case 5:
 				assignExpectedWorkHours();
-			case 9:
+			case 6:
 				registerWorkHours();
+			case 7:
+				showProjects();
+			case 8:
+				seeActivities();
+			case 9:
+				seeEmployeesInActivity();
 			case 0:
 				login();
 			default:
@@ -66,67 +68,67 @@ public class UserInterface {
 				mainMenu();
 			}
 		} catch (Exception e) {
-			System.out.println("Error: "+e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 			mainMenu();
 		}
 	}
-	
-	
 
 	private void registerWorkHours() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
 		serialNumber += console.nextLine();
 		int intSerialNumber = convertInt(serialNumber);
-		
+
 		System.out.println("Enter activity name");
 		String activityName = console.next();
 		activityName += console.nextLine();
-		
+
 		System.out.println("Enter work hours");
 		String workHours = console.next();
 		workHours += console.nextLine();
 		double doubleWorkHours = convertDouble(workHours);
-		
-		projectManagementApp.registerWorkHours(projectManagementApp.getActivity(activityName, projectManagementApp.getProject(intSerialNumber)), doubleWorkHours);
+
+		projectManagementApp.registerWorkHours(
+				projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)),
+				doubleWorkHours);
 		mainMenu();
 	}
-
 
 	private void assignExpectedWorkHours() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
 		serialNumber += console.nextLine();
 		int intSerialNumber = convertInt(serialNumber);
-		
+
 		System.out.println("Enter activity name");
 		String activityName = console.next();
 		activityName += console.nextLine();
-		
+
 		System.out.println("Enter expected work hours");
 		String expectedWorkHours = console.next();
 		expectedWorkHours += console.nextLine();
 		int intExpectedWorkHours = convertInt(expectedWorkHours);
-		projectManagementApp.assignExpectedWorkHours(intExpectedWorkHours, projectManagementApp.getActivity(activityName, projectManagementApp.getProject(intSerialNumber)));
+		projectManagementApp.assignExpectedWorkHours(intExpectedWorkHours, projectManagementApp
+				.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)));
+
+		System.out.println(
+				"The activity " + activityName + " is now assigned " + expectedWorkHours + " expected work hours");
 		mainMenu();
 	}
 
 	private void seeEmployeesInActivity() throws OperationNotAllowedException {
-		
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
 		serialNumber += console.nextLine();
 		int intSerialNumber = convertInt(serialNumber);
-		
+
 		System.out.println("Enter activity name");
 		String activityName = console.next();
 		activityName += console.nextLine();
-		
-		Project project = projectManagementApp.getProject(intSerialNumber);
-		Activity activity = projectManagementApp.getActivity(activityName, project);
-		for (Employee e : projectManagementApp.getEmployeesInActivity(activity)) {
-			System.out.println(e.getId()+ ", Registered work hours: "+activity.getWorkHours().get(e));
-		}
+		System.out.println("Employees in activity:");
+		System.out.println(projectManagementApp.employeesInActivityToString(activityName, intSerialNumber));
+		System.out.print("Employees not in activity:");
+		System.out.println(projectManagementApp.employeesNotInActivityToString(activityName, intSerialNumber));
 		mainMenu();
 	}
 
@@ -135,17 +137,19 @@ public class UserInterface {
 		String serialNumber = console.next();
 		serialNumber += console.nextLine();
 		int intSerialNumber = convertInt(serialNumber);
-		
+
 		System.out.println("Enter activity name");
 		String activityName = console.next();
 		activityName += console.nextLine();
-		
+
 		System.out.println("Enter user ID that you want to assign to activity");
 		String ID = console.next();
 		ID += console.nextLine();
-		
+
 		Project project = projectManagementApp.getProject(intSerialNumber);
-		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID), projectManagementApp.getActivity(activityName, project), project);
+		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID),
+				projectManagementApp.getProjectActivity(activityName, project), project);
+		System.out.println("Employee with ID " + ID + " is now assigned to the activity: " + activityName);
 		mainMenu();
 	}
 
@@ -155,17 +159,21 @@ public class UserInterface {
 		String input = console.next();
 		input += console.nextLine();
 		int intInput = convertInt(input);
-		
+
 		if (intInput == 0) {
-			for (Activity a : projectManagementApp.getPersonalActivities()) {
-				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
+			for (PersonalActivity a : projectManagementApp.getPersonalActivities()) {
+				System.out
+						.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek());
 			}
 		} else {
-			for (Activity a : projectManagementApp.getProjectActivities(projectManagementApp.getProject(intInput))) {
-				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek() + ", Expected work hours: " + a.getExpectedWorkHours()+ ", Registered work hours: " + a.getTotalWorkHours());
+			for (ProjectActivity a : projectManagementApp
+					.getProjectActivities(projectManagementApp.getProject(intInput))) {
+				System.out.println(a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek()
+						+ ", Expected work hours: " + a.getExpectedWorkHours() + ", Registered work hours: "
+						+ a.getTotalWorkHours());
 			}
 		}
-		
+
 		mainMenu();
 	}
 
@@ -186,12 +194,17 @@ public class UserInterface {
 		String endWeek = console.next();
 		endWeek += console.nextLine();
 		int intEndWeek = convertInt(endWeek);
-		
-		projectManagementApp.createActivity(activityName, intStartWeek, intEndWeek);			
+
 		if (intInput == 0) {
-			projectManagementApp.addActivity(projectManagementApp.getCurrentLogin());
+			projectManagementApp.createPersonalActivity(activityName, intStartWeek, intEndWeek);
+			projectManagementApp.addPersonalActivity(projectManagementApp.getCurrentLogin());
+			System.out.println("Created personal activity: " + projectManagementApp
+					.getPersonalActivity(activityName, projectManagementApp.getCurrentLogin()).getName());
 		} else {
-			projectManagementApp.addActivity(projectManagementApp.getProject(intInput));
+			projectManagementApp.createProjectActivity(activityName, intStartWeek, intEndWeek);
+			projectManagementApp.addProjectActivity(projectManagementApp.getProject(intInput));
+			System.out.println("Created project activity: " + projectManagementApp
+					.getProjectActivity(activityName, projectManagementApp.getProject(intInput)).getName());
 		}
 		mainMenu();
 	}
@@ -202,6 +215,7 @@ public class UserInterface {
 		input += console.nextLine();
 		int intInput = convertInt(input);
 		projectManagementApp.setProjectManager(projectManagementApp.getProject(intInput));
+		System.out.println("You are now project manager of project " + intInput + "!");
 		mainMenu();
 	}
 
@@ -217,10 +231,10 @@ public class UserInterface {
 		try {
 			projectManagementApp.login(input);
 		} catch (Exception e) {
-			System.out.println("Error: "+e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 			login();
 		}
-		
+
 		System.out.println("You are now logged in as: " + projectManagementApp.getCurrentLogin().getId());
 		mainMenu();
 	}
@@ -228,7 +242,7 @@ public class UserInterface {
 	public void createProject() throws OperationNotAllowedException {
 		System.out.print("Input project name: ");
 		String input = console.next();
-		input += console.nextLine(); 
+		input += console.nextLine();
 		projectManagementApp.createProject(input);
 		projectManagementApp.addProject();
 		System.out.println("Created project: " + projectManagementApp.getProject().getName() + " "
@@ -257,10 +271,10 @@ public class UserInterface {
 			System.out.println("Error: Not an integer");
 			mainMenu();
 		}
-		
+
 		return output;
 	}
-	
+
 	public double convertDouble(String input) throws OperationNotAllowedException {
 		double output = 0d;
 		try {
@@ -275,6 +289,5 @@ public class UserInterface {
 		}
 		return output;
 	}
-	
-	
+
 }

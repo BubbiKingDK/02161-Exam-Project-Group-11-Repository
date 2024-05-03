@@ -58,7 +58,7 @@ Scenario: Project manager assigns employee that is already assigned to an activi
 	
 	Scenario: Employee assigns employee to non existing activity
 	Given that there is a project with serial number 24001
-	And there is not an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4 in the project with the serial number 24001
+	And there is not a project activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4 in the project with the serial number 24001
 	And the current Login ID is "karl"
 	When the user assigns the employee with ID "karl" to the activity "Scrum-Meeting" in project with serial number 24001
 	Then the error message "Activity does not exist" is given

@@ -4,15 +4,17 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import dtu.project.management.domain.Activity;
+import dtu.project.management.domain.ProjectActivity;
 import dtu.project.management.domain.Employee;
+import dtu.project.management.domain.PersonalActivity;
 import dtu.project.management.domain.Project;
 import io.cucumber.java.be.I.Is;
 
 public class ProjectManagementApp {
 	private Employee currentLogin;
 	private Project project;
-	private Activity activity;
+	private ProjectActivity projectActivity;
+	private PersonalActivity personalActivity;
 	private List<Employee> employees = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 
@@ -23,7 +25,7 @@ public class ProjectManagementApp {
 		employees.add(new Employee("beha"));
 		employees.add(new Employee("wemo"));
 	}
-	
+
 	public void testSetup() {
 		employees.add(new Employee("karl"));
 		employees.add(new Employee("bjar"));
@@ -69,8 +71,6 @@ public class ProjectManagementApp {
 		return project;
 	}
 
-	
-
 	public void setProjectManager(Project project) throws OperationNotAllowedException {
 		if (project != null) {
 			project.setProjectManager(currentLogin);
@@ -97,12 +97,12 @@ public class ProjectManagementApp {
 		return null;
 	}
 
-	public Activity getActivity(String name, Project project) throws OperationNotAllowedException {
-		if(project == null) {
+	public ProjectActivity getProjectActivity(String name, Project project) throws OperationNotAllowedException {
+		if (project == null) {
 			throw new OperationNotAllowedException("Project does not exist");
 		}
-		
-		for (Activity a : project.getActivities()) {
+
+		for (ProjectActivity a : project.getActivities()) {
 			if (a.getName().equals(name)) {
 				return a;
 			}
@@ -110,55 +110,59 @@ public class ProjectManagementApp {
 		return null;
 	}
 
-	public void createActivity(String name, int startWeek, int endWeek) {
-		activity = new Activity(name, startWeek, endWeek);
+	public void createProjectActivity(String name, int startWeek, int endWeek) {
+		projectActivity = new ProjectActivity(name, startWeek, endWeek);
 	}
 
-	public void addActivity(Project project) throws OperationNotAllowedException {
+	public void createPersonalActivity(String name, int startWeek, int endWeek) {
+		personalActivity = new PersonalActivity(name, startWeek, endWeek);
+	}
+
+	public void addProjectActivity(Project project) throws OperationNotAllowedException {
 		if (project == null) {
 			throw new OperationNotAllowedException("Project does not exist");
-			
+
 		}
-		if (getActivity(activity.getName(), project) != null) {
+		if (getProjectActivity(projectActivity.getName(), project) != null) {
 			throw new OperationNotAllowedException("Activity already exists");
-		} 
-		project.addActivity(activity);
-	}
-	
-	public Activity getActivity() {
-		return activity;
+		}
+		project.addActivity(projectActivity);
 	}
 
-	public void addActivity(Employee employee) throws OperationNotAllowedException {
-		if (!employee.getActivities().contains(activity)) {
-			employee.addActivity(activity);
+	public ProjectActivity getTempProjectActivity() {
+		return projectActivity;
+	}
+
+	public void addPersonalActivity(Employee employee) throws OperationNotAllowedException {
+		if (!employee.getActivities().contains(personalActivity)) {
+			employee.addPersonalActivity(personalActivity);
 			return;
 		}
 		throw new OperationNotAllowedException("Activity already exists");
 	}
 
-	public Activity getActivity(String activityName, Employee employee) {
-		for (Activity a : employee.getActivities()) {
-			if(a.getName().equals(activityName)) {
+	public PersonalActivity getPersonalActivity(String activityName, Employee employee) {
+		for (PersonalActivity a : employee.getActivities()) {
+			if (a.getName().equals(activityName)) {
 				return a;
 			}
 		}
 		return null;
 	}
 
-	public boolean isAssignedToActivity(Employee employee, Activity activity) {
+	public boolean isAssignedToActivity(Employee employee, ProjectActivity activity) {
 		return activity.getEmployees().contains(employee);
 	}
 
-
-	public void addEmployeeToActivity(Employee employee, Activity activity, Project project) throws OperationNotAllowedException {
+	public void addEmployeeToActivity(Employee employee, ProjectActivity activity, Project project)
+			throws OperationNotAllowedException {
 		if (activity == null) {
 			throw new OperationNotAllowedException("Activity does not exist");
 		}
 		if (employee == null) {
 			throw new OperationNotAllowedException("Employee does not exist");
 		}
-		
+
 		if (currentLogin.equals(project.getProjectManager()) || currentLogin.equals(employee)) {
 			if (!isAssignedToActivity(employee, activity)) {
 				activity.addEmployeeToActivity(employee);
@@ -166,50 +170,71 @@ public class ProjectManagementApp {
 			}
 			throw new OperationNotAllowedException("Employee is already assigned to the activity");
 		}
-		throw new OperationNotAllowedException("User is not project manager and can not assign other employees to activity");
+		throw new OperationNotAllowedException(
+				"User is not project manager and can not assign other employees to activity");
 	}
 
-	public List<Activity> getProjectActivities(Project project) throws OperationNotAllowedException {
+	public List<ProjectActivity> getProjectActivities(Project project) throws OperationNotAllowedException {
 		if (project != null) {
 			return project.getActivities();
 		}
 		throw new OperationNotAllowedException("Project does not exist");
 	}
 
-	public List<Activity> getPersonalActivities() {
+	public List<PersonalActivity> getPersonalActivities() {
 		return currentLogin.getActivities();
 	}
 
-	public void assignExpectedWorkHours(int expectedWorkHours, Activity activity) throws OperationNotAllowedException {
+	public void assignExpectedWorkHours(int expectedWorkHours, ProjectActivity activity)
+			throws OperationNotAllowedException {
 		if (activity != null) {
-			activity.setExpectedWorkHours(expectedWorkHours);	
+			activity.setExpectedWorkHours(expectedWorkHours);
 			return;
-		}
-		throw new OperationNotAllowedException("Activity does not exist");		
-	}
-	public double getEmployeeWorkHours(Activity activity, Employee employee) {
-		return activity.getWorkHours().get(employee);
-	}
-
-	public void registerWorkHours(Activity activity, double hours) throws OperationNotAllowedException {
-		if (activity != null) {
-			if(activity.getEmployees().contains(currentLogin)) {
-				activity.registerWorkHours(currentLogin,hours);
-				return;
-			}
-			throw new OperationNotAllowedException("User not assigned to activity");
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
 
-	public List<Employee>  getEmployeesInActivity(Activity activity) throws OperationNotAllowedException {
+	public double getEmployeeWorkHours(ProjectActivity activity, Employee employee) {
+		return activity.getWorkHours().get(employee);
+	}
+
+	public void registerWorkHours(ProjectActivity activity, double hours) throws OperationNotAllowedException {
+		if (activity != null) {
+			activity.registerWorkHours(currentLogin, hours);
+			return;
+		}
+		throw new OperationNotAllowedException("Activity does not exist");
+	}
+
+	public List<Employee> getEmployeesInActivity(ProjectActivity activity) throws OperationNotAllowedException {
 		if (activity != null) {
 			return activity.getEmployees();
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
-	
-	public double getTotalWorkHours(Activity activity) {
+
+	public double getTotalWorkHours(ProjectActivity activity) {
 		return activity.getTotalWorkHours();
 	}
+	
+	public String employeesInActivityToString(String activityName, int serialNumber) throws OperationNotAllowedException {
+		ProjectActivity activity = getProjectActivity(activityName, getProject(serialNumber));
+		String s = "";
+		for (Employee e : activity.getEmployees()) {
+			s+=e.getId() + ", Registered work hours: " + activity.getWorkHours().get(e)+"\n";
+		}
+		return s;
+	}
+	
+	public String employeesNotInActivityToString(String activityName, int serialNumber) throws OperationNotAllowedException {
+		ProjectActivity activity = getProjectActivity(activityName, getProject(serialNumber));
+		String s = "";
+		for (Employee e : activity.getWorkHours().keySet()) {
+			if(!activity.getEmployees().contains(e)) {
+				s+="\n"+e.getId() + ", Registered work hours: " + activity.getWorkHours().get(e);
+			}
+		}
+		return s;
+	}
+	
 }

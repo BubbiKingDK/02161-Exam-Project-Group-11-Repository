@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Employee {
 	private String id;
-	private List <Activity> activities = new ArrayList<>();
+	private List <PersonalActivity> activities = new ArrayList<>();
 	
 	public Employee(String id) {
 		this.id = id;
@@ -15,11 +15,11 @@ public class Employee {
 		return id;
 	}
 
-	public void addActivity(Activity activity) {
+	public void addPersonalActivity(PersonalActivity activity) {
 		activities.add(activity);
 	}
 
-	public List <Activity> getActivities() {
+	public List <PersonalActivity> getActivities() {
 		return activities;
 	}
 }

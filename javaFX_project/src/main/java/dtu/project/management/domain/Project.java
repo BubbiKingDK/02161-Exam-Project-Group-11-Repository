@@ -11,7 +11,7 @@ public class Project{
 	private int serialNumber;
 	private ProjectManagementApp projectManagementApp;
 	private Employee projectManager;
-	private List<Activity> activities;
+	private List<ProjectActivity> activities;
 
 	
 	public Project(String name, ProjectManagementApp projectManagementApp){
@@ -51,11 +51,11 @@ public class Project{
 		return projectManager;
 	}
 
-	public void addActivity(Activity activity) {
+	public void addActivity(ProjectActivity activity) {
 		activities.add(activity);
 	}
 
-	public List<Activity> getActivities() {
+	public List<ProjectActivity> getActivities() {
 		return activities;
 	}
 }
