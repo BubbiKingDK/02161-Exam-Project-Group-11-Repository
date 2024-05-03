@@ -15,4 +15,5 @@
     <fullyQualifiedTypeName name="dtu.project.management.domain.Employee"/>
     <fullyQualifiedTypeName name="dtu.project.management.domain.Activity"/>
     <fullyQualifiedTypeName name="dtu.project.management.app.OperationNotAllowedException"/>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
 </qualifiedTypeNameHistroy>
