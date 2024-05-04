@@ -26,12 +26,12 @@ public class ProjectManagementApp {
 		employees.add(new Employee("beha"));
 		employees.add(new Employee("wemo"));
 		employees.add(new Employee("shuo"));
+		employees.add(new Employee("erik"));
 	}
 
 	public void testSetup() {
 		employees.add(new Employee("karl"));
 		employees.add(new Employee("bjar"));
-		employees.add(new Employee("huba"));
 		employees.add(new Employee("beha"));
 		employees.add(new Employee("wemo"));
 	}
