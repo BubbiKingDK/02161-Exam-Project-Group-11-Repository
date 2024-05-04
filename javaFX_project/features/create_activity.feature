@@ -13,6 +13,7 @@ Scenario: User creates an activity that is not already created
 
 Scenario: Project does not exist
 	Given there is not a project with serial number 24001
+	And there is a project activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
 	Then the error message "Project does not exist" is given
 

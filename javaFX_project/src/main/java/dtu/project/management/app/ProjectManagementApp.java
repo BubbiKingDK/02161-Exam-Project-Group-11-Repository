@@ -137,6 +137,7 @@ public class ProjectManagementApp {
 	}
 
 	public void addProjectActivity(Project project) throws OperationNotAllowedException {
+		assert tempProjectActivity != null;
 		if (project == null) {
 			throw new OperationNotAllowedException("Project does not exist");
 
@@ -235,6 +236,7 @@ public class ProjectManagementApp {
 	}
 
 	public void registerWorkHours(ProjectActivity activity, double hours) throws OperationNotAllowedException {
+		assert hours % 0.5 == 0;
 		if (activity != null) {
 			activity.registerWorkHours(currentLogin, hours);
 			return;
