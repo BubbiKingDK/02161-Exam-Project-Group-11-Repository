@@ -35,7 +35,7 @@ public class ProjectManagerSteps {
 	public void theUserAssignsTheProjectManagerWithIDToTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
 		projectManagementApp.login(ID);
 		try {
-	    	projectManagementApp.setProjectManager(projectManagementApp.getProject(serialNumber));
+	    	projectManagementApp.setProjectManager(projectManagementApp.findProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -43,7 +43,7 @@ public class ProjectManagerSteps {
 
 	@Then("the employee with ID {string} is registered project manager of the project with serial number {int}")
 	public void theEmployeeWithIDIsRegisteredProjectManagerOfTheProjectWithSerialNumber(String ID, Integer serialNumber) {
-		Project p = projectManagementApp.getProject(serialNumber);
+		Project p = projectManagementApp.findProject(serialNumber);
 	    assertEquals(p.getProjectManager().getId(), ID);
 	}
 	
@@ -51,20 +51,20 @@ public class ProjectManagerSteps {
 	@Given("an employee with ID {string} is the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) throws OperationNotAllowedException {
 	    projectManagementApp.login(ID);
-	    projectManagementApp.setProjectManager(projectManagementApp.getProject(serialNumber));
+	    projectManagementApp.setProjectManager(projectManagementApp.findProject(serialNumber));
 	    
-		Project project = projectManagementApp.getProject(serialNumber);
+		Project project = projectManagementApp.findProject(serialNumber);
 	    assertEquals(ID, project.getProjectManager().getId());
 	}
 
 	@Then("the employee with ID {string} is no longer project manager of the project with serial number {int}.")
 	public void theEmployeeWithIDIsNoLongerProjectManagerOfTheProjectWithSerialNumber(String ID, int serialNumber) {
-		Project project = projectManagementApp.getProject(serialNumber);
+		Project project = projectManagementApp.findProject(serialNumber);
 	    assertFalse(project.getProjectManager().getId().equals(ID));
 	}
 	
 	@Given("an employee with ID {string} is not the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsNotTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) {
-	    assertNotEquals(projectManagementApp.getProject(serialNumber).getProjectManager(),projectManagementApp.getEmployee(ID));
+	    assertNotEquals(projectManagementApp.findProject(serialNumber).getProjectManager(),projectManagementApp.getEmployee(ID));
 	}
 }

@@ -8,7 +8,7 @@ import dtu.project.management.app.OperationNotAllowedException;
 
 public class ProjectActivity extends Activity {
 	private List<Employee> employees;
-	private int expectedWorkHours = 0;
+	private double expectedWorkHours = 0d;
 
 	private HashMap<Employee, Double> workHours;
 
@@ -26,11 +26,11 @@ public class ProjectActivity extends Activity {
 		employees.add(employee);
 	}
 
-	public void setExpectedWorkHours(int expectedWorkHours) {
+	public void setExpectedWorkHours(double expectedWorkHours) {
 		this.expectedWorkHours = expectedWorkHours;
 	}
 
-	public int getExpectedWorkHours() {
+	public double getExpectedWorkHours() {
 		return expectedWorkHours;
 	}
 

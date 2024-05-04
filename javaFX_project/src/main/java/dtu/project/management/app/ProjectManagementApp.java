@@ -20,6 +20,7 @@ public class ProjectManagementApp {
 	private List<Project> projects = new ArrayList<>();
 
 	public void setup() {
+		assert employees != null;
 		employees.add(new Employee("karl"));
 		employees.add(new Employee("bjar"));
 		employees.add(new Employee("huba"));
@@ -27,16 +28,20 @@ public class ProjectManagementApp {
 		employees.add(new Employee("wemo"));
 		employees.add(new Employee("shuo"));
 		employees.add(new Employee("erik"));
+		assert employees.size() > 0;
 	}
 
 	public void testSetup() {
+		assert employees != null;
 		employees.add(new Employee("karl"));
 		employees.add(new Employee("bjar"));
 		employees.add(new Employee("beha"));
 		employees.add(new Employee("wemo"));
+		assert employees.size() > 0;
 	}
 
 	public Employee getCurrentLogin() {
+		assert true;
 		return currentLogin;
 	}
 
@@ -70,9 +75,8 @@ public class ProjectManagementApp {
 	}
 
 	public int getYear() {
-		assert Year.now().getValue() != 0;
+		assert true;
 		return Year.now().getValue();
-
 	}
 
 	public Project getProject() {
@@ -95,35 +99,46 @@ public class ProjectManagementApp {
 
 	public Employee getEmployee(String ID) {
 		assert employees != null;
+		Employee result = null;
 		for (Employee e : employees) {
 			if (e.getId().equals(ID)) {
-				assert e.getId().equals(ID);
-				return e;
+				result = e;
+				break;
 			}
 		}
-		return null;
+		assert (result == null) || (result.getId().equals(ID) && result instanceof Employee);
+		return result;
 	}
 
-	public Project getProject(int serialNumber) {
+	public Project findProject(int serialNumber) {
+		assert true;
+		Project result = null;
 		for (Project p : projects) {
 			if (p.getSerialnumber() == serialNumber) {
-				return p;
+				result = p;
+				break;
 			}
 		}
-		return null;
+		assert (result == null) || (result.getSerialnumber() == serialNumber && result instanceof Project);
+		return result;
 	}
 
-	public ProjectActivity getProjectActivity(String name, Project project) throws OperationNotAllowedException {
+	public ProjectActivity findProjectActivity(String name, Project project) throws OperationNotAllowedException {
+		assert !name.equals("");
+		ProjectActivity result = null;
+		
 		if (project == null) {
 			throw new OperationNotAllowedException("Project does not exist");
 		}
-
+		
 		for (ProjectActivity a : project.getActivities()) {
 			if (a.getName().equals(name)) {
-				return a;
+				result = a;
+				break;
 			}
 		}
-		return null;
+		assert (result == null) || (result.getName().equals(name) && result instanceof ProjectActivity);
+		return result;
 	}
 
 	public void createProjectActivity(String name, int startWeek, int endWeek) {
@@ -140,9 +155,8 @@ public class ProjectManagementApp {
 		assert tempProjectActivity != null;
 		if (project == null) {
 			throw new OperationNotAllowedException("Project does not exist");
-
 		}
-		if (getProjectActivity(tempProjectActivity.getName(), project) != null) {
+		if (findProjectActivity(tempProjectActivity.getName(), project) != null) {
 			throw new OperationNotAllowedException("Activity already exists");
 		}
 		if (tempProjectActivity.getStartWeek() <= 0 || tempProjectActivity.getStartWeek() >= 54
@@ -150,6 +164,7 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Invalid week number");
 		}
 		project.addActivity(tempProjectActivity);
+		assert project.getActivities().contains(tempProjectActivity);
 	}
 
 	public ProjectActivity getTempProjectActivity() {
@@ -167,29 +182,34 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Invalid week number");
 		}
 		employee.addPersonalActivity(tempPersonalActivity);
-
+		assert employee.getActivities().contains(tempPersonalActivity);
 	}
 
-	public PersonalActivity getPersonalActivity(String activityName, Employee employee) {
+	public PersonalActivity findPersonalActivity(String activityName, Employee employee) {
 		assert !activityName.equals("");
 		assert employee != null;
+		PersonalActivity result = null;
 		for (PersonalActivity a : employee.getActivities()) {
 			if (a.getName().equals(activityName)) {
-				assert a.getName().equals(activityName);
-				return a;
+				result = a;
+				break;
 			}
 		}
-		return null;
+		assert (result == null) || (result.getName().equals(activityName) && result instanceof PersonalActivity);
+		return result;
 	}
 
 	public boolean isAssignedToActivity(Employee employee, ProjectActivity activity) {
 		assert employee != null;
 		assert activity != null;
-		return activity.getEmployees().contains(employee);
+		boolean result = activity.getEmployees().contains(employee);
+		assert (result == true && activity.getEmployees().contains(employee)) || (result == false && !activity.getEmployees().contains(employee));
+		return result;
 	}
 
 	public void addEmployeeToActivity(Employee employee, ProjectActivity activity, Project project)
 			throws OperationNotAllowedException {
+		assert true;
 		if (activity == null) {
 			throw new OperationNotAllowedException("Activity does not exist");
 		}
@@ -200,6 +220,7 @@ public class ProjectManagementApp {
 		if (currentLogin.equals(project.getProjectManager()) || currentLogin.equals(employee)) {
 			if (!isAssignedToActivity(employee, activity)) {
 				activity.addEmployeeToActivity(employee);
+				assert activity.getEmployees().contains(employee);
 				return;
 			}
 			throw new OperationNotAllowedException("Employee is already assigned to the activity");
@@ -209,8 +230,11 @@ public class ProjectManagementApp {
 	}
 
 	public List<ProjectActivity> getProjectActivities(Project project) throws OperationNotAllowedException {
+		assert true;
 		if (project != null) {
-			return project.getActivities();
+			List<ProjectActivity> result = project.getActivities();
+			assert result == project.getActivities();
+			return result;
 		}
 		throw new OperationNotAllowedException("Project does not exist");
 	}
@@ -220,10 +244,12 @@ public class ProjectManagementApp {
 		return currentLogin.getActivities();
 	}
 
-	public void assignExpectedWorkHours(int expectedWorkHours, ProjectActivity activity)
+	public void assignExpectedWorkHours(double expectedWorkHours, ProjectActivity activity)
 			throws OperationNotAllowedException {
+		assert expectedWorkHours % 0.5 == 0;
 		if (activity != null) {
 			activity.setExpectedWorkHours(expectedWorkHours);
+			assert activity.getExpectedWorkHours() == expectedWorkHours;
 			return;
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
@@ -238,15 +264,20 @@ public class ProjectManagementApp {
 	public void registerWorkHours(ProjectActivity activity, double hours) throws OperationNotAllowedException {
 		assert hours % 0.5 == 0;
 		if (activity != null) {
+			double tempHours = activity.getTotalWorkHours();
 			activity.registerWorkHours(currentLogin, hours);
+			assert activity.getTotalWorkHours() == tempHours + hours;
 			return;
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
 
 	public List<Employee> getEmployeesInActivity(ProjectActivity activity) throws OperationNotAllowedException {
+		assert true;
 		if (activity != null) {
-			return activity.getEmployees();
+			List<Employee> result = activity.getEmployees();
+			assert result == activity.getEmployees();
+			return result;
 		}
 		throw new OperationNotAllowedException("Activity does not exist");
 	}

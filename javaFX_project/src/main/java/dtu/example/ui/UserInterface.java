@@ -86,7 +86,7 @@ public class UserInterface {
 		double doubleWorkHours = convertDouble(workHours);
 
 		projectManagementApp.registerWorkHours(
-				projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)),
+				projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(intSerialNumber)),
 				doubleWorkHours);
 		mainMenu();
 	}
@@ -104,9 +104,9 @@ public class UserInterface {
 		System.out.println("Enter expected work hours");
 		String expectedWorkHours = console.next();
 		expectedWorkHours += console.nextLine();
-		int intExpectedWorkHours = convertInt(expectedWorkHours);
-		projectManagementApp.assignExpectedWorkHours(intExpectedWorkHours, projectManagementApp
-				.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)));
+		double doubleExpectedWorkHours = convertDouble(expectedWorkHours);
+		projectManagementApp.assignExpectedWorkHours(doubleExpectedWorkHours, projectManagementApp
+				.findProjectActivity(activityName, projectManagementApp.findProject(intSerialNumber)));
 
 		System.out.println(
 				"The activity " + activityName + " is now assigned " + expectedWorkHours + " expected work hours");
@@ -144,7 +144,7 @@ public class UserInterface {
 		ID += console.nextLine();
 
 		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID),
-				projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(intSerialNumber)), projectManagementApp.getProject(intSerialNumber));
+				projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(intSerialNumber)), projectManagementApp.findProject(intSerialNumber));
 		System.out.println("Employee with ID " + ID + " is now assigned to the activity: " + activityName);
 		mainMenu();
 	}
@@ -187,12 +187,12 @@ public class UserInterface {
 			projectManagementApp.createPersonalActivity(activityName, intStartWeek, intEndWeek);
 			projectManagementApp.addPersonalActivity(projectManagementApp.getCurrentLogin());
 			System.out.println("Created personal activity: " + projectManagementApp
-					.getPersonalActivity(activityName, projectManagementApp.getCurrentLogin()).getName());
+					.findPersonalActivity(activityName, projectManagementApp.getCurrentLogin()).getName());
 		} else {
 			projectManagementApp.createProjectActivity(activityName, intStartWeek, intEndWeek);
-			projectManagementApp.addProjectActivity(projectManagementApp.getProject(intInput));
+			projectManagementApp.addProjectActivity(projectManagementApp.findProject(intInput));
 			System.out.println("Created project activity: " + projectManagementApp
-					.getProjectActivity(activityName, projectManagementApp.getProject(intInput)).getName());
+					.findProjectActivity(activityName, projectManagementApp.findProject(intInput)).getName());
 		}
 		mainMenu();
 	}
@@ -202,7 +202,7 @@ public class UserInterface {
 		String input = console.next();
 		input += console.nextLine();
 		int intInput = convertInt(input);
-		projectManagementApp.setProjectManager(projectManagementApp.getProject(intInput));
+		projectManagementApp.setProjectManager(projectManagementApp.findProject(intInput));
 		System.out.println("You are now project manager of project " + intInput + "!");
 		mainMenu();
 	}

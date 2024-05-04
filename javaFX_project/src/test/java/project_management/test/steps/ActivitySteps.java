@@ -36,13 +36,13 @@ public class ActivitySteps {
 	@Given("there is an activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
 	public void thereIsAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialnumber) throws OperationNotAllowedException {
 		projectManagementApp.createProjectActivity(activityName, startWeek, endWeek);
-	    projectManagementApp.addProjectActivity(projectManagementApp.getProject(serialnumber));
+	    projectManagementApp.addProjectActivity(projectManagementApp.findProject(serialnumber));
 	}
 	
 	@When("the activity with name {string} is added to the project with serial number {int}")
 	public void theActivityWithNameIsAddedToTheProjectWithSerialNumber(String name, int serialNumber) throws OperationNotAllowedException {
 		try {
-			projectManagementApp.addProjectActivity(projectManagementApp.getProject(serialNumber));
+			projectManagementApp.addProjectActivity(projectManagementApp.findProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -51,8 +51,8 @@ public class ActivitySteps {
 	
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the project with serial number {int}")
 	public void the_activity_with_the_name_a_start_date_week_and_an_end_date_week_is_added_to_the_project_with_serial_number(String name, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
-	    Project project = projectManagementApp.getProject(serialNumber);
-	    ProjectActivity activity = projectManagementApp.getProjectActivity(name, project);
+	    Project project = projectManagementApp.findProject(serialNumber);
+	    ProjectActivity activity = projectManagementApp.findProjectActivity(name, project);
 	    
 	    assertTrue(projectManagementApp.getProjectActivities(project).contains(activity));
 		assertEquals(activity.getName(), name);
@@ -63,7 +63,7 @@ public class ActivitySteps {
 	
 	@Given("there is not a project with serial number {int}")
 	public void thereIsNotAProjectWithSerialNumber(int serialNumber) {
-		assertTrue(projectManagementApp.getProject(serialNumber) == null);
+		assertTrue(projectManagementApp.findProject(serialNumber) == null);
 	}
 
 	
@@ -83,12 +83,12 @@ public class ActivitySteps {
 	
 	@Given("there is not already an activity with the name {string} added to the user")
 	public void thereIsNotAlreadyAnActivityWithTheNameAddedToTheUser(String activityName) {
-	    assertEquals(projectManagementApp.getPersonalActivity(activityName, projectManagementApp.getCurrentLogin()), null);
+	    assertEquals(projectManagementApp.findPersonalActivity(activityName, projectManagementApp.getCurrentLogin()), null);
 	}
 
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the user with ID {string}")
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
-	    PersonalActivity activity = projectManagementApp.getPersonalActivity(activityName, projectManagementApp.getEmployee(ID));
+	    PersonalActivity activity = projectManagementApp.findPersonalActivity(activityName, projectManagementApp.getEmployee(ID));
 	    
 	    System.out.println(activity);
 	    assertTrue(projectManagementApp.getPersonalActivities().contains(activity));
@@ -104,13 +104,13 @@ public class ActivitySteps {
 	
 	@Given("there is not a project activity with the name {string}, a start date week {int} and an end date week {int} in the project with the serial number {int}")
 	public void thereIsNotAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekInTheProjectWithTheSerialNumber(String activityName, int startWeek, int endWeek, int serialNumber) throws OperationNotAllowedException {
-		assertEquals(projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber)), null);
+		assertEquals(projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)), null);
 	}
 	
 	@When("the user gets the list of employees for the activity with the name {string} in the project with serial number {int}")
 	public void theUserGetsTheListOfEmployeesForTheActivityWithTheNameInTheProjectWithSerialNumber(String activityName, int serialNumber) {
 		try {
-			projectManagementApp.getEmployeesInActivity(projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber)));
+			projectManagementApp.getEmployeesInActivity(projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -119,7 +119,7 @@ public class ActivitySteps {
 	@When("the user gets the list of activities for the project with serial number {int}")
 	public void theUserGetsTheListOfActivitiesForTheProjectWithSerialNumber(int serialNumber) {
 	    try {
-			projectManagementApp.getProjectActivities(projectManagementApp.getProject(serialNumber));
+			projectManagementApp.getProjectActivities(projectManagementApp.findProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}

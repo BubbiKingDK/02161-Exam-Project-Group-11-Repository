@@ -28,7 +28,7 @@ public class UIHelper {
 		String s = "";
 
 		for (ProjectActivity a : projectManagementApp
-				.getProjectActivities(projectManagementApp.getProject(serialNumber))) {
+				.getProjectActivities(projectManagementApp.findProject(serialNumber))) {
 
 			s += a.getName() + " - Start week: " + a.getStartWeek() + ", End week: " + a.getEndWeek()
 					+ ", Expected work hours: " + a.getExpectedWorkHours() + ", Total registered work hours: "
@@ -52,8 +52,8 @@ public class UIHelper {
 
 	public String employeesNotInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
-		ProjectActivity activity = projectManagementApp.getProjectActivity(activityName,
-				projectManagementApp.getProject(serialNumber));
+		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,
+				projectManagementApp.findProject(serialNumber));
 		String s = "";
 		for (Employee e : activity.getWorkHours().keySet()) {
 			if (!activity.getEmployees().contains(e)) {
@@ -65,8 +65,8 @@ public class UIHelper {
 
 	public String employeesInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
-		ProjectActivity activity = projectManagementApp.getProjectActivity(activityName,
-				projectManagementApp.getProject(serialNumber));
+		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,
+				projectManagementApp.findProject(serialNumber));
 		String s = "";
 		for (Employee e : activity.getEmployees()) {
 			s += e.getId() + ", Registered work hours: " + (activity.getWorkHours().get(e) != null ? activity.getWorkHours().get(e) : "0.0") + "\n";

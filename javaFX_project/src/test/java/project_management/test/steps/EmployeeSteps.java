@@ -35,13 +35,13 @@ public class EmployeeSteps {
 	public void thatThereIsAProjectWithSerialNumber(int serialNumber) {
 	    projectManagementApp.createProject("Project");
 	    projectManagementApp.addProject();
-	    Project project = projectManagementApp.getProject(serialNumber);
+	    Project project = projectManagementApp.findProject(serialNumber);
 	    assertEquals(project.getSerialnumber(), serialNumber);
 	}
 
 	@Given("that there is not a project with serial number {int}")
 	public void thatThereIsNotAProjectWithSerialNumber(int serialNumber) {
-	    assertEquals(projectManagementApp.getProject(serialNumber), null);
+	    assertEquals(projectManagementApp.findProject(serialNumber), null);
 	}
 
 	@Given("the current Login ID is {string}")
@@ -51,7 +51,7 @@ public class EmployeeSteps {
 
 	@Given("employee with ID {string} is not assigned to activity {string} in project with serial number {int}")
 	public void employeeWithIDIsNotAssignedToActivityInProjectWithSerialNumber(String ID, String activityName,int serialNumber) throws OperationNotAllowedException {
-	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber)));
+	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)));
 	    assertFalse(isAssigned);
 	}
 
@@ -60,7 +60,7 @@ public class EmployeeSteps {
 		Employee employee = projectManagementApp.getEmployee(ID);
 		ProjectActivity activity = projectManagementApp.getTempProjectActivity();
 		try {
-		    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
+		    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.findProject(serialNumber));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class EmployeeSteps {
 	@Then("the employee with ID {string} is assigned to the activity {string} in project with serial number {int}")
 	public void theEmployeeWithIDIsAssignedToTheActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
 	    Employee e = projectManagementApp.getEmployee(ID);
-	    ProjectActivity a = projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber));
+	    ProjectActivity a = projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber));
 	    assertTrue(projectManagementApp.getEmployeesInActivity(a).contains(e));
 	}
 	
@@ -77,9 +77,9 @@ public class EmployeeSteps {
 	public void employeeWithIDIsAssignedToActivityInProjectWithSerialNumber(String ID, String activityName, int serialNumber) throws OperationNotAllowedException {
 		projectManagementApp.login(ID);
 		Employee employee = projectManagementApp.getEmployee(ID);
-		ProjectActivity activity = projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber));
-	    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.getProject(serialNumber));
-	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.getProjectActivity(activityName, projectManagementApp.getProject(serialNumber)));
+		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber));
+	    projectManagementApp.addEmployeeToActivity(employee,activity,projectManagementApp.findProject(serialNumber));
+	    boolean isAssigned = projectManagementApp.isAssignedToActivity(projectManagementApp.getEmployee(ID),projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)));
 	    assertTrue(isAssigned);
 	}
 
