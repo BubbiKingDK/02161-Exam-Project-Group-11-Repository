@@ -13,9 +13,9 @@ import io.cucumber.java.be.I.Is;
 
 public class ProjectManagementApp {
 	private Employee currentLogin;
-	private Project project;
-	private ProjectActivity projectActivity;
-	private PersonalActivity personalActivity;
+	private Project tempProject;
+	private ProjectActivity tempProjectActivity;
+	private PersonalActivity tempPersonalActivity;
 	private List<Employee> employees = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 
@@ -61,12 +61,12 @@ public class ProjectManagementApp {
 
 	public void createProject(String name) {
 		assert !name.equals("");
-		project = new Project(name, this);
+		tempProject = new Project(name, this);
 	}
 
 	public void addProject() {
-		assert project != null;
-		projects.add(project);
+		assert tempProject != null;
+		projects.add(tempProject);
 	}
 
 	public int getYear() {
@@ -76,9 +76,9 @@ public class ProjectManagementApp {
 	}
 
 	public Project getProject() {
-		assert project != null;
-		assert project instanceof Project;
-		return project;
+		assert tempProject != null;
+		assert tempProject instanceof Project;
+		return tempProject;
 	}
 
 	public void setProjectManager(Project project) throws OperationNotAllowedException {
@@ -128,12 +128,12 @@ public class ProjectManagementApp {
 
 	public void createProjectActivity(String name, int startWeek, int endWeek) {
 		assert !name.equals("");
-		projectActivity = new ProjectActivity(name, startWeek, endWeek);
+		tempProjectActivity = new ProjectActivity(name, startWeek, endWeek);
 	}
 
 	public void createPersonalActivity(String name, int startWeek, int endWeek) {
 		assert !name.equals("");
-		personalActivity = new PersonalActivity(name, startWeek, endWeek);
+		tempPersonalActivity = new PersonalActivity(name, startWeek, endWeek);
 	}
 
 	public void addProjectActivity(Project project) throws OperationNotAllowedException {
@@ -141,32 +141,31 @@ public class ProjectManagementApp {
 			throw new OperationNotAllowedException("Project does not exist");
 
 		}
-		if (getProjectActivity(projectActivity.getName(), project) != null) {
+		if (getProjectActivity(tempProjectActivity.getName(), project) != null) {
 			throw new OperationNotAllowedException("Activity already exists");
 		}
-		if (projectActivity.getStartWeek() <= 0 || projectActivity.getStartWeek() >= 54
-				|| projectActivity.getEndWeek() <= 0 || projectActivity.getEndWeek() >= 54) {
+		if (tempProjectActivity.getStartWeek() <= 0 || tempProjectActivity.getStartWeek() >= 54
+				|| tempProjectActivity.getEndWeek() <= 0 || tempProjectActivity.getEndWeek() >= 54) {
 			throw new OperationNotAllowedException("Invalid week number");
 		}
-		project.addActivity(projectActivity);
+		project.addActivity(tempProjectActivity);
 	}
 
 	public ProjectActivity getTempProjectActivity() {
-		return projectActivity;
+		return tempProjectActivity;
 	}
 
 	public void addPersonalActivity(Employee employee) throws OperationNotAllowedException {
 		assert employee != null;
-		assert personalActivity != null;
-		if (employee.getActivities().contains(personalActivity)) {
+		assert tempPersonalActivity != null;
+		if (employee.getActivities().contains(tempPersonalActivity)) {
 			throw new OperationNotAllowedException("Activity already exists");
-
 		}
-		if (personalActivity.getStartWeek() <= 0 || personalActivity.getStartWeek() >= 54
-				|| personalActivity.getEndWeek() <= 0 || personalActivity.getEndWeek() >= 54) {
+		if (tempPersonalActivity.getStartWeek() <= 0 || tempPersonalActivity.getStartWeek() >= 54
+				|| tempPersonalActivity.getEndWeek() <= 0 || tempPersonalActivity.getEndWeek() >= 54) {
 			throw new OperationNotAllowedException("Invalid week number");
 		}
-		employee.addPersonalActivity(personalActivity);
+		employee.addPersonalActivity(tempPersonalActivity);
 
 	}
 

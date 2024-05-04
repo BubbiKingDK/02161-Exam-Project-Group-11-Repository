@@ -71,3 +71,23 @@ Scenario: User creates a personal activity that has a invalid week number
 	Given there is a personal activity with the name "Holliday", a start date week 0 and an end date week 54
 	When the activity with name "Holliday" is added to the user with ID "karl"
 	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a invalid week number
+	Given there is a personal activity with the name "Holliday", a start date week 54 and an end date week 0
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+
+Scenario: User creates a personal activity that has a invalid week number
+	Given there is a personal activity with the name "Holliday", a start date week 54 and an end date week 54
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a invalid week number
+	Given there is a personal activity with the name "Holliday", a start date week 1 and an end date week 54
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a invalid week number
+	Given there is a personal activity with the name "Holliday", a start date week 1 and an end date week 54
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
