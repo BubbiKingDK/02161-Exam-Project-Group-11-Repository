@@ -97,7 +97,7 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Project does not exist");
 	}
 
-	public Employee getEmployee(String ID) {
+	public Employee findEmployee(String ID) {
 		assert employees != null;
 		Employee result = null;
 		for (Employee e : employees) {

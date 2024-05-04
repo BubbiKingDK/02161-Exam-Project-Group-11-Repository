@@ -75,7 +75,7 @@ public class ActivitySteps {
 	@When("the activity with name {string} is added to the user with ID {string}")
 	public void theActivityWithNameIsAddedToTheUserWithID(String activityName, String ID) throws OperationNotAllowedException {
 		try {
-			projectManagementApp.addPersonalActivity(projectManagementApp.getEmployee(ID));
+			projectManagementApp.addPersonalActivity(projectManagementApp.findEmployee(ID));
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
@@ -88,7 +88,7 @@ public class ActivitySteps {
 
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the user with ID {string}")
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) {
-	    PersonalActivity activity = projectManagementApp.findPersonalActivity(activityName, projectManagementApp.getEmployee(ID));
+	    PersonalActivity activity = projectManagementApp.findPersonalActivity(activityName, projectManagementApp.findEmployee(ID));
 	    
 	    System.out.println(activity);
 	    assertTrue(projectManagementApp.getPersonalActivities().contains(activity));
@@ -128,6 +128,6 @@ public class ActivitySteps {
 	@Given("there is already an activity with the name {string}, a start date week {int} and an end date week {int} added to the user with ID {string}")
 	public void thereIsAnAlreadyAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) throws OperationNotAllowedException {
 		projectManagementApp.createPersonalActivity(activityName, startWeek, endWeek);
-	    projectManagementApp.addPersonalActivity(projectManagementApp.getEmployee(ID));
+	    projectManagementApp.addPersonalActivity(projectManagementApp.findEmployee(ID));
 	}
 }

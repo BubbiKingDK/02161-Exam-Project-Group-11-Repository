@@ -143,7 +143,7 @@ public class UserInterface {
 		String ID = console.next();
 		ID += console.nextLine();
 
-		projectManagementApp.addEmployeeToActivity(projectManagementApp.getEmployee(ID),
+		projectManagementApp.addEmployeeToActivity(projectManagementApp.findEmployee(ID),
 				projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(intSerialNumber)), projectManagementApp.findProject(intSerialNumber));
 		System.out.println("Employee with ID " + ID + " is now assigned to the activity: " + activityName);
 		mainMenu();

@@ -65,6 +65,6 @@ public class ProjectManagerSteps {
 	
 	@Given("an employee with ID {string} is not the project manager for the project with serial number {int}")
 	public void anEmployeeWithIDIsNotTheProjectManagerForTheProjectWithSerialNumber(String ID, int serialNumber) {
-	    assertNotEquals(projectManagementApp.findProject(serialNumber).getProjectManager(),projectManagementApp.getEmployee(ID));
+	    assertNotEquals(projectManagementApp.findProject(serialNumber).getProjectManager(),projectManagementApp.findEmployee(ID));
 	}
 }

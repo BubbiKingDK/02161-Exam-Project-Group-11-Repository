@@ -58,7 +58,7 @@ public class WorkHoursSteps {
 
 	@Then("the activity has registered {double} work hours on the activity {string} in the project with serial number {int} from the user with ID {string}")
 	public void theActivityHasRegisteredWorkHoursOnTheActivityInTheProjectWithSerialNumberFromTheUserWithID(double workHours, String activityName, int serialNumber, String ID) throws OperationNotAllowedException {
-		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)), projectManagementApp.getEmployee(ID)), 0.1);
+		assertEquals(workHours, projectManagementApp.getEmployeeWorkHours(projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)), projectManagementApp.findEmployee(ID)), 0.1);
 	}
 	
 	@When("the employee with ID {string} registers {double} work hours to the activity {string} in the project with serial number {int}")

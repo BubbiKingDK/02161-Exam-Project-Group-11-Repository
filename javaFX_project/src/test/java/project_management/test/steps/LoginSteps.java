@@ -37,7 +37,7 @@ public class LoginSteps {
 	@Given("that there is an employee with ID {string}")
 	public void thatThereIsAnEmployeeWithID(String ID) {
 		projectManagementApp.setup();
-		Employee e = projectManagementApp.getEmployee(ID);
+		Employee e = projectManagementApp.findEmployee(ID);
 		assertEquals(e.getId(), ID);
 		
 	}
@@ -59,7 +59,7 @@ public class LoginSteps {
 	
 	@Given("that there is not an employee with ID {string}")
 	public void thatThereIsNotAnEmployeeWithID(String ID) {
-		Employee e = projectManagementApp.getEmployee(ID);
+		Employee e = projectManagementApp.findEmployee(ID);
 		assertEquals(e, null);
 	}
 
