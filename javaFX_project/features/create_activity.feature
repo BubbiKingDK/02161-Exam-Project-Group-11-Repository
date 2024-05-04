@@ -49,25 +49,68 @@ Scenario: User attempts to see employees for activity that does not exist
 	When the user gets the list of employees for the activity with the name "scrum" in the project with serial number 24001
 	Then the error message "Activity does not exist" is given
 	
-Scenario: User creates a project activity that has a invalid week number
+Scenario: User creates a project activity that has a too low start week number and too high end week number
 	Given that there is a project with serial number 24001
 	And there is a project activity with the name "Scrum-Meeting", a start date week 0 and an end date week 54
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
 	Then the error message "Invalid week number" is given
 
-Scenario: User creates a project activity that has a invalid week number
+Scenario: User creates a project activity that has a too high start week number and too low end week number
+	Given that there is a project with serial number 24001
+	And there is a project activity with the name "Scrum-Meeting", a start date week 54 and an end date week 0
+	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a project activity that has a too high end week number
 	Given that there is a project with serial number 24001
 	And there is a project activity with the name "Scrum-Meeting", a start date week 1 and an end date week 54
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
 	Then the error message "Invalid week number" is given
 	
-Scenario: User creates a project activity that has a invalid week number
+Scenario: User creates a project activity that has a too high start week number
+	Given that there is a project with serial number 24001
+	And there is a project activity with the name "Scrum-Meeting", a start date week 54 and an end date week 1
+	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a project activity that has a too low start date week
 	Given that there is a project with serial number 24001
 	And there is a project activity with the name "Scrum-Meeting", a start date week 0 and an end date week 53
 	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
 	Then the error message "Invalid week number" is given
+
+Scenario: User creates a project activity that has a too low end date week
+	Given that there is a project with serial number 24001
+	And there is a project activity with the name "Scrum-Meeting", a start date week 53 and an end date week 0
+	When the activity with name "Scrum-Meeting" is added to the project with serial number 24001
+	Then the error message "Invalid week number" is given
 	
-Scenario: User creates a personal activity that has a invalid week number
+Scenario: User creates a personal activity that has a too low start week number and too high end week number
 	Given there is a personal activity with the name "Holliday", a start date week 0 and an end date week 54
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+
+Scenario: User creates a personal activity that has a too high start week number and too low end week number
+	Given there is a personal activity with the name "Holliday", a start date week 54 and an end date week 0
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+
+Scenario: User creates a personal activity that has a too high end week number
+	Given there is a personal activity with the name "Holliday", a start date week 1 and an end date week 54
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a too high start week number
+	Given there is a personal activity with the name "Holliday", a start date week 54 and an end date week 1
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a too low start week number
+	Given there is a personal activity with the name "Holliday", a start date week 0 and an end date week 53
+	When the activity with name "Holliday" is added to the user with ID "karl"
+	Then the error message "Invalid week number" is given
+	
+Scenario: User creates a personal activity that has a too low end week number
+	Given there is a personal activity with the name "Holliday", a start date week 53 and an end date week 0
 	When the activity with name "Holliday" is added to the user with ID "karl"
 	Then the error message "Invalid week number" is given
