@@ -1,4 +1,4 @@
-package dtu.example.ui;
+package dtu.project.management.ui;
 
 import dtu.project.management.app.OperationNotAllowedException;
 import dtu.project.management.app.ProjectManagementApp;
@@ -15,7 +15,7 @@ public class UIHelper {
 	public UIHelper(ProjectManagementApp projectManagementApp) {
 		this.projectManagementApp = projectManagementApp;
 	}
-	
+	//Lavet af Karl Johannes Agerbo
 	public String personalActivitiesToString() {
 		String s = "";
 		for (PersonalActivity a : projectManagementApp.getPersonalActivities()) {
@@ -23,7 +23,7 @@ public class UIHelper {
 		}
 		return s;
 	}
-
+	//Lavet af Bjarke Søderhamn Petersen
 	public String projectActivitiesToString(int serialNumber) throws OperationNotAllowedException {
 		String s = "";
 
@@ -36,7 +36,7 @@ public class UIHelper {
 		}
 		return s;
 	}
-
+	//Lavet af Weihao Mo
 	public String projectsToString() {
 		String s = "";
 		for (Project p : projectManagementApp.getProjects()) {
@@ -49,7 +49,7 @@ public class UIHelper {
 		}
 		return s;
 	}
-
+	//Lavet af Bjarke Søderhamn Petersen
 	public String employeesNotInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
 		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,
@@ -62,13 +62,13 @@ public class UIHelper {
 		}
 		return s;
 	}
-
+	//Lavet af Bjarke Søderhamn Petersen
 	public String employeesInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
 		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,
 				projectManagementApp.findProject(serialNumber));
 		String s = "";
-		for (Employee e : activity.getEmployees()) {
+		for (Employee e : projectManagementApp.getEmployeesInActivity(activity)) {
 			s += e.getId() + ", Registered work hours: " + (activity.getWorkHours().get(e) != null ? activity.getWorkHours().get(e) : "0.0") + "\n";
 		}
 		return s;

@@ -1,3 +1,4 @@
+//Lavet af Benjamin Benyo Endahl Hansen og Weihao Mo
 package dtu.project.management.domain;
 
 import java.util.ArrayList;

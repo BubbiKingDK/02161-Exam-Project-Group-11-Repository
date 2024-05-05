@@ -1,3 +1,4 @@
+//Lavet af Benjamin Benyo Endahl Hansen og Bjarke Søderhamn Petersen
 package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
@@ -62,12 +63,12 @@ public class LoginSteps {
 		Employee e = projectManagementApp.findEmployee(ID);
 		assertEquals(e, null);
 	}
-
+	
 	@Then("the error message {string} is given")
 	public void theErrorMessageIsGiven(String errorMessage) {
 		assertEquals(errorMessage, this.errorMessage.getErrorMessage());
 	}
-	
+	//Lavet af Bjarke Søderhamn Petersen
 	@Given("the test employee reposiatory is used.")
 	public void theTestEmployeeReposiatoryIsUsed() {
 	   projectManagementApp.testSetup();

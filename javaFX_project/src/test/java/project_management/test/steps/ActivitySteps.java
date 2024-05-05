@@ -1,3 +1,4 @@
+//Lavet af Karl Johannes Agerbo og Bjarke Søderhamn Petersen
 package project_management.test.steps;
 
 import static org.junit.Assert.assertFalse;
@@ -131,7 +132,7 @@ public class ActivitySteps {
 		projectManagementApp.createPersonalActivity(activityName, startWeek, endWeek);
 	    projectManagementApp.addPersonalActivity(projectManagementApp.findEmployee(ID));
 	}
-	
+
 	@When("the user tries to find the activity with name {string} in the project with serial number {int}")
 	public void theUserTriesToFindTheActivityWithNameInTheProjectWithSerialNumber(String activityName, int serialNumber) throws OperationNotAllowedException {
 	    try {
@@ -147,7 +148,7 @@ public class ActivitySteps {
 	    assertEquals(projectActivity.getStartWeek(), startWeek);
 	    assertEquals(projectActivity.getEndWeek(), endWeek);
 	}
-	
+
 	@Then("the activity with name {string} in the project with serial number {int} is not found")
 	public void theActivityWithNameInTheProjectWithSerialNumberIsNotFound(String acitivtyName, int serialNumber) {
 	    assertEquals(projectActivity, null);

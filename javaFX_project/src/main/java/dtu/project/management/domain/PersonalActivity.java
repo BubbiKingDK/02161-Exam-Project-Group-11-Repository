@@ -1,3 +1,4 @@
+//Lavet af Karl Johannes Agerbo
 package dtu.project.management.domain;
 
 public class PersonalActivity extends Activity {

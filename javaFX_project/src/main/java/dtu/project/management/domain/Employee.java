@@ -1,3 +1,4 @@
+//Lavet af Weihao Mo
 package dtu.project.management.domain;
 
 import java.util.ArrayList;

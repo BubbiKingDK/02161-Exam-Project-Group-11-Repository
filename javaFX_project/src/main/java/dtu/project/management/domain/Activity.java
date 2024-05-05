@@ -1,3 +1,4 @@
+//Lavet Bjarke Søderhamn Petersen
 package dtu.project.management.domain;
 
 public abstract class Activity {

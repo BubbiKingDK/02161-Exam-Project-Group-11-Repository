@@ -1,4 +1,4 @@
-package dtu.example.ui;
+package dtu.project.management.ui;
 
 import dtu.project.management.app.OperationNotAllowedException;
 
