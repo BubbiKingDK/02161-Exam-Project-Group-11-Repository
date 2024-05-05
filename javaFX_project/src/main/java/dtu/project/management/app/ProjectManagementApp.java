@@ -70,7 +70,7 @@ public class ProjectManagementApp {
 	// Lavet af Karl Johannes Agerbo
 	public void createProject(String name) {
 		assert !name.equals("");
-		tempProject = new Project(name, this);
+		tempProject = new Project(name, projects);
 	}
 
 	// Lavet af Karl Johannes Agerbo

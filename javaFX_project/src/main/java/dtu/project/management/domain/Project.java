@@ -1,6 +1,7 @@
 //Lavet af Benjamin Benyo Endahl Hansen og Weihao Mo
 package dtu.project.management.domain;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,22 +11,21 @@ public class Project {
 
 	private String name;
 	private int serialNumber;
-	private ProjectManagementApp projectManagementApp;
 	private Employee projectManager;
 	private List<ProjectActivity> activities;
+	private List<Project> projects;
 
-	public Project(String name, ProjectManagementApp projectManagementApp) {
+	public Project(String name, List<Project> projects) {
 		this.name = name;
-		this.projectManagementApp = projectManagementApp;
+		this.projects = projects;
 		this.activities = new ArrayList<>();
 
 		// Assign correct serial number based on year and amount of already created
 		// projects
 		String serialNumberString = "";
-		String yearString = Integer.toString(projectManagementApp.getYear());
+		String yearString = Integer.toString(getYear());
 		yearString = yearString.substring(yearString.length() - 2);
 
-		List<Project> projects = projectManagementApp.getProjects();
 		if (projects.isEmpty()) {
 			serialNumberString = "000";
 		} else {
@@ -58,5 +58,9 @@ public class Project {
 
 	public List<ProjectActivity> getActivities() {
 		return activities;
+	}
+	
+	public int getYear() {
+		return Year.now().getValue();
 	}
 }
