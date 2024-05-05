@@ -1,5 +1,4 @@
-Feature: Register used time
-Description: A user registers work hours
+Feature: Add employee to activity white box test
 Actors: Employee
 
 Background:
