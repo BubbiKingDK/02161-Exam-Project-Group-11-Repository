@@ -17,6 +17,7 @@ import project_management.test.steps.helper.ErrorMessageHolder;
 public class ActivitySteps {
 	private ProjectManagementApp projectManagementApp;
 	private ErrorMessageHolder errorMessage;
+	private ProjectActivity projectActivity;
 	
 	public ActivitySteps(ProjectManagementApp projectManagementApp, ErrorMessageHolder errorMessage) {
 		this.projectManagementApp = projectManagementApp;
@@ -129,5 +130,26 @@ public class ActivitySteps {
 	public void thereIsAnAlreadyAnActivityWithTheNameAStartDateWeekAndAnEndDateWeekAddedToTheUserWithID(String activityName, int startWeek, int endWeek, String ID) throws OperationNotAllowedException {
 		projectManagementApp.createPersonalActivity(activityName, startWeek, endWeek);
 	    projectManagementApp.addPersonalActivity(projectManagementApp.findEmployee(ID));
+	}
+	
+	@When("the user tries to find the activity with name {string} in the project with serial number {int}")
+	public void theUserTriesToFindTheActivityWithNameInTheProjectWithSerialNumber(String activityName, int serialNumber) throws OperationNotAllowedException {
+	    try {
+	    	projectActivity = projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber));
+		} catch (OperationNotAllowedException e) {
+			errorMessage.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("the activity with name {string}, a start date week {int} and an end date week {int} in the project with serial number {int} is found")
+	public void theActivityWithNameAStartDateWeekAndAnEndDateWeekInTheProjectWithSerialNumberIsFound(String activityName, int startWeek, int endWeek, int serialNumber) {
+	    assertEquals(projectActivity.getName(), activityName);
+	    assertEquals(projectActivity.getStartWeek(), startWeek);
+	    assertEquals(projectActivity.getEndWeek(), endWeek);
+	}
+	
+	@Then("the activity with name {string} in the project with serial number {int} is not found")
+	public void theActivityWithNameInTheProjectWithSerialNumberIsNotFound(String acitivtyName, int serialNumber) {
+	    assertEquals(projectActivity, null);
 	}
 }

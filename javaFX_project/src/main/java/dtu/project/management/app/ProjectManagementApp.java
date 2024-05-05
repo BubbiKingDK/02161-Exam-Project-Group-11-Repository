@@ -126,19 +126,17 @@ public class ProjectManagementApp {
 	public ProjectActivity findProjectActivity(String name, Project project) throws OperationNotAllowedException {
 		assert !name.equals("");
 		ProjectActivity result = null;
-		
-		if (project == null) {
-			throw new OperationNotAllowedException("Project does not exist");
+		if (project == null) {														// 1
+			throw new OperationNotAllowedException("Project does not exist");		// 2
 		}
-		
-		for (ProjectActivity a : project.getActivities()) {
-			if (a.getName().equals(name)) {
-				result = a;
+		for (ProjectActivity a : project.getActivities()) {							// 3
+			if (a.getName().equals(name)) {											// 4
+				result = a;															// 5
 				break;
 			}
 		}
 		assert (result == null) || (result.getName().equals(name) && result instanceof ProjectActivity);
-		return result;
+		return result;																// 6
 	}
 
 	public void createProjectActivity(String name, int startWeek, int endWeek) {
