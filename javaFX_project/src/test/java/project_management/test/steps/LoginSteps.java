@@ -22,17 +22,15 @@ import project_management.test.steps.helper.ErrorMessageHolder;
 public class LoginSteps {
 	private ProjectManagementApp projectManagementApp;
 	private ErrorMessageHolder errorMessage;
-	
+
 	public LoginSteps(ProjectManagementApp projectManagementApp, ErrorMessageHolder errorMessage) {
 		this.projectManagementApp = projectManagementApp;
 		this.errorMessage = errorMessage;
 	}
-	
-	
-	
+
 	@Given("that the user is not logged in")
 	public void thatTheUserIsNotLoggedIn() {
-		assertEquals(projectManagementApp.getCurrentLogin(),null);
+		assertEquals(projectManagementApp.getCurrentLogin(), null);
 	}
 
 	@Given("that there is an employee with ID {string}")
@@ -40,7 +38,7 @@ public class LoginSteps {
 		projectManagementApp.setup();
 		Employee e = projectManagementApp.findEmployee(ID);
 		assertEquals(e.getId(), ID);
-		
+
 	}
 
 	@When("the user logs in with the ID {string}")
@@ -50,27 +48,28 @@ public class LoginSteps {
 		} catch (OperationNotAllowedException e) {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
-		
+
 	}
 
 	@Then("the employee is logged in with the ID {string}")
 	public void theEmployeeIsLoggedInWithTheID(String id) {
-		assertEquals(projectManagementApp.getCurrentLogin().getId(),id);
+		assertEquals(projectManagementApp.getCurrentLogin().getId(), id);
 	}
-	
+
 	@Given("that there is not an employee with ID {string}")
 	public void thatThereIsNotAnEmployeeWithID(String ID) {
 		Employee e = projectManagementApp.findEmployee(ID);
 		assertEquals(e, null);
 	}
-	
+
 	@Then("the error message {string} is given")
 	public void theErrorMessageIsGiven(String errorMessage) {
 		assertEquals(errorMessage, this.errorMessage.getErrorMessage());
 	}
-	//Lavet af Bjarke Søderhamn Petersen
+
+	// Lavet af Bjarke Søderhamn Petersen
 	@Given("the test employee reposiatory is used.")
 	public void theTestEmployeeReposiatoryIsUsed() {
-	   projectManagementApp.testSetup();
+		projectManagementApp.testSetup();
 	}
 }

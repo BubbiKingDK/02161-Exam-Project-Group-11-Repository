@@ -52,18 +52,17 @@ public class ProjectSteps {
 	@Then("the project with the serial number {int} and a name {string} is added to the system")
 	public void theProjectWithTheSerialNumberAndANameIsAddedToTheSystem(int serialnumber, String name) {
 		Project tempProject = projectManagementApp.getProject();
-		
+
 		assertTrue(projectManagementApp.getProjects().contains(tempProject));
 		assertEquals(tempProject.getSerialnumber(), serialnumber);
 		assertEquals(tempProject.getName(), name);
 	}
-	
-	
+
 	@Given("that there is a project with the name {string} and serial number {int} in the system")
 	public void thatThereIsAProjectWithTheNameAndSerialNumberInTheSystem(String name, Integer int1) {
 		projectManagementApp.createProject(name);
 		projectManagementApp.addProject();
-		
+
 	}
 
 }

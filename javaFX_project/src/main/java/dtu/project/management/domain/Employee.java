@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Employee {
 	private String id;
-	private List <PersonalActivity> activities = new ArrayList<>();
-	
+	private List<PersonalActivity> activities = new ArrayList<>();
+
 	public Employee(String id) {
 		this.id = id;
 	}
@@ -20,7 +20,7 @@ public class Employee {
 		activities.add(activity);
 	}
 
-	public List <PersonalActivity> getActivities() {
+	public List<PersonalActivity> getActivities() {
 		return activities;
 	}
 }

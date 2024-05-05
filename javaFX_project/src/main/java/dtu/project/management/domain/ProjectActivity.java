@@ -41,7 +41,7 @@ public class ProjectActivity extends Activity {
 
 	public void registerWorkHours(Employee employee, double hours) throws OperationNotAllowedException {
 		if (!workHours.containsKey(employee)) {
-			workHours.put(employee, 0d);			
+			workHours.put(employee, 0d);
 		}
 		workHours.put(employee, workHours.get(employee) + hours);
 	}
