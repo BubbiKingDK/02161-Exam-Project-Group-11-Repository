@@ -1,4 +1,4 @@
-#Lavet af Karl Johannes Agerbo
+#@author Karl Johannes Agerbo
 Feature: Create a project
 Description: A project is added to the system
 Actors: Employee

@@ -1,4 +1,4 @@
-#Lavet af Karl Johannes Agerbo
+#@author Karl Johannes Agerbo
 Feature: Find project activity
 Description: White box
 Actors: Employee

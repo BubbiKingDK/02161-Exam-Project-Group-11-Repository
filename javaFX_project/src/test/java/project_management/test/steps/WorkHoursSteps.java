@@ -1,4 +1,4 @@
-//Lavet af Weihao Mo og Bjarke Søderhamn Petersen
+// @author Weihao Mo
 package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
@@ -59,7 +59,7 @@ public class WorkHoursSteps {
 			errorMessage.setErrorMessage(e.getMessage());
 		}
 	}
-
+ // @author Bjarke Søderhamn Petersen
 	@When("the user registers {double} work hours to the activity {string} in the project with serial number {int}")
 	public void theUserRegistersWorkHoursToTheActivityInTheProjectWithSerialNumber(double workHours,
 			String activityName, int serialNumber) throws OperationNotAllowedException {

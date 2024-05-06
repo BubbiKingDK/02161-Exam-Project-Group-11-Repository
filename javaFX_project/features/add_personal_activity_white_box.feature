@@ -1,4 +1,4 @@
-#Lavet af Benjamin Benyo Endahl Hansen
+#@author Benjamin Benyo Endahl Hansen
 Feature: Create an activity
 	Description: The user creates an personal activity
 	Actors: Employee

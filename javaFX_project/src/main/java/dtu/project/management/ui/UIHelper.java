@@ -15,7 +15,7 @@ public class UIHelper {
 		this.projectManagementApp = projectManagementApp;
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Bjarke Søderhamn Petersen
 	public String personalActivitiesToString() {
 		String s = "";
 		for (PersonalActivity a : projectManagementApp.getPersonalActivities()) {
@@ -24,7 +24,7 @@ public class UIHelper {
 		return s;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public String projectActivitiesToString(int serialNumber) throws OperationNotAllowedException {
 		String s = "";
 
@@ -38,7 +38,7 @@ public class UIHelper {
 		return s;
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public String projectsToString() {
 		String s = "";
 		for (Project p : projectManagementApp.getProjects()) {
@@ -52,7 +52,7 @@ public class UIHelper {
 		return s;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public String employeesNotInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
 		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,
@@ -66,7 +66,7 @@ public class UIHelper {
 		return s;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public String employeesInActivityToString(String activityName, int serialNumber)
 			throws OperationNotAllowedException {
 		ProjectActivity activity = projectManagementApp.findProjectActivity(activityName,

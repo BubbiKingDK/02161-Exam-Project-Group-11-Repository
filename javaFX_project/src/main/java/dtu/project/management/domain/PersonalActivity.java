@@ -1,4 +1,4 @@
-//Lavet af Karl Johannes Agerbo
+//@author Bjarke Søderhamn Petersen
 package dtu.project.management.domain;
 
 public class PersonalActivity extends Activity {

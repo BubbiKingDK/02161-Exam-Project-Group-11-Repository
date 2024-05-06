@@ -1,4 +1,4 @@
-#Lavet af Weihao Mo og Karl Johannes Agerbo
+#@author Weihao Mo
 Feature: Assign employee activity
 	Description: An employee is assigned to an activity
 	Actors: Employee
@@ -40,6 +40,7 @@ Scenario: Non project manager assigns other employee to activity
 	When the user assigns the employee with ID "karl" to the activity "Scum-Meeting" in project with serial number 24001
 	Then the error message "User is not project manager and can not assign other employees to activity" is given
 
+#@author Karl Johannes Agerbo
 Scenario: Employee assigns non existing employee to activity
 	Given that there is a project with serial number 24001
 	And there is an activity with the name "Scrum-Meeting", a start date week 3 and an end date week 4 in the project with the serial number 24001

@@ -1,4 +1,4 @@
-//Lavet af Bjarke Søderhamn Petersen
+//@author Bjarke Søderhamn Petersen
 package dtu.project.management.app;
 
 public class OperationNotAllowedException extends Exception {

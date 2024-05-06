@@ -1,4 +1,4 @@
-#Lavet af Bjarke Søderhamn Petersen
+#@author Bjarke Søderhamn Petersen
 Feature: Assign project manager
 	Description: The employee registers a project manager of the project
 	Actors: employee

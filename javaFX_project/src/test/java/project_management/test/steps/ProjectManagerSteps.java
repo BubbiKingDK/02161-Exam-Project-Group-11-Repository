@@ -1,4 +1,4 @@
-//Lavet af Benjamin Benyo Endahl Hansen og Weihao Mo
+// @author Benjamin Benyo Endahl Hansen
 package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
@@ -59,7 +59,7 @@ public class ProjectManagerSteps {
 		Project project = projectManagementApp.findProject(serialNumber);
 		assertEquals(ID, project.getProjectManager().getId());
 	}
-
+// @author Weihao Mo
 	@Then("the employee with ID {string} is no longer project manager of the project with serial number {int}.")
 	public void theEmployeeWithIDIsNoLongerProjectManagerOfTheProjectWithSerialNumber(String ID, int serialNumber) {
 		Project project = projectManagementApp.findProject(serialNumber);

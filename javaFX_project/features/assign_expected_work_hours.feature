@@ -1,4 +1,4 @@
-#Lavet af Bjarke Søderhamn Petersen
+#@author Bjarke Søderhamn Petersen
 Feature: Assign expected work hours
 	Description: A user assign expected work hours to activity
 	Actors: Employee

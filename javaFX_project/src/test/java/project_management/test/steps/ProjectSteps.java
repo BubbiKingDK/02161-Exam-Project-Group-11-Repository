@@ -1,4 +1,4 @@
-//Lavet af Benjamin Benyo Endahl Hansen og Karl Johannes Agerbo
+// @author Benjamin Benyo Endahl Hansen
 package project_management.test.steps;
 
 import static org.junit.Assert.assertThat;
@@ -48,7 +48,7 @@ public class ProjectSteps {
 	public void theProjectIsAddedToTheSystem() {
 		projectManagementApp.addProject();
 	}
-
+// @author Karl Johannes Agerbo
 	@Then("the project with the serial number {int} and a name {string} is added to the system")
 	public void theProjectWithTheSerialNumberAndANameIsAddedToTheSystem(int serialnumber, String name) {
 		Project tempProject = projectManagementApp.getProject();

@@ -15,14 +15,14 @@ public class UserInterface {
 
 	public UserInterface() throws OperationNotAllowedException {
 	}
-
+	// @author Bjarke Søderhamn Petersen
 	public void run() throws OperationNotAllowedException {
 		projectManagementApp.setup();
 		System.out.println("Welcome!");
 		login();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen og Bjarke Søderhamn Petersen
+	// @author Benjamin Benyo Endahl Hansen
 	public void mainMenu() throws OperationNotAllowedException {
 		System.out.println();
 		System.out.println("Input one of the following:");
@@ -65,13 +65,14 @@ public class UserInterface {
 				System.out.println(("Unexpected value: " + input));
 				mainMenu();
 			}
+		// @author Bjarke Søderhamn Petersen
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 			mainMenu();
 		}
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	private void registerWorkHours() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
@@ -92,7 +93,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	private void assignExpectedWorkHours() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
@@ -115,7 +116,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	private void seeEmployeesInActivity() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
@@ -132,7 +133,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	private void assignEmployeeToActivity() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String serialNumber = console.next();
@@ -155,7 +156,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	private void seeActivities() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		System.out.println("Enter 0 to see personal activity");
@@ -172,7 +173,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	private void createActivity() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		System.out.println("Enter 0 to create personal activity");
@@ -205,7 +206,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	private void assignProjectManager() throws OperationNotAllowedException {
 		System.out.println("Enter project serial number");
 		String input = console.next();
@@ -216,7 +217,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen og Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void login() throws OperationNotAllowedException {
 		System.out.println("Input login credentials");
 		System.out.println("Input 0 to close program");
@@ -237,7 +238,7 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public void createProject() throws OperationNotAllowedException {
 		System.out.print("Input project name: ");
 		String input = console.next();
@@ -249,14 +250,14 @@ public class UserInterface {
 		mainMenu();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public void showProjects() throws OperationNotAllowedException {
 		System.out.print("List of projects:");
 		System.out.println(uIHelper.projectsToString());
 		mainMenu();
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public int convertInt(String input) throws OperationNotAllowedException {
 		int output = 0;
 		try {
@@ -265,11 +266,11 @@ public class UserInterface {
 			System.out.println("Error: Not an integer");
 			mainMenu();
 		}
-
+		
 		return output;
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public double convertDouble(String input) throws OperationNotAllowedException {
 		double output = 0d;
 		try {
@@ -278,8 +279,8 @@ public class UserInterface {
 			System.out.println("Error: Not a number");
 			mainMenu();
 		}
-		if (output % 0.5 != 0) {
-			System.out.println("Error: You can only register half hours");
+		if (output % 0.5 != 0 || output < 0) {
+			System.out.println("Error: You can only register positive half hours");
 			mainMenu();
 		}
 		return output;

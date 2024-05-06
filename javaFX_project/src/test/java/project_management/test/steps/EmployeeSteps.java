@@ -1,4 +1,4 @@
-//Lavet af Karl Johannes Agerbo og Weihao Mo
+// @author Karl Johannes Agerbo
 package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
@@ -57,7 +57,7 @@ public class EmployeeSteps {
 				projectManagementApp.findProjectActivity(activityName, projectManagementApp.findProject(serialNumber)));
 		assertFalse(isAssigned);
 	}
-
+	// @author Weihao Mo
 	@When("the user assigns the employee with ID {string} to the activity {string} in project with serial number {int}")
 	public void theUserAssignsTheEmployeeWithIDToTheActivityInProjectWithSerialNumber(String ID, String ActivityName,
 			int serialNumber) throws OperationNotAllowedException {

@@ -1,4 +1,4 @@
-//Lavet af Karl Johannes Agerbo og Bjarke Søderhamn Petersen
+// @author Karl Johannes Agerbo
 package project_management.test.steps;
 
 import static org.junit.Assert.assertFalse;
@@ -92,7 +92,7 @@ public class ActivitySteps {
 		assertEquals(projectManagementApp.findPersonalActivity(activityName, projectManagementApp.getCurrentLogin()),
 				null);
 	}
-
+// @author Bjarke Søderhamn Petersen
 	@Then("the activity with the name {string}, a start date week {int} and an end date week {int} is added to the user with ID {string}")
 	public void theActivityWithTheNameAStartDateWeekAndAnEndDateWeekIsAddedToTheUserWithID(String activityName,
 			int startWeek, int endWeek, String ID) {

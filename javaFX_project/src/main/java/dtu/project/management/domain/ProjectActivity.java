@@ -1,4 +1,4 @@
-//Lavet af Karl Johannes Agerbo og Bjarke Søderhamn Petersen
+//@author Karl Johannes Agerbo
 package dtu.project.management.domain;
 
 import java.util.ArrayList;

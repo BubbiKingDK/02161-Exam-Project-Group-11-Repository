@@ -1,4 +1,4 @@
-//Lavet af Benjamin Benyo Endahl Hansen og Bjarke Søderhamn Petersen
+// @author Benjamin Benyo Endahl Hansen
 package project_management.test.steps;
 
 import dtu.project.management.app.OperationNotAllowedException;
@@ -55,7 +55,8 @@ public class LoginSteps {
 	public void theEmployeeIsLoggedInWithTheID(String id) {
 		assertEquals(projectManagementApp.getCurrentLogin().getId(), id);
 	}
-
+	
+	// @author Bjarke Søderhamn Petersen
 	@Given("that there is not an employee with ID {string}")
 	public void thatThereIsNotAnEmployeeWithID(String ID) {
 		Employee e = projectManagementApp.findEmployee(ID);
@@ -67,7 +68,6 @@ public class LoginSteps {
 		assertEquals(errorMessage, this.errorMessage.getErrorMessage());
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
 	@Given("the test employee reposiatory is used.")
 	public void theTestEmployeeReposiatoryIsUsed() {
 		projectManagementApp.testSetup();

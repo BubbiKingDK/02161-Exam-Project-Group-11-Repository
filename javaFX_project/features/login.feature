@@ -1,4 +1,4 @@
-#Lavet af Weihao Mo
+#@author Weihao Mo
 Feature: Login
 	Description: The employee logs into the system
 	Actors: Employee

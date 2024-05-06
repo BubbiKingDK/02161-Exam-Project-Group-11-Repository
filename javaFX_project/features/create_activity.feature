@@ -1,4 +1,4 @@
-#Lavet af Benjamin Benyo Endahl Hansen
+#@author Benjamin Benyo Endahl Hansen
 Feature: Create an activity
 	Description: The user creates an activity
 	Actors: Employee
@@ -51,7 +51,7 @@ Scenario: User attempts to see employees for activity that does not exist
 	When the user gets the list of employees for the activity with the name "scrum" in the project with serial number 24001
 	Then the error message "Activity does not exist" is given
 	
-#Lavet af Bjarke Søderhamn Petersen
+#@author Bjarke Søderhamn Petersen
 
 Scenario: User creates a project activity that has a too low start week number and too high end week number
 	Given that there is a project with serial number 24001

@@ -17,7 +17,7 @@ public class ProjectManagementApp {
 	private List<Employee> employees = new ArrayList<>();
 	private List<Project> projects = new ArrayList<>();
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public void setup() {
 		assert employees != null;
 		employees.add(new Employee("karl"));
@@ -30,7 +30,7 @@ public class ProjectManagementApp {
 		assert employees.size() > 0;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public void testSetup() {
 		assert employees != null;
 		employees.add(new Employee("karl"));
@@ -40,13 +40,13 @@ public class ProjectManagementApp {
 		assert employees.size() > 0;
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public Employee getCurrentLogin() {
 		assert true;
 		return currentLogin;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public void login(String id) throws OperationNotAllowedException {
 		assert employees != null;
 
@@ -60,39 +60,39 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Employee is not registered");
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public List<Project> getProjects() {
 		assert projects != null;
 		assert projects instanceof List<Project>;
 		return projects;
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void createProject(String name) {
 		assert !name.equals("");
 		tempProject = new Project(name, projects);
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void addProject() {
 		assert tempProject != null;
 		projects.add(tempProject);
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public int getYear() {
 		assert true;
 		return Year.now().getValue();
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public Project getProject() {
 		assert tempProject != null;
 		assert tempProject instanceof Project;
 		return tempProject;
 	}
 
-	// Lavet Weihao Mo
+	// @author Weihao Mo
 	public void setProjectManager(Project project) throws OperationNotAllowedException {
 		assert currentLogin != null;
 		assert currentLogin instanceof Employee;
@@ -105,7 +105,7 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Project does not exist");
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public Employee findEmployee(String ID) {
 		assert employees != null;
 		Employee result = null;
@@ -119,7 +119,7 @@ public class ProjectManagementApp {
 		return result;
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public Project findProject(int serialNumber) {
 		assert true;
 		Project result = null;
@@ -133,7 +133,7 @@ public class ProjectManagementApp {
 		return result;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public ProjectActivity findProjectActivity(String name, Project project) throws OperationNotAllowedException {
 		assert !name.equals("");
 		ProjectActivity result = null;
@@ -150,19 +150,19 @@ public class ProjectManagementApp {
 		return result;
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void createProjectActivity(String name, int startWeek, int endWeek) {
 		assert !name.equals("");
 		tempProjectActivity = new ProjectActivity(name, startWeek, endWeek);
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void createPersonalActivity(String name, int startWeek, int endWeek) {
 		assert !name.equals("");
 		tempPersonalActivity = new PersonalActivity(name, startWeek, endWeek);
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public void addProjectActivity(Project project) throws OperationNotAllowedException {
 		assert tempProjectActivity != null;
 		if (project == null) {
@@ -179,12 +179,12 @@ public class ProjectManagementApp {
 		assert project.getActivities().contains(tempProjectActivity);
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public ProjectActivity getTempProjectActivity() {
 		return tempProjectActivity;
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public void addPersonalActivity(Employee employee) throws OperationNotAllowedException {
 		assert employee != null;
 		assert tempPersonalActivity != null;
@@ -199,7 +199,7 @@ public class ProjectManagementApp {
 		assert employee.getActivities().contains(tempPersonalActivity);
 	}
 
-	// Lavet af Benjamin Benyo Endahl Hansen
+	// @author Benjamin Benyo Endahl Hansen
 	public PersonalActivity findPersonalActivity(String activityName, Employee employee) {
 		assert !activityName.equals("");
 		assert employee != null;
@@ -214,7 +214,7 @@ public class ProjectManagementApp {
 		return result;
 	}
 
-	// Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public boolean isAssignedToActivity(Employee employee, ProjectActivity activity) {
 		assert employee != null;
 		assert activity != null;
@@ -224,7 +224,7 @@ public class ProjectManagementApp {
 		return result;
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public void addEmployeeToActivity(Employee employee, ProjectActivity activity, Project project)
 			throws OperationNotAllowedException {
 		assert true;
@@ -247,7 +247,7 @@ public class ProjectManagementApp {
 				"User is not project manager and can not assign other employees to activity");
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public List<ProjectActivity> getProjectActivities(Project project) throws OperationNotAllowedException {
 		assert true;
 		if (project != null) {
@@ -258,7 +258,7 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Project does not exist");
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public List<PersonalActivity> getPersonalActivities() {
 		assert currentLogin.getActivities() != null;
 		return currentLogin.getActivities();
@@ -276,14 +276,14 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public double getEmployeeWorkHours(ProjectActivity activity, Employee employee) {
 		assert employee != null;
 		assert activity != null;
 		return activity.getWorkHours().get(employee);
 	}
 
-	// Lavet af Weihao Mo
+	// @author Weihao Mo
 	public void registerWorkHours(ProjectActivity activity, double hours) throws OperationNotAllowedException {
 		assert hours % 0.5 == 0;
 		if (activity != null) {
@@ -295,7 +295,7 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
 
-	// Lavet af Karl Johannes Agerbo
+	// @author Karl Johannes Agerbo
 	public List<Employee> getEmployeesInActivity(ProjectActivity activity) throws OperationNotAllowedException {
 		assert true;
 		if (activity != null) {
@@ -306,7 +306,7 @@ public class ProjectManagementApp {
 		throw new OperationNotAllowedException("Activity does not exist");
 	}
 
-	// Lavet af Bjarke Søderhamn Petersen
+	// @author Bjarke Søderhamn Petersen
 	public double getTotalWorkHours(ProjectActivity activity) {
 		assert activity != null;
 		return activity.getTotalWorkHours();

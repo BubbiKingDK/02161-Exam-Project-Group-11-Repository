@@ -1,4 +1,4 @@
-//Lavet af Benjamin Benyo Endahl Hansen og Weihao Mo
+//@author Benjamin Benyo Endahl Hansen
 package dtu.project.management.domain;
 
 import java.time.Year;
